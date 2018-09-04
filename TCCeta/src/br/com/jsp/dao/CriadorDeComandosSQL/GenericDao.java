@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 public class GenericDao<T> {
 
-    final String nomeBanco = "newtcc";
+    final String nomeBanco = "newtccnew";
 
     private final Connection conexao;
 

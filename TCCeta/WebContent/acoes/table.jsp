@@ -1,3 +1,4 @@
+<%@page import="br.com.jsp.bean.Conta"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="br.com.jsp.bean.Usuario"%>
 <%@page import="java.util.ArrayList"%>
@@ -10,7 +11,7 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <%
-    /*
+    
 	Resposta<ArrayList<Funcionario>> resposta = new GenericDao<Funcionario>(Funcionario.class)
 			.selectAll();
 
@@ -21,7 +22,6 @@
 		estrutura = "<table class='table table-striped tabela'>";
 		estrutura += "<tr>";
 		estrutura += "<td><b>Login</b></td>";
-		estrutura += "<td><b>Nome</b></td>";
 		estrutura += "<td><b>IdEmpresa</b></td>";
 		estrutura += "<td><b>Editar</b></td>";
 		estrutura += "</tr>";
@@ -34,13 +34,14 @@
 			ovo += session.getAttribute("id");
 			int numero = Integer.parseInt(ovo);
 
-			if (funcionario.getIdCliente() == numero) {
+			if (funcionario.getIdEmpresa() == numero) {
 
+				Conta c = new Conta();
+				
 				estrutura += "<tr>";
-				estrutura += "<td>" + funcionario.getLogin() + "</td>";
-				estrutura += "<td>" + funcionario.getNome() + "</td>";
-				estrutura += "<td>" + funcionario.getIdCliente() + "</td>";
-				estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + funcionario.getId()
+				estrutura += "<td>" + c.getLogin() + "</td>";
+				estrutura += "<td>" + c.getId()+ "</td>";
+				estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + c.getId()
 						+ "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
 				estrutura += "</tr>";
 
@@ -52,6 +53,6 @@
 	}
 
 	out.print(estrutura);
-*/
+
 	
 %>

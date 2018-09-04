@@ -7,6 +7,7 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.dao.ContaDao;
 import br.com.jsp.encripcao.PasswordUtils;
 import java.sql.Types;
 
@@ -92,6 +93,19 @@ public class Conta {
         this.nivelDeAcesso = nivelDeAcesso;
     }
     
+    
+    /*
+    public static void main(String[] args) {
+		
+    	Conta c = new Conta();
+    	c.login = "JAS";
+    	c.setNivelDeAcesso(2);
+    	c.setSenha("123");
+    	
+    	ContaDao.insert(c);
+    	
+	}
+    */
     
     
 }

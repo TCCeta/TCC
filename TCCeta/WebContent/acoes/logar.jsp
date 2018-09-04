@@ -17,18 +17,15 @@
 	String loginInformado = request.getParameter("email");
 	String senhaInformada = request.getParameter("senha");
 
+	System.out.println("1");
+	 
 	//Instanciar um objeto bean
 	Funcionario ub = new Funcionario();
 
-	Resposta<ArrayList<Funcionario>> respostaF = new GenericDao<Funcionario>(Funcionario.class).selectAll();
-
-	Resposta<ArrayList<Usuario>> respostaU = new GenericDao<Usuario>(Usuario.class).selectAll();
-	
 	Resposta<ArrayList<Conta>> respostaContas = ContaDao.selectWhere("login", Where.IGUAL, loginInformado);
 	
         
-        
-	if(respostaContas.getFuncionou() && respostaF.getFuncionou() && respostaU.getFuncionou()){
+	
             
 		if(respostaContas.getObjeto().size() == 1){
 		
@@ -71,10 +68,6 @@
             //pagina de erro
            response.sendRedirect("../entrar.jsp?msg=falhaLogin");
         }
-		
-	}else{
-		response.sendRedirect("../entrar.jsp?msg=falhaLogin");
-	}
 	
         
         
