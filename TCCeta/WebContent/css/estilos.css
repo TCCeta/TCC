@@ -19,6 +19,13 @@ body {
 	border-radius: 5px;
 }
 
+
+
+.mapaContato{
+	width: 100%;
+	height: 40%;
+}
+
 /*Desktop*/
 @media only screen and (min-width: 1081px) {
 	.formulario {
@@ -31,18 +38,14 @@ body {
 		font-family: fonteLogo;
 	}
 	.formularioLogin {
-		width: 300px;
-		height: 250px;
-		background-color: darkgray;
+		width: 20%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
 	}
 	.formularioCadastroUsuario {
-		width: 300px;
-		height: 275px;
-		background-color: darkgray;
+		width: 20%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
@@ -75,27 +78,31 @@ body {
 		float: right;
 		margin: 1px;
 	}
-}
+	
+	.telaContato {
+		width: 27%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
+	}}
 
 @media only screen and (min-width: 720px) and (max-width: 1080px) {
 	.formulario {
 		width: 90%;
-		background-color: darkgray;
 		margin: 5% auto;
 		border-radius: 5px;
 		font-family: fonteLogo;
 	}
 	.formularioLogin {
-		width: 28%;
-		background-color: darkgray;
+		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
 	}
 	.formularioCadastroUsuario {
-		width: 28%;
-		background-color: darkgray;
+		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
@@ -126,27 +133,31 @@ body {
 	.footer a {
 		float: right;
 		margin: 1px;
+	}
+	.telaContato {
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
 	}
 }
 
 @media only screen and (max-width: 719px) {
 	.formulario {
-		background-color: darkgray;
 		margin: 5% auto;
 		border-radius: 5px;
 		font-family: fonteLogo;
 	}
 	.formularioLogin {
-		width: 28%;
-		background-color: darkgray;
+		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
 	}
 	.formularioCadastroUsuario {
-		width: 28%;
-		background-color: darkgray;
+		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
@@ -178,6 +189,13 @@ body {
 	.footer a {
 		float: right;
 		margin: 1px;
+	}
+	.telaContato {
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
 	}
 }
 

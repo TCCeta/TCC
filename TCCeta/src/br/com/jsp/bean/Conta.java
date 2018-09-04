@@ -33,9 +33,17 @@ public class Conta {
     private String salt;
     
     public void setSenha(String senha){
+    	
         this.salt = PasswordUtils.getSalt(10);
         String senhaSegura = PasswordUtils.generateSecurePassword(senha, salt);
         this.senha = senhaSegura;
+        
+    }
+    
+    public void setID(int id) {
+    	
+    	this.id = id;
+    	
     }
     
     public boolean senhaEstaCorreta(String senhaDigitada){

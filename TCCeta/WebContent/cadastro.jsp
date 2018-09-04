@@ -1,4 +1,4 @@
-<%@ include file="include/topo_novo_com_sessao.jsp"%>
+<%@ include file="include/topo_novo.jsp"%>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.mask.js"></script>
@@ -12,23 +12,23 @@
 </script>
 <main>
 
-<div>
-	<form class="formularioCadastroUsuario" action="acoes/cadastrarUser.jsp">
+<div class="jumbotron formularioCadastroUsuario">
+	<form action="acoes/cadastrarUser.jsp">
 		<h1>
 			<center>Cadastro</center>
 		</h1>
 		<p>
 		<center>
-			<input type="text" placeholder="Nome" class="inputs">
+			<input type="text" placeholder="Nome" class="form-control" id="inputs">
 		</p>
 		<p>
-			<input type="text" placeholder="Usuário" class="inputs">
+			<input type="text" placeholder="Usuário" class="form-control" id="inputs">
 		</p>
 		<p>
-			<input type="text" class="cpf" id="inputs" name="dat_cpfUsuario">
+			<input type="text" class="form-control cpf" id="inputs" name="dat_cpfUsuario">
 		</p>
 		<p>
-			<input type="password" placeholder="Senha" class="inputs">
+			<input type="password" placeholder="Senha" class="form-control" id="inputs">
 		</p>
 		<p>
 			<input type="submit" value="Cadastrar">

@@ -38,8 +38,6 @@
 		<li role="presentation"><a href="#itemsPerdidos"
 			aria-controls="itemsPerdidos" role="tab" data-toggle="tab">Items
 				Perdidos</a></li>
-		<li role="presentation"><a href="#verAdministradores"
-			aria-controls="verAdministradores" role="tab" data-toggle="tab">Administradores</a></li>
 	</ul>
 
 	<!-- Tab panes -->
@@ -131,17 +129,7 @@
 			</div>
 		</div>
 
-		<!--Aba dos administradores
-		<div role="tabpanel" class="tab-pane" id="verAdministradores">
-			<h1 class="titulosTabs">
-				<strong> Administradores </strong>
-			</h1>
-			<//jsp:include page="acoes/table.jsp" />
-			<p>
-				<input type="submit" value="Cadastrar funcionário"
-					onclick="window.location = 'cadastroAdm.jsp';" />
-			</p>
-		</div>
+		
                         -->
 	</div>
 

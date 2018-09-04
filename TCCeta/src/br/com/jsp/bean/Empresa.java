@@ -7,7 +7,12 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.dao.ContaDao;
+
 import java.sql.Types;
+
+import org.eclipse.jdt.internal.compiler.batch.Main;
 
 /**
  *
@@ -120,5 +125,6 @@ public class Empresa {
     
     @Coluna(nome = "cod_idConta", tipo = Types.INTEGER)
     private int idConta;
+    
     
 }

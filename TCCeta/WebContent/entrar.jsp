@@ -5,8 +5,8 @@
 %>
 <main>
 
-<div>
-	<form class="formularioLogin" action="acoes/logar.jsp">
+<div class="jumbotron formularioLogin">
+	<form	 action="acoes/logar.jsp">
 		<h1>
 			<center>Login</center>
 		</h1>

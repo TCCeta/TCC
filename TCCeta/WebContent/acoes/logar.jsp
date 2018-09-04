@@ -30,6 +30,8 @@
         
 	if(respostaContas.getFuncionou() && respostaF.getFuncionou() && respostaU.getFuncionou()){
             
+		if(respostaContas.getObjeto().size() == 1){
+		
             Conta conta = respostaContas.getObjeto().get(0);
             
             if(conta.senhaEstaCorreta(senhaInformada)){
@@ -48,6 +50,13 @@
                     session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
                     response.sendRedirect("../admin.jsp");
                     
+            	}else if(conta.getNivelDeAcesso() == NivelDeAcesso.Empresa.ordinal()){
+            		
+            		session.setAttribute("sessaoUsuario", conta);
+                    
+                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
+                    response.sendRedirect("../empresa.jsp");
+                    
             	}
             	
                 
@@ -62,6 +71,10 @@
             //pagina de erro
            response.sendRedirect("../entrar.jsp?msg=falhaLogin");
         }
+		
+	}else{
+		response.sendRedirect("../entrar.jsp?msg=falhaLogin");
+	}
 	
         
         

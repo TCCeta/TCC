@@ -16,7 +16,7 @@
 		contrario faça login e procure o que perdeu!</p>
 
 
-	<a href="#" class="btn btn-lg btn-primary">Perdi algo</a>
+	<a href="entrar.jsp" class="btn btn-lg btn-primary">Perdi algo</a>
 </section>
 
 </main>
