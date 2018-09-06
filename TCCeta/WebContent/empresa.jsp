@@ -19,12 +19,7 @@
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 
 <%@ include file="include/topo_novo_com_sessao.jsp"%>
-<%
-	/*	//Valida o nÃ­vel
-		if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
-			response.sendRedirect("index.jsp");
-		}*/
-%>
+
 
 <main>
 
@@ -48,7 +43,7 @@
 			<h1 class="titulosTabs">
 				<strong> Administradores </strong>
 			</h1>
-
+	<%@ include file="acoes/table.jsp" %>
 
 
 		</div>

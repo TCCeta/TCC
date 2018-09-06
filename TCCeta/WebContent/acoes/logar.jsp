@@ -1,3 +1,5 @@
+<%@page import="br.com.jsp.bean.Empresa"%>
+<%@page import="br.com.jsp.dao.EmpresaDao"%>
 <%@page import="br.com.jsp.dao.CriadorDeComandosSQL.Where"%>
 <%@page import="br.com.jsp.bean.Conta"%>
 <%@page import="br.com.jsp.dao.ContaDao"%>
@@ -50,7 +52,10 @@
             	}else if(conta.getNivelDeAcesso() == NivelDeAcesso.Empresa.ordinal()){
             		
             		session.setAttribute("sessaoUsuario", conta);
-                    
+            		
+            		Empresa e = EmpresaDao.selectWhere("idConta", Where.IGUAL, conta.getId()).getObjeto().get(0);
+            		
+                    session.setAttribute("idEmpresa", e.getId());
                     session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
                     response.sendRedirect("../empresa.jsp");
                     

@@ -33,9 +33,7 @@ public class Funcionario {
     /**
      * @return the idPessoa
      */
-    public int getIdPessoa() {
-        return idPessoa;
-    }
+   
 
     /**
      * @return the idConta
@@ -44,14 +42,22 @@ public class Funcionario {
         return idConta;
     }
     
-    @Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+    private String getCpf() {
+		return cpf;
+	}
+
+	private void setCFP(String cpf) {
+		this.cpf = cpf;
+	}
+
+	@Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
     private int id;
     
     @Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER)
     private int idEmpresa;
     
-    @Coluna(nome = "cod_idPessoa", tipo = Types.INTEGER)
-    private int idPessoa;
+    @Coluna(nome = "dad_CPF", tipo = Types.VARCHAR)
+    private String cpf;
     
     @Coluna(nome = "cod_idConta", tipo = Types.INTEGER)
     private int idConta;
