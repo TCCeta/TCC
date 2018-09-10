@@ -18,105 +18,95 @@ import java.time.LocalDate;
 @Tabela(nome = "itens")
 public class Item {
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+	public Item() {}
+	
+	public Item(LocalDate dataPerdido, Empresa empresa, Imagem imagem) {
+		this.setDataPerdido(dataPerdido);
+		
+	}
+	
+	@Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+	private int id;
 
-    /**
-     * @param dataPerdido the dataPerdido to set
-     */
-    public void setDataPerdido(Date dataPerdido) {
-        this.dataPerdido = dataPerdido;
-    }
+	@Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
+	private Date dataPerdido;
 
-    /**
-     * @return the dataDevolvido
-     */
-    public Date getDataDevolvido() {
-        return dataDevolvido;
-    }
+	@Coluna(nome = "dat_dataDevolvidoItem", tipo = Types.DATE)
+	private Date dataDevolvido;
 
-    /**
-     * @param dataDevolvido the dataDevolvido to set
-     */
-    public void setDataDevolvido(Date dataDevolvido) {
-        this.dataDevolvido = dataDevolvido;
-    }
+	@Coluna(nome = "dad_devolvidoItem", tipo = Types.BOOLEAN)
+	private boolean devolvido;
 
-    /**
-     * @return the devolvido
-     */
-    public boolean isDevolvido() {
-        return devolvido;
-    }
+	@Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER)
+	private int idEmpresa;
+	private Empresa empresa;
 
-    /**
-     * @param devolvido the devolvido to set
-     */
-    public void setDevolvido(boolean devolvido) {
-        this.devolvido = devolvido;
-    }
+	@Coluna(nome = "cod_idImagem", tipo = Types.INTEGER)
+	private int idImagem;
+	private Imagem imagem;
 
-    /**
-     * @return the idEmpresa
-     */
-    public int getIdEmpresa() {
-        return idEmpresa;
-    }
+    //SETTERS --------------------------------------
+    
+	/**
+	 * @param devolvido the devolvido to set
+	 */
+	public void setDevolvido(boolean devolvido) {
+		this.devolvido = devolvido;
+	}
+	
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
+	
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
-    /**
-     * @param idEmpresa the idEmpresa to set
-     */
-    public void setIdEmpresa(int idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
+	public void setDataPerdido(LocalDate data) {
+		this.dataPerdido = Date.valueOf(data);
+	}
+    
+    //GETTERS --------------------------------------
+   
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * @return the idImagem
-     */
-    public int getIdImagem() {
-        return idImagem;
-    }
+	/**
+	 * @return the dataDevolvido
+	 */
+	public Date getDataDevolvido() {
+		return dataDevolvido;
+	}
 
-    /**
-     * @param idImagem the idImagem to set
-     */
-    public void setIdImagem(int idImagem) {
-        this.idImagem = idImagem;
-    }
-    
-    @Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
-    private int id;
-    
-    @Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
-    private Date dataPerdido;
-    
-    @Coluna(nome = "dat_dataDevolvidoItem", tipo = Types.DATE)
-    private Date dataDevolvido;
-    
-    @Coluna(nome = "dad_devolvidoItem", tipo = Types.BOOLEAN)
-    private boolean devolvido;
-    
-    @Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER)
-    private int idEmpresa;
-    
-    @Coluna(nome = "cod_idImagem", tipo = Types.INTEGER)
-    private int idImagem;
-    
-    
-    
-    
-    
-    
-    public void setDataPerdido(LocalDate data){
-        setDataPerdido(Date.valueOf(data));
-    }
-    
-    public LocalDate getDataPerdido(){
-        return dataPerdido.toLocalDate();
-    }
-    
+	/**
+	 * @return the devolvido
+	 */
+	public boolean getDevolvido() {
+		return devolvido;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+	
+	public int getIdEmpresa() {
+		return idEmpresa;
+	}
+	
+	public Imagem getImagem() {
+		return imagem;
+	}
+	
+	public int getIdImagem() {
+		return idImagem;
+	}
+	
+	public LocalDate getDataPerdido() {
+		return dataPerdido.toLocalDate();
+	}
+
 }

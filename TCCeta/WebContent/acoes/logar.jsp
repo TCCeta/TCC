@@ -11,7 +11,8 @@
 <%@page import="br.com.jsp.bean.Funcionario"%>
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <%
@@ -19,63 +20,49 @@
 	String loginInformado = request.getParameter("email");
 	String senhaInformada = request.getParameter("senha");
 
-	System.out.println("1");
-	 
-	//Instanciar um objeto bean
-	Funcionario ub = new Funcionario();
+	Resposta<Conta> contaLogada = Conta.logar(loginInformado, senhaInformada);
 
-	Resposta<ArrayList<Conta>> respostaContas = ContaDao.selectWhere("login", Where.IGUAL, loginInformado);
+	System.out.println(contaLogada.getMensagem());
 	
-        
+	if(contaLogada.getFuncionou()){
 	
-            
-		if(respostaContas.getObjeto().size() == 1){
+		Conta conta = contaLogada.getObjeto();
 		
-            Conta conta = respostaContas.getObjeto().get(0);
-            
-            if(conta.senhaEstaCorreta(senhaInformada)){
+		if (conta.getNivelDeAcesso() == NivelDeAcesso.Usuario) {
 
-            	if(conta.getNivelDeAcesso() == NivelDeAcesso.Usuario.ordinal()){
-            		
-					session.setAttribute("sessaoUsuario", conta);
-                    
-                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
-                    response.sendRedirect("../buscar.jsp");
-            		
-            	}else if(conta.getNivelDeAcesso() == NivelDeAcesso.Funcionario.ordinal()){
-            		
-            		session.setAttribute("sessaoUsuario", conta);
-                    
-                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
-                    response.sendRedirect("../admin.jsp");
-                    
-            	}else if(conta.getNivelDeAcesso() == NivelDeAcesso.Empresa.ordinal()){
-            		
-            		session.setAttribute("sessaoUsuario", conta);
-            		
-            		Empresa e = EmpresaDao.selectWhere("idConta", Where.IGUAL, conta.getId()).getObjeto().get(0);
-            		
-                    session.setAttribute("idEmpresa", e.getId());
-                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
-                    response.sendRedirect("../empresa.jsp");
-                    
-            	}
-            	
-                
-                
-                
-            }else{
-                //senha incorreta
-                response.sendRedirect("../entrar.jsp?msg=falhaLogin");
-            }
-            
-        }else{
-            //pagina de erro
-           response.sendRedirect("../entrar.jsp?msg=falhaLogin");
-        }
-	
-        
-        
+			session.setAttribute("sessaoUsuario", conta);
+
+			session.setAttribute("nivel", conta.getNivelDeAcesso().ordinal());
+			response.sendRedirect("../buscar.jsp");
+
+		} else if (conta.getNivelDeAcesso() == NivelDeAcesso.Funcionario) {
+
+			session.setAttribute("sessaoUsuario", conta);
+
+			session.setAttribute("nivel", conta.getNivelDeAcesso().ordinal());
+			response.sendRedirect("../admin.jsp");
+
+		} else if (conta.getNivelDeAcesso() == NivelDeAcesso.Empresa) {
+
+			session.setAttribute("sessaoUsuario", conta);
+
+			Resposta<ArrayList<Empresa>> respE = EmpresaDao.selectWhere("idConta", Where.IGUAL, conta.getId());
+
+			System.out.println("mensagem : " + respE.getMensagem());
+
+			Empresa e = EmpresaDao.selectWhere("idConta", Where.IGUAL, conta.getId()).getObjeto().get(0);
+
+			session.setAttribute("idEmpresa", e.getId());
+			session.setAttribute("nivel", conta.getNivelDeAcesso().ordinal());
+			response.sendRedirect("../empresa.jsp");
+
+		}
+
+	} else {
+		//senha incorreta
+		response.sendRedirect("../entrar.jsp?msg=falhaLogin");
+	}
+
 	/*if(respostaContas.getObjeto().get(0).senhaEstaCorreta(senhaInformada)){
 		
 		int nivel = respostaContas.getObjeto().get(0).getNivelDeAcesso();
@@ -88,38 +75,36 @@
 			
 			//login com funcionario
 			response.sendRedirect("../admin.jsp");
-                        
+	            
 		}else if(nivel == NivelDeAcesso.Usuario.ordinal()){
 			
 			//login com usuario
 			response.sendRedirect("../buscar.jsp");
-
+	
 		}
 		
 	}*/
-	
-	
-	
+
 	/*
 	
-
+	
 	if (!respostaF.getFuncionou() || !respostaU.getFuncionou()) {
-
+	
 		response.sendRedirect("../entrar.jsp?msg=falhaLogin");
-
+	
 	} else {
-
+	
 		ArrayList<Funcionario> listaFuncionarios = new GenericDao<Funcionario>(Funcionario.class)
 				.selectAll().getObjeto();
-
+	
 		ArrayList<Usuario> listaUsuarios = new GenericDao<Usuario>(Usuario.class).selectAll()
 				.getObjeto();
-
+	
 		boolean encontrou = false;
-
+	
 		for (Funcionario funcionario : listaFuncionarios) {
 			if ((funcionario.getLogin().equals(email)) && (funcionario.getSenha().equals(senha))) {
-
+	
 				//fazer login de funcionario
 				//Criar a sessão			
 				session.setAttribute("sessaoUsuario", ub);
@@ -128,11 +113,11 @@
 				response.sendRedirect("../admin.jsp");
 				encontrou = true;
 			}
-
+	
 		}
-
+	
 		for (Usuario usuario : listaUsuarios) {
-
+	
 			if ((usuario.getLogin().equals(email)) && (usuario.getSenha().equals(senha))) {
 				//fazer login de usuario
 				//vai pra proxima pagina de usuario
@@ -142,13 +127,13 @@
 				encontrou = true;
 			}
 		}
-
+	
 		out.print("haha yes");
-
+	
 		if (!encontrou) {
 			response.sendRedirect("../login.jsp?msg=falhaLogin");
 		}
-
+	
 	}
 	*/
 %>

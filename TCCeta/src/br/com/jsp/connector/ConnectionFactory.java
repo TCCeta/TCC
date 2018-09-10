@@ -7,11 +7,9 @@ package br.com.jsp.connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
- * Classe para criar conex�es
+ * Classe para criar conexões
  * @author patrick
  */
 public class ConnectionFactory {
@@ -21,7 +19,7 @@ public class ConnectionFactory {
     private final String password = "";//"tcc!@12";
     
     /**
-     * Contrutor para conex�o com o banco digitado
+     * Contrutor para conexão com o banco digitado
      * @param s nome do banco escolhido
      */
     public ConnectionFactory(String s){
@@ -38,13 +36,13 @@ public class ConnectionFactory {
     }
     
     /**
-     * Construtor para conex�o com o banco mysql para quando nao se tem bancos criados ainda
+     * Construtor para conexão com o banco mysql para quando nao se tem bancos criados ainda
      */
     public ConnectionFactory(){
         
         //
         //url = "jdbc:mysql://localhost:3306/mysql";
-        
+    	
         url = "jdbc:mysql://bd-tcc-wim.mysql.uhserser.com:3306/mysql";
         
         //url = "jdbc:mysql://tcc-entra21.mysql.uhserver.com:3306/mysql";
@@ -52,22 +50,22 @@ public class ConnectionFactory {
     }
     
     /**
-     * Cria uma conex�o com o banco de dados
-     * @return a conex�o criada
+     * Cria uma conexão com o banco de dados
+     * @return a conexão criada
      */
     public Connection obterConexao(){
         
         Connection conexao = null;
         
         try{
-            
-            Class.forName("com.mysql.jdbc.Driver");
-
+        	
+        	Class.forName("com.mysql.jdbc.Driver");
+        	
             conexao = DriverManager.getConnection(url, user, password);
             
         }catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
             
         }

@@ -16,105 +16,108 @@ import java.sql.Types;
 @Tabela(nome = "locais")
 public class Local {
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+	public Local() {}
+	
+	@Coluna(nome = "cod_idLocal", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+	private int id;
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+	@Coluna(nome = "dad_rua", tipo = Types.VARCHAR)
+	private String rua;
 
-    /**
-     * @return the rua
-     */
-    public String getRua() {
-        return rua;
-    }
+	@Coluna(nome = "dad_bairro", tipo = Types.VARCHAR)
+	private String bairro;
 
-    /**
-     * @param rua the rua to set
-     */
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
+	@Coluna(nome = "dad_cidade", tipo = Types.VARCHAR)
+	private String cidade;
 
-    /**
-     * @return the bairro
-     */
-    public String getBairro() {
-        return bairro;
-    }
+	@Coluna(nome = "dad_estado", tipo = Types.VARCHAR)
+	private String estado;
 
-    /**
-     * @param bairro the bairro to set
-     */
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
+	@Coluna(nome = "dad_cep", tipo = Types.VARCHAR)
+	private String cep;
 
-    /**
-     * @return the cidade
-     */
-    public String getCidade() {
-        return cidade;
-    }
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * @param cidade the cidade to set
-     */
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    /**
-     * @return the estado
-     */
-    public String getEstado() {
-        return estado;
-    }
+	/**
+	 * @return the rua
+	 */
+	public String getRua() {
+		return rua;
+	}
 
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	/**
+	 * @param rua the rua to set
+	 */
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
 
-    /**
-     * @return the cep
-     */
-    public String getCep() {
-        return cep;
-    }
+	/**
+	 * @return the bairro
+	 */
+	public String getBairro() {
+		return bairro;
+	}
 
-    /**
-     * @param cep the cep to set
-     */
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-    @Coluna(nome = "cod_idLocal", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
-    private int id;
-    
-    @Coluna(nome = "dad_rua", tipo = Types.VARCHAR)
-    private String rua;
-    
-    @Coluna(nome = "dad_bairro", tipo = Types.VARCHAR)
-    private String bairro;
-    
-    @Coluna(nome = "dad_cidade", tipo = Types.VARCHAR)
-    private String cidade;
-    
-    @Coluna(nome = "dad_estado", tipo = Types.VARCHAR)
-    private String estado;
-    
-    @Coluna(nome = "dad_cep", tipo = Types.VARCHAR)
-    private String cep;
-    
+	/**
+	 * @param bairro the bairro to set
+	 */
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	/**
+	 * @return the cidade
+	 */
+	public String getCidade() {
+		return cidade;
+	}
+
+	/**
+	 * @param cidade the cidade to set
+	 */
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	/**
+	 * @return the cep
+	 */
+	public String getCep() {
+		return cep;
+	}
+
+	/**
+	 * @param cep the cep to set
+	 */
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 }

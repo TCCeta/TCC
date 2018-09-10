@@ -38,9 +38,9 @@
 			
 				
 				estrutura += "<tr>";
-				estrutura += "<td>" + funcionario.getLogin() + "</td>";
-				estrutura += "<td>" + funcionario.getId()+ "</td>";
-				estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + funcionario.getId()
+				estrutura += "<td>" + funcionario.getConta().getLogin() + "</td>";
+				estrutura += "<td>" + funcionario.getConta().getId()+ "</td>";
+				estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + funcionario.getConta().getId()
 						+ "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
 				estrutura += "</tr>";
 

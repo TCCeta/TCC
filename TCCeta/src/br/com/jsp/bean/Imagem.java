@@ -7,7 +7,13 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
 import java.sql.Types;
+
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -16,6 +22,29 @@ import java.sql.Types;
 @Tabela(nome = "imagens")
 public class Imagem {
 
+	public Imagem() {}
+	
+	@Coluna(nome = "cod_idImagem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+    private int id;
+    
+    @Coluna(nome = "img_caminhoImagem", tipo = Types.VARCHAR)
+    private String caminho;
+    
+    @Coluna(nome = "img_imagem", tipo = Types.BLOB)
+    private Blob imagem;
+	
+    //SETTERS --------------------------------------
+    
+    /**
+     * @param caminho the caminho to set
+     */
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
+    
+    //GETTERS --------------------------------------
+   
+    
     /**
      * @return the id
      */
@@ -29,18 +58,31 @@ public class Imagem {
     public String getCaminho() {
         return caminho;
     }
-
-    /**
-     * @param caminho the caminho to set
-     */
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
+    
+    
+    
+    
+    
+    public BufferedImage getImagem() {
+    	
+    	byte[] array = null;
+    	
+    	BufferedImage retorno = null;
+    	
+    	try {
+    		array = imagem.getBytes(1, (int) imagem.length());
+    		
+    		ByteArrayInputStream bis =new ByteArrayInputStream(array);
+    		
+    		retorno = ImageIO.read(bis);
+    		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+    	
+    	return null;
+    	
     }
-    
-    @Coluna(nome = "cod_idImagem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
-    private int id;
-    
-    @Coluna(nome = "img_caminhoImagem", tipo = Types.VARCHAR)
-    private String caminho;
     
 }

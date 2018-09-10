@@ -8,104 +8,34 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
-import br.com.jsp.dao.ContaDao;
 
 import java.sql.Types;
-
-import org.eclipse.jdt.internal.compiler.batch.Main;
 
 /**
  *
  * @author 103782
  */
 @Tabela(nome = "empresas")
-public class Empresa {
+public class Empresa{
+	
+	public Empresa() {}
+	
+	public Empresa(String login, String senha, String nome, String cnpj, String email, String telefone, Local local) {
+		this(new Conta(login, senha, NivelDeAcesso.Empresa), nome, cnpj, email, telefone, local);
+	}
+	
+	public Empresa(Conta conta, String nome, String cnpj, String email, String telefone, Local local) {
+		this.conta = conta;
+		this.idConta = conta.getId();
+		this.nome = nome;
+		this.cnpj = cnpj;
+		this.email = email;
+		this.telefone = telefone;
+		this.local = local;
+		this.idLocal = local.getId();
+	}
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    /**
-     * @return the cnpj
-     */
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    /**
-     * @param cnpj the cnpj to set
-     */
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the telefone
-     */
-    public String getTelefone() {
-        return telefone;
-    }
-
-    /**
-     * @param telefone the telefone to set
-     */
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    /**
-     * @return the idLocal
-     */
-    public int getIdLocal() {
-        return idLocal;
-    }
-
-    /**
-     * @param idLocal the idLocal to set
-     */
-    public void setIdLocal(int idLocal) {
-        this.idLocal = idLocal;
-    }
-
-    /**
-     * @return the idConta
-     */
-    public int getIdConta() {
-        return idConta;
-    }
-    
-    @Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+	@Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
     private int id;
     
     @Coluna(nome = "dad_nomeEmpresa", tipo = Types.VARCHAR)
@@ -122,9 +52,85 @@ public class Empresa {
     
     @Coluna(nome = "cod_idLocal", tipo = Types.INTEGER)
     private int idLocal;
+    private Local local;
     
     @Coluna(nome = "cod_idConta", tipo = Types.INTEGER)
     private int idConta;
+    private Conta conta;
+
+    //SETTERS
     
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    //TODO procurar se pode mudar de CNPJ
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    
+    public void setLocal(Local local) {
+        this.local = local;
+        this.idLocal = local.getId();
+    }
+    
+    /**
+     * @param conta
+     */
+    public void setConta(Conta conta) {
+    	if(this.conta == null) {
+    		this.conta = conta;
+    		this.idConta = conta.getId();
+    	}
+    }
+    
+    //GETTERS
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+    
+    public int getIdLocal() {
+    	return idLocal;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+    
+    public int getIdConta() {
+    	return idConta;
+    }
     
 }

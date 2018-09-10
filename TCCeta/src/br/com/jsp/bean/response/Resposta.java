@@ -24,13 +24,23 @@ public class Resposta<T> {
         this.mensagem = mensagem;
 
     }
+    /**
+     * Contrutor para quanto a resposta deve ser verdadeira
+     * @param mensagem A mensagem que pode ser acessada e mostrada se necessário
+     * @param objeto O Objeto que pode ser acessado depois
+     */
+    public Resposta(String mensagem,T objeto) {
+    	this(mensagem, objeto, true);
+    }
     
+    /**
+     * Contrutor para quando a resposta deve ser falsa
+     * @param mensagem A mensagem de erro que pode ser acessada e mostrada se necessário
+     */
     public Resposta(String mensagem){
         this(mensagem, null, false);
     }
 
-    public Resposta() {
-    }
 
     /**
      * @return the objeto
@@ -51,33 +61,6 @@ public class Resposta<T> {
      */
     public String getMensagem() {
         return mensagem;
-    }
-
-    /**
-     * @param objeto the objeto to set
-     */
-    public void setObjeto(T objeto) {
-
-        this.objeto = objeto;
-
-    }
-
-    /**
-     * @param funcionou the funcionou to set
-     */
-    public void setFuncionou(Boolean funcionou) {
-
-        this.funcionou = funcionou;
-
-    }
-
-    /**
-     * @param mensagem the mensagem to set
-     */
-    public void setMensagem(String mensagem) {
-
-        this.mensagem = mensagem;
-
     }
 
 }

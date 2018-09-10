@@ -7,9 +7,13 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.ContaDao;
+import br.com.jsp.dao.CriadorDeComandosSQL.Where;
 import br.com.jsp.encripcao.PasswordUtils;
 import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,95 +21,117 @@ import java.sql.Types;
  */
 @Tabela(nome = "contas")
 public class Conta {
-    
-    @Coluna(nome = "cod_idConta", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
-    private int id;
-    
-    @Coluna(nome = "dad_loginConta", tipo = Types.VARCHAR)
-    private String login;
-    
-    @Coluna(nome = "dad_senhaConta", tipo = Types.VARCHAR)
-    private String senha;
-    
-    @Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
-    private int nivelDeAcesso;
-    
-    @Coluna(nome = "dad_salt", tipo = Types.VARCHAR)
-    private String salt;
-    
-    public void setSenha(String senha){
-    	
-        this.salt = PasswordUtils.getSalt(10);
-        String senhaSegura = PasswordUtils.generateSecurePassword(senha, salt);
-        this.senha = senhaSegura;
-        
-    }
-    
-    public void setID(int id) {
-    	
-    	this.id = id;
-    	
-    }
-    
-    public boolean senhaEstaCorreta(String senhaDigitada){
-        return PasswordUtils.verifyUserPassword(senhaDigitada, this.getSenha(), this.salt);
-    }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @return the login
-     */
-    public String getLogin() {
-        return login;
-    }
-
-    /**
-     * @param login the login to set
-     */
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
-     * @return the nivelDeAcesso
-     */
-    public int getNivelDeAcesso() {
-        return nivelDeAcesso;
-    }
-
-    /**
-     * @param nivelDeAcesso the nivelDeAcesso to set
-     */
-    public void setNivelDeAcesso(int nivelDeAcesso) {
-        this.nivelDeAcesso = nivelDeAcesso;
-    }
-    
-    
-    /*
-    public static void main(String[] args) {
-		
-    	Conta c = new Conta();
-    	c.login = "JAS";
-    	c.setNivelDeAcesso(2);
-    	c.setSenha("123");
-    	
-    	ContaDao.insert(c);
-    	
+	public Conta() {
 	}
-    */
-    
-    
+
+	public Conta(String login, String senha, NivelDeAcesso nivel) {
+
+		this.login = login;
+		setSenha(senha);
+		nivelDeAcesso = nivel.ordinal();
+
+	}
+
+	// Botar id como null por default para verificação em setID(), veja o método
+	// para entender melhor
+	@Coluna(nome = "cod_idConta", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
+	private Integer id = (Integer) null;
+
+	@Coluna(nome = "dad_loginConta", tipo = Types.VARCHAR)
+	private String login;
+
+	@Coluna(nome = "dad_senhaConta", tipo = Types.VARCHAR)
+	private String senha;
+
+	@Coluna(nome = "dad_salt", tipo = Types.VARCHAR)
+	private String salt;
+
+	@Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
+	private int nivelDeAcesso;
+
+	/**
+	 * Tenta fazer o login da Conta
+	 * 
+	 * @param loginDigitado O login informado
+	 * @param senhaDigitada A senha informada
+	 * @return A Resposta<Conta> com ou a conta logada caso o login funcione, ou
+	 *         null e uma mensagem de erro
+	 */
+	public static Resposta<Conta> logar(String loginDigitado, String senhaDigitada) {
+
+		Resposta<ArrayList<Conta>> resp = ContaDao.selectWhere("login", Where.IGUAL, loginDigitado);
+
+		System.out.println(resp.getMensagem());
+
+		System.out.println(resp.getFuncionou());
+
+		if (resp.getFuncionou()) {
+
+			if (resp.getObjeto().isEmpty()) {
+				return new Resposta<>("Conta com login " + loginDigitado + " não encontrado");
+			}
+
+			if (resp.getObjeto().size() > 1) {
+				return new Resposta<>("Erro");
+			}
+
+			// Pega a conta da resposta do SELECT
+			Conta resultado = resp.getObjeto().get(0);
+
+			if (resultado.senhaEstaCorreta(senhaDigitada)) {
+				return new Resposta<Conta>("Login efetuado com sucesso", resultado);
+			}
+
+			return new Resposta<>("Senha incorreta");
+
+		} else {
+
+			return new Resposta<>(resp.getMensagem());
+
+		}
+	}
+
+	private boolean senhaEstaCorreta(String senhaDigitada) {
+		return PasswordUtils.verifyUserPassword(senhaDigitada, this.getSenha(), this.salt);
+	}
+
+	// SETTERS
+
+	// feito deste jeito para simular campo como "final"
+	public void setId(Integer id) {
+
+		this.id = id;
+
+	}
+
+	public void setSenha(String senha) {
+		this.salt = PasswordUtils.getSalt(10);
+		String senhaSegura = PasswordUtils.generateSecurePassword(senha, salt);
+		this.senha = senhaSegura;
+	}
+
+	// GETTERS
+
+	public int getId() {
+
+		if (id == null) {
+			return -1;
+		}
+
+		return id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public NivelDeAcesso getNivelDeAcesso() {
+		return NivelDeAcesso.fromInt(nivelDeAcesso);
+	}
+
 }
