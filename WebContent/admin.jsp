@@ -19,21 +19,21 @@
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 
 <script>
-    $(document).ready(function () {
+	$(document).ready(function() {
 
-        $('.data').mask('00/00/0000', {
-            placeholder: "__/__/____"
-        });
+		$('.data').mask('00/00/0000', {
+			placeholder : "__/__/____"
+		});
 
-    });
+	});
 </script>
 
 <%@ include file="include/topo_novo_com_sessao.jsp"%>
 <%
-/*	//Valida o nÃ­vel
-	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
-		response.sendRedirect("index.jsp");
-	}*/
+	/*	//Valida o nÃ­vel
+		if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
+			response.sendRedirect("index.jsp");
+		}*/
 %>
 
 <main>
@@ -133,15 +133,14 @@
 							class="form-control" placeholder="Objeto" id="botaoRedondo">
 						<input type="data" class="form-control data"
 							name="dat_perdidoItem" />
-							
+
 					</div>
 					<button type="submit" class="btn btn-default">Buscar</button>
 				</form>
 			</div>
 		</div>
 
-		
-                        -->
+
 	</div>
 
 </div>

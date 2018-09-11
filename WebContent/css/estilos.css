@@ -267,11 +267,7 @@ input[type=file] {
 	margin-bottom: 1px;
 }
 
-#cadastroDeItem {
-	width: 700px;
-	height: 370px;
-	background-color: darkgray;
-}
+
 
 .rodape {
 	overflow: auto;
@@ -284,9 +280,6 @@ textarea {
 	margin-top: 2px;
 }
 
-.data {
-	border-radius: 5px;
-}
 
 #cadastroDeItem {
 	margin-left: 10px;
