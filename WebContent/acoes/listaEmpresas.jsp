@@ -14,7 +14,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <%
-
+//asdasdasdasd
 	//UBAUBA
 	Resposta<ArrayList<Empresa>> resposta = EmpresaDao.selectAll();
 
