@@ -14,6 +14,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <%
+
+	//UBAUBA
 	Resposta<ArrayList<Empresa>> resposta = EmpresaDao.selectAll();
 
 	String estrutura = "";
