@@ -136,6 +136,8 @@ public class GenericDao<T> {
 
             } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
 
+            	System.out.println("Erro : " + e.getMessage());
+            	
                 return new Resposta<>("Erro : " + e.getMessage());
 
             }

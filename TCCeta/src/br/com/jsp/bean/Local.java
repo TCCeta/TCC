@@ -7,6 +7,8 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.dao.LocalDao;
+
 import java.sql.Types;
 
 /**
@@ -17,6 +19,14 @@ import java.sql.Types;
 public class Local {
 
 	public Local() {}
+	
+	public Local(String rua, String bairro, String cidade, String estado, String cep) {
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+	}
 	
 	@Coluna(nome = "cod_idLocal", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private int id;
@@ -36,6 +46,12 @@ public class Local {
 	@Coluna(nome = "dad_cep", tipo = Types.VARCHAR)
 	private String cep;
 
+	
+	public static void cadastrar(Local local) {
+		LocalDao.insert(local);
+	}
+	
+	
 	/**
 	 * @return the id
 	 */

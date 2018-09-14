@@ -18,14 +18,6 @@
 </script>
 <main>
 
-<div>
-	<section>
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14229.939545929574!2d-49.0689354!3d-26.9198385!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa5ec9dd8406a6a7!2sProWay+IT+Training!5e0!3m2!1spt-BR!2sbr!4v1535975557455"
-			class="mapaContato"></iframe>
-	</section>
-</div>
-
 <div class="jumbotron telaContato">
 	<form>
 		<h1>Contato</h1>
@@ -45,6 +37,13 @@
 	</form>
 </div>
 
+<div>
+	<section>
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14229.939545929574!2d-49.0689354!3d-26.9198385!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa5ec9dd8406a6a7!2sProWay+IT+Training!5e0!3m2!1spt-BR!2sbr!4v1535975557455"
+			class="mapaContato"></iframe>
+	</section>
+</div>
 </main>
 
 <%@ include file="include/rodape.jsp"%>

@@ -14,6 +14,9 @@
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/istique.js"></script>
+
+
 
 <meta charse="UTF-8">
 <title>What is missing</title>
@@ -26,7 +29,7 @@
 	%>
 
 	<div class=bs-example data-example-id=inverted-navbar>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class=container-fluid>
 				<div class=navbar-header>
 					<button type=button class="collapsed navbar-toggle"
@@ -57,7 +60,7 @@
 	%>
 
 	<div class=bs-example data-example-id=inverted-navbar>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class=container-fluid>
 				<div class=navbar-header>
 					<button type=button class="collapsed navbar-toggle"
@@ -91,7 +94,7 @@
 	%>
 
 	<div class=bs-example data-example-id=inverted-navbar>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class=container-fluid>
 				<div class=navbar-header>
 					<button type=button class="collapsed navbar-toggle"
@@ -123,7 +126,7 @@
 	%>
 
 	<div class=bs-example data-example-id=inverted-navbar>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class=container-fluid>
 				<div class=navbar-header>
 					<button type=button class="collapsed navbar-toggle"
@@ -138,7 +141,7 @@
 					id=bs-example-navbar-collapse-9>
 					<ul class="nav navbar-nav">
 						<li class=active><a href="index.jsp">Início</a></li>
-						<li><a href="buscar.jsp">Empresa</a></li>
+						<li><a href="empresa.jsp">Empresa</a></li>
 						<li><a href="contato.jsp">Contato</a></li>
 
 						<li><a href="sair.jsp">Sair</a></li>

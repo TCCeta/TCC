@@ -8,6 +8,7 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.dao.FuncionarioDao;
 
 import java.sql.Types;
 
@@ -45,6 +46,15 @@ public class Funcionario{
     @Coluna(nome = "cod_idConta", tipo = Types.INTEGER)
     private int idConta;
     private Conta conta;
+    
+    public static void cadastrar(Funcionario funcionario) {
+    	
+    	Conta.Cadastrar(funcionario.conta);
+    	funcionario.idConta = funcionario.conta.getId();
+    	
+    	FuncionarioDao.insert(funcionario);
+    	
+    }
 
     
     //SETTERS --------------------------------------

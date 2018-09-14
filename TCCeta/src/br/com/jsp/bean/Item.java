@@ -7,6 +7,8 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.dao.ItemDao;
+
 import java.sql.Date;
 import java.sql.Types;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class Item {
 	public Item() {}
 	
 	public Item(LocalDate dataPerdido, Empresa empresa, Imagem imagem) {
+		
 		this.setDataPerdido(dataPerdido);
 		
 	}
@@ -45,6 +48,20 @@ public class Item {
 	private int idImagem;
 	private Imagem imagem;
 
+	
+	public static void cadastrar(Item item) {
+		
+		Imagem.cadastrar(item.imagem);
+		item.idImagem = item.imagem.getId();
+		
+		ItemDao.insert(item);
+		
+	}
+	
+	
+	
+	
+	
     //SETTERS --------------------------------------
     
 	/**

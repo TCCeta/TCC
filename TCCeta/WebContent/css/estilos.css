@@ -15,6 +15,7 @@ body {
 .telaInicial {
 	width: 80%;
 	margin: 0 auto;
+	margin-top: 80px !important;
 	text-align: center;
 	border-radius: 5px;
 }
@@ -24,7 +25,7 @@ body {
 	height: 40%;
 }
 
-.navbar{
+.navbar {
 	margin-bottom: 10px;
 }
 
@@ -54,16 +55,25 @@ body {
 	.formularioLogin {
 		width: 20%;
 		margin: 0% auto;
+		margin-top: 80px 	q!import;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
+		border-radius: 5px;
 	}
 	.formularioCadastroUsuario {
-		width: 20%;
+		width: 50%;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
+		overflow: auto;
+	}
+	
+	.formularioCadastroUsuario input{
+		float: left;
+		width: 46%;
+		margin: 2px;
 	}
 	header h1 {
 		float: left;
@@ -74,6 +84,7 @@ body {
 		background-color: black;
 		color: white;
 		font-family: fonteLogo;
+		float: auto;
 	}
 	.footer {
 		position: fixed;
@@ -97,7 +108,7 @@ body {
 		margin: 0 auto;
 		text-align: center;
 		border-radius: 5px;
-		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 }
 
@@ -118,6 +129,7 @@ body {
 	.formularioLogin {
 		width: 90%;
 		margin: 5% auto;
+		margin-top: 80px !import;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
@@ -133,6 +145,7 @@ body {
 		float: left;
 	}
 	.header {
+		float: auto;
 		background-color: black;
 		color: white;
 		font-family: fonteLogo;
@@ -180,6 +193,7 @@ body {
 	.formularioLogin {
 		width: 90%;
 		margin: 5% auto;
+		margin-top: 80px !import;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;

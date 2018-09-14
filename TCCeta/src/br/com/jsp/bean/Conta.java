@@ -50,6 +50,11 @@ public class Conta {
 	@Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
 	private int nivelDeAcesso;
 
+	public static void Cadastrar(Conta c) {
+		ContaDao.insert(c);
+	}
+	
+	
 	/**
 	 * Tenta fazer o login da Conta
 	 * 

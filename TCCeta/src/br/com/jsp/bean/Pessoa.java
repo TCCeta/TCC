@@ -7,17 +7,9 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
-import br.com.jsp.bean.Enums.NivelDeAcesso;
-import br.com.jsp.bean.response.Resposta;
-import br.com.jsp.dao.ContaDao;
-import br.com.jsp.dao.EmpresaDao;
-import br.com.jsp.dao.FuncionarioDao;
-import br.com.jsp.dao.LocalDao;
 import br.com.jsp.dao.PessoaDao;
-import br.com.jsp.dao.UsuarioDao;
 
 import java.sql.Types;
-import java.util.ArrayList;
 
 /**
  *
@@ -50,7 +42,17 @@ public class Pessoa {
     @Coluna(nome = "dad_telefonePessoa", tipo = Types.VARCHAR)
     private String telefone;
     
+    
+    public static void cadastrar(Pessoa pessoa) {
+    	PessoaDao.insert(pessoa);
+    }
+    
+    
     //SETTERS --------------------------------------
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
     
     /**
      * @param nome the nome to set
@@ -114,56 +116,6 @@ public class Pessoa {
         return telefone;
     }
 
-    
-    
-    
-public static void main(String[] args) {
-	
-	ArrayList<Conta> contas = ContaDao.selectAll().getObjeto();
-	ArrayList<Empresa> empresas = EmpresaDao.selectAll().getObjeto();
-	ArrayList<Funcionario> funcs = FuncionarioDao.selectAll().getObjeto();
-	ArrayList<Local> locais = LocalDao.selectAll().getObjeto();
-	ArrayList<Pessoa> pessoas = PessoaDao.selectAll().getObjeto();
-	ArrayList<Usuario> usuarios = UsuarioDao.selectAll().getObjeto();
-	
-	
-	Conta c = new Conta("login1", "123", NivelDeAcesso.Funcionario);
-	
-	ContaDao.insert(c);
-	
-	Funcionario f = new Funcionario(empresas.get(0), "cpff2", c);
-	
-	FuncionarioDao.insert(f);
-	
-	/*Conta c = new Conta("empresa", "123", NivelDeAcesso.Empresa);
-	
-	ContaDao.insert(c);
-	
-	Local l = new Local();
-	l.setBairro("bairro");
-	l.setCep("cep");
-	l.setCidade("cidade");
-	l.setEstado("estado");
-	l.setRua("rua");
-	
-	LocalDao.insert(l);
-	
-	
-	Empresa e = new Empresa(c, "Nome empresa", "cnpj da empresa", "empresa@email.empresa.com", "11111111", l);
-	
-	EmpresaDao.insert(e);
-	
-	
-	Conta c2 = new Conta("loginFuncionario", "123", NivelDeAcesso.Funcionario);
-	
-	ContaDao.insert(c2);
-	
-	Funcionario f = new Funcionario(e, "cpfFunc", c2);
-	
-	FuncionarioDao.insert(f);*/
-	
-}    
-    
 }
 
 

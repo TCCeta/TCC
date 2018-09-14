@@ -7,10 +7,12 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.dao.ImagemDao;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Types;
 
 import javax.imageio.ImageIO;
@@ -33,6 +35,10 @@ public class Imagem {
     @Coluna(nome = "img_imagem", tipo = Types.BLOB)
     private Blob imagem;
 	
+    public static void cadastrar(Imagem imagem) {
+    	ImagemDao.insert(imagem);
+    }
+    
     //SETTERS --------------------------------------
     
     /**
@@ -59,8 +65,16 @@ public class Imagem {
         return caminho;
     }
     
-    
-    
+    public byte[] getByteArray()
+    {
+    	try {
+			return imagem.getBytes(1, (int) imagem.length());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+    	return null;
+    }
     
     
     public BufferedImage getImagem() {

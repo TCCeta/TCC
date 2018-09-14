@@ -8,6 +8,7 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.dao.UsuarioDao;
 
 import java.sql.Types;
 
@@ -32,6 +33,35 @@ public class Usuario{
     	this.pessoa = pessoa;
     	this.idPessoa = pessoa.getId();
     }
+    
+    public static boolean cadastrar(Usuario usuario) {
+    	
+    	Conta.Cadastrar(usuario.conta);
+    	usuario.idConta = usuario.conta.getId();
+    	
+    	Local.cadastrar(usuario.local);
+    	usuario.idLocal = usuario.local.getId();
+    	
+    	
+    	System.out.println(usuario.idPessoa);
+    	System.out.println(usuario.pessoa.getId());
+    	
+    	
+    	Pessoa.cadastrar(usuario.pessoa);
+    	usuario.idPessoa =usuario.pessoa.getId();
+    	
+    	
+    	System.out.println(usuario.idPessoa);
+    	System.out.println(usuario.pessoa.getId());
+    	
+    	
+    	UsuarioDao.insert(usuario);
+    	
+    	//TODO ARRUMAR ISSO AQUI
+    	return true;
+    	
+    }
+    
     
     @Coluna(nome = "cod_idUsuario", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
     private int id;

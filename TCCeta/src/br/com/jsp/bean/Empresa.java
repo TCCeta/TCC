@@ -8,6 +8,7 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.dao.EmpresaDao;
 
 import java.sql.Types;
 
@@ -34,6 +35,8 @@ public class Empresa{
 		this.local = local;
 		this.idLocal = local.getId();
 	}
+	
+	
 
 	@Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
     private int id;
@@ -58,6 +61,20 @@ public class Empresa{
     private int idConta;
     private Conta conta;
 
+    
+    
+    public static void Cadastrar(Empresa empresa) {
+		Conta.Cadastrar(empresa.conta);
+		empresa.idConta = empresa.conta.getId();
+		
+		Local.cadastrar(empresa.local);
+		empresa.idLocal = empresa.local.getId();
+		
+		EmpresaDao.insert(empresa);
+	}
+     
+    
+    
     //SETTERS
     
     public void setId(int id) {

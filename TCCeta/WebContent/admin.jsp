@@ -11,6 +11,7 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/preview.js"></script>
 
 <!-- Máscara da Data -->
 <script src="js/jquery.mask.js"></script>
@@ -20,10 +21,10 @@
 
 <%@ include file="include/topo_novo_com_sessao.jsp"%>
 <%
-/*	//Valida o nÃ­vel
-	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
-		response.sendRedirect("index.jsp");
-	}*/
+	/*	//Valida o nÃ­vel
+		if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
+			response.sendRedirect("index.jsp");
+		}*/
 %>
 
 <main>
@@ -64,34 +65,7 @@
 			<input type="file" onchange="readURL(this);"
 				accept="image/png, image/jpg, image/jpeg" />
 
-			<!--Função do preview da imagem-->
-			<script>
-				function readURL(input) {
-
-					if (input.files && input.files[0]) {
-						var reader = new FileReader();
-
-						reader.onload = function(e) {
-							$('#imagemItem').attr('src', e.target.result);
-						};
-
-						//                                var nome = input.value.toString();
-						//                                alert(nome);
-
-						//                                if (nome.indexOf(".jpg") == -1) {
-						//
-						//                                } else if (nome.indexOf(".jpeg") == -1) {
-						//
-						//                                } else if (nome.indexOf(".png") == -1) {
-						//
-						//                                } else {
-						//                                    reader.readAsDataURL(input.files[0]);
-						//                                }
-						reader.readAsDataURL(input.files[0]);
-
-					}
-				};
-			</script>
+			
 
 			<img id="imagemItem" src="imagens/180.png" alt="your image"
 				class="campoImagem" />
@@ -129,7 +103,7 @@
 			</div>
 		</div>
 
-		
+
 	</div>
 
 </div>
