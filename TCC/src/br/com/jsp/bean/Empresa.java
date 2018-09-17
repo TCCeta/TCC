@@ -79,6 +79,7 @@ public class Empresa{
     	Conta.Atualizar(empresa.conta);
     	Local.atualizar(empresa.local);
     	EmpresaDao.update(empresa);
+    	
     }
      
     
