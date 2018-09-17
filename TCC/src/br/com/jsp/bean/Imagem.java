@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 @Tabela(nome = "imagens")
 public class Imagem {
 
+	@Deprecated
 	public Imagem() {}
 	
 	@Coluna(nome = "cod_idImagem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
@@ -37,6 +38,10 @@ public class Imagem {
 	
     public static void cadastrar(Imagem imagem) {
     	ImagemDao.insert(imagem);
+    }
+    
+    public static void atualizar(Imagem imagem) {
+    	ImagemDao.update(imagem);
     }
     
     //SETTERS --------------------------------------

@@ -18,6 +18,7 @@ import java.sql.Types;
 @Tabela(nome = "pessoas")
 public class Pessoa {
 
+	@Deprecated
 	public Pessoa() {}
 	
 	public Pessoa(String nome, String cpf, String email, String telefone) {
@@ -45,6 +46,10 @@ public class Pessoa {
     
     public static void cadastrar(Pessoa pessoa) {
     	PessoaDao.insert(pessoa);
+    }
+    
+    public static void atualizar(Pessoa pessoa) {
+    	PessoaDao.update(pessoa);
     }
     
     

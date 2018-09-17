@@ -19,6 +19,7 @@ import java.sql.Types;
 @Tabela(nome = "usuarios")
 public class Usuario{
 
+	@Deprecated
 	public Usuario() {}
 	
     public Usuario(String login, String senha,String nome, String cpf, String email, String telefone, Local local) {
@@ -45,7 +46,26 @@ public class Usuario{
     	usuario.idPessoa =usuario.pessoa.getId();
     	
     	UsuarioDao.insert(usuario);
+    }
+    
+    public void cadastrar() {
+    	Conta.Cadastrar(this.conta);
+    	this.idConta = this.conta.getId();
     	
+    	Local.cadastrar(this.local);
+    	this.idLocal = this.local.getId();
+    	
+    	Pessoa.cadastrar(this.pessoa);
+    	this.idPessoa = this.pessoa.getId();
+    	
+    	UsuarioDao.insert(this);
+    }
+    
+    public static void atualizar(Usuario usuario) {
+    	Conta.Atualizar(usuario.conta);
+    	Local.atualizar(usuario.local);
+    	Pessoa.atualizar(usuario.pessoa);
+    	UsuarioDao.update(usuario);
     }
     
     

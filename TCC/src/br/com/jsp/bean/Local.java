@@ -18,6 +18,7 @@ import java.sql.Types;
 @Tabela(nome = "locais")
 public class Local {
 
+	@Deprecated
 	public Local() {}
 	
 	public Local(String rua, String bairro, String cidade, String estado, String cep) {
@@ -49,6 +50,10 @@ public class Local {
 	
 	public static void cadastrar(Local local) {
 		LocalDao.insert(local);
+	}
+	
+	public static void atualizar(Local local) {
+		LocalDao.update(local);
 	}
 	
 	

@@ -22,21 +22,21 @@ import java.util.ArrayList;
 @Tabela(nome = "contas")
 public class Conta {
 
+	@Deprecated
 	public Conta() {
 	}
 
 	public Conta(String login, String senha, NivelDeAcesso nivel) {
-
+		
 		this.login = login;
 		setSenha(senha);
 		nivelDeAcesso = nivel.ordinal();
 
 	}
 
-	// Botar id como null por default para verificação em setID(), veja o método
-	// para entender melhor
+	
 	@Coluna(nome = "cod_idConta", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
-	private Integer id = (Integer) null;
+	private Integer id;
 
 	@Coluna(nome = "dad_loginConta", tipo = Types.VARCHAR)
 	private String login;
@@ -52,6 +52,10 @@ public class Conta {
 
 	public static void Cadastrar(Conta c) {
 		ContaDao.insert(c);
+	}
+	
+	public static void Atualizar(Conta c) {
+		ContaDao.update(c);
 	}
 	
 	
@@ -119,11 +123,6 @@ public class Conta {
 	// GETTERS
 
 	public int getId() {
-
-		if (id == null) {
-			return -1;
-		}
-
 		return id;
 	}
 
