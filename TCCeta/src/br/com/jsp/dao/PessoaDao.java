@@ -38,12 +38,7 @@ public class PessoaDao {
     
     public static void insert(Pessoa obj){
         
-    	Resposta<Integer> resp = new GenericDao<Pessoa>(Pessoa.class).insert(obj);
-    	
-    	if(resp.getFuncionou()) {
-    		obj.setId(resp.getObjeto());
-    	}
-    	
+        new GenericDao<Pessoa>(Pessoa.class).insert(obj);
         
     }
     

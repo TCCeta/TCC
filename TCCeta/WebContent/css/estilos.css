@@ -8,6 +8,10 @@
 	font-family: fonteLogo;
 }
 
+.msg {
+	margin-top: 63px !important;
+}
+
 body {
 	background-image: url(../imagens/fundos/doodles.png);
 }
@@ -55,7 +59,7 @@ body {
 	.formularioLogin {
 		width: 20%;
 		margin: 0% auto;
-		margin-top: 80px 	q!import;
+		margin-top: 80px !important;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
@@ -69,8 +73,7 @@ body {
 		font-family: fonteLogo;
 		overflow: auto;
 	}
-	
-	.formularioCadastroUsuario input{
+	.formularioCadastroUsuario input {
 		float: left;
 		width: 46%;
 		margin: 2px;
@@ -129,7 +132,7 @@ body {
 	.formularioLogin {
 		width: 90%;
 		margin: 5% auto;
-		margin-top: 80px !import;
+		margin-top: 80px !important;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
@@ -193,7 +196,7 @@ body {
 	.formularioLogin {
 		width: 90%;
 		margin: 5% auto;
-		margin-top: 80px !import;
+		margin-top: 80px !important;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;

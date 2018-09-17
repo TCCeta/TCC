@@ -18,6 +18,7 @@ import java.sql.Types;
 @Tabela(nome = "pessoas")
 public class Pessoa {
 
+	@Deprecated
 	public Pessoa() {}
 	
 	public Pessoa(String nome, String cpf, String email, String telefone) {
@@ -47,12 +48,12 @@ public class Pessoa {
     	PessoaDao.insert(pessoa);
     }
     
+    public static void atualizar(Pessoa pessoa) {
+    	PessoaDao.update(pessoa);
+    }
+    
     
     //SETTERS --------------------------------------
-    
-    public void setId(int id) {
-    	this.id = id;
-    }
     
     /**
      * @param nome the nome to set

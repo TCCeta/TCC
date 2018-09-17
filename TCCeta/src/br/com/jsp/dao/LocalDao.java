@@ -38,6 +38,8 @@ public class LocalDao {
     
     public static void insert(Local obj){
         
+    	System.out.println(new GenericDao<Local>(Local.class).insert(obj).getMensagem());
+    	
         obj.setId(new GenericDao<Local>(Local.class).insert(obj).getObjeto());
         
     }

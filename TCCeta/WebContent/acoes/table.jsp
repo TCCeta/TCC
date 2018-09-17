@@ -21,7 +21,7 @@
 		estrutura = "<table class='table table-striped tabela'>";
 		estrutura += "<tr>";
 		estrutura += "<td><b>Login</b></td>";
-		estrutura += "<td><b>IdEmpresa</b></td>";
+		estrutura += "<td><b>Id Funcionário</b></td>";
 		estrutura += "<td><b>Editar</b></td>";
 		estrutura += "</tr>";
 
@@ -35,21 +35,22 @@
 
 			if (funcionario.getIdEmpresa() == numero) {
 
-			
-				
 				estrutura += "<tr>";
 				estrutura += "<td>" + funcionario.getConta().getLogin() + "</td>";
-				estrutura += "<td>" + funcionario.getConta().getId()+ "</td>";
-				estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + funcionario.getConta().getId()
+				estrutura += "<td>" + funcionario.getId()+ "</td>";
+				estrutura += "<td><a href='edicao.jsp?idFuncionario=" + funcionario.getId()
 						+ "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
 				estrutura += "</tr>";
-
+					
+				
 			}
 
 		}
 	} else {
 		estrutura = "<h1>" + resposta.getMensagem()+"</h1>";
 	}
+	
+	
 
 	out.print(estrutura);
 

@@ -19,6 +19,7 @@ import java.sql.Types;
 @Tabela(nome = "empresas")
 public class Empresa{
 	
+	@Deprecated
 	public Empresa() {}
 	
 	public Empresa(String login, String senha, String nome, String cnpj, String email, String telefone, Local local) {
@@ -72,6 +73,14 @@ public class Empresa{
 		
 		EmpresaDao.insert(empresa);
 	}
+    
+    public static void atualizar(Empresa empresa) {
+    	
+    	Conta.Atualizar(empresa.conta);
+    	Local.atualizar(empresa.local);
+    	EmpresaDao.update(empresa);
+    	
+    }
      
     
     

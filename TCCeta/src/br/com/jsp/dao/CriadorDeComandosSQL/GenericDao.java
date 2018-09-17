@@ -136,8 +136,6 @@ public class GenericDao<T> {
 
             } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
 
-            	System.out.println("Erro : " + e.getMessage());
-            	
                 return new Resposta<>("Erro : " + e.getMessage());
 
             }
@@ -288,8 +286,6 @@ public class GenericDao<T> {
 
             sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " = ?";
 
-            //System.out.println(sql);
-
             try {
 
                 PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -323,8 +319,11 @@ public class GenericDao<T> {
                     if (!wasActive) {
                         field.setAccessible(false);
                     }
+                    
 
                 }
+                
+                
 
                 boolean wasAccessible = primaryField.isAccessible();
                 if (!wasAccessible) {
@@ -337,7 +336,7 @@ public class GenericDao<T> {
                     primaryField.setAccessible(false);
                 }
 
-                //pstmt.execute();
+                pstmt.execute();
                 pstmt.close();
 
             } catch (Exception e) {

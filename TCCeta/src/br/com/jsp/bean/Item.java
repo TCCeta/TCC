@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @Tabela(nome = "itens")
 public class Item {
 
+	@Deprecated
 	public Item() {}
 	
 	public Item(LocalDate dataPerdido, Empresa empresa, Imagem imagem) {
@@ -55,6 +56,14 @@ public class Item {
 		item.idImagem = item.imagem.getId();
 		
 		ItemDao.insert(item);
+		
+	}
+	
+	public static void atualizar(Item item) {
+		
+		Imagem.atualizar(item.imagem);
+		
+		ItemDao.update(item);
 		
 	}
 	

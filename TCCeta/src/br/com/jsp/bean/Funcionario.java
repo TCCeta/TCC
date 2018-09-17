@@ -19,6 +19,7 @@ import java.sql.Types;
 @Tabela(nome = "funcionarios")
 public class Funcionario{
 
+	@Deprecated
 	public Funcionario() {}
 	
 	public Funcionario(Empresa empresa, String cpf, String login, String senha) {
@@ -55,6 +56,14 @@ public class Funcionario{
     	FuncionarioDao.insert(funcionario);
     	
     }
+    
+    public static void atualizar(Funcionario funcionario) {
+    	
+    	Conta.Atualizar(funcionario.conta);
+    	
+    	FuncionarioDao.update(funcionario);
+    	
+    }
 
     
     //SETTERS --------------------------------------
@@ -76,6 +85,15 @@ public class Funcionario{
     	if(this.conta == null) {
     		this.conta = conta;
     	}
+    }
+    
+    public void setCPF(String cpf) {
+    	
+    	//TODO Validar CPF
+    	
+    	this.cpf = cpf;
+    	
+    	
     }
     
     //GETTERS --------------------------------------

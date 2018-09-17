@@ -24,6 +24,16 @@
 					"<div class='alert alert-success msg'>Você saiu da área restrita com sucesso.   <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
 			break;
 
+		case "edicaoOk":
+			out.print(
+					"<div class='alert alert-success msg'>Usuário editado com sucesso.  <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
+			break;
+			
+		case "edicaoFalha":
+			out.print(
+					"<div class='alert alert-success msg'>Falha na edição do usuário.  <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
+			break;
+
 		case "cadastroUsuarioOk":
 			out.print(
 					"<div class='alert alert-success msg'>Usuário cadastrado com sucesso.  <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
