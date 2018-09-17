@@ -13,7 +13,7 @@ import br.com.jsp.dao.FuncionarioDao;
 import java.sql.Types;
 
 /**
- *
+ * 
  * @author 103782
  */
 @Tabela(nome = "funcionarios")
