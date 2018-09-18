@@ -59,6 +59,10 @@ public class Item {
 		
 	}
 	
+	public void cadastrar() {
+		cadastrar(this);
+	}
+	
 	public static void atualizar(Item item) {
 		
 		Imagem.atualizar(item.imagem);

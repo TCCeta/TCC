@@ -8,9 +8,13 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.EmpresaDao;
+import br.com.jsp.dao.FuncionarioDao;
+import br.com.jsp.dao.CriadorDeComandosSQL.Where;
 
 import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,16 +66,43 @@ public class Empresa{
     private int idConta;
     private Conta conta;
 
+    public void contratarFuncionario(String cpf, Conta conta) {
+    	
+    	Funcionario funcionario = new Funcionario(this, cpf, conta);
+    	
+    	funcionario.cadastrar();
+    	
+    }
     
     
-    public static void Cadastrar(Empresa empresa) {
-		Conta.Cadastrar(empresa.conta);
-		empresa.idConta = empresa.conta.getId();
+    public Resposta<ArrayList<Funcionario>> meusFuncionarios(){
+    	Resposta<ArrayList<Funcionario>> resp = FuncionarioDao.selectWhere("idEmpresa", Where.IGUAL, this.id);
+    	
+    	return resp;
+    }
+    
+    
+    public static Resposta<Integer> Cadastrar(Empresa empresa) {
+		Resposta<Integer> respConta = Conta.cadastrar(empresa.conta);
+		Resposta<Integer> respLocal =Local.cadastrar(empresa.local);
+		if(respConta.getFuncionou()) {
+			
+			if(respLocal.getFuncionou()) {
+				empresa.idConta = empresa.conta.getId();
+				empresa.idLocal = empresa.local.getId();
+				
+				Resposta<Integer> resp = EmpresaDao.insert(empresa);
+				
+				return resp;
+				
+			}else {
+				return respLocal;
+			}
+			
+		} else {
+			return respConta;
+		}
 		
-		Local.cadastrar(empresa.local);
-		empresa.idLocal = empresa.local.getId();
-		
-		EmpresaDao.insert(empresa);
 	}
     
     public static void atualizar(Empresa empresa) {

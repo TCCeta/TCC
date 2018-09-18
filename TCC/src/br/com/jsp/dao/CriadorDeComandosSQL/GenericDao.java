@@ -134,7 +134,7 @@ public class GenericDao<T> {
                 
                 
 
-            } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
+            } catch (Exception e) {
 
                 return new Resposta<>("Erro : " + e.getMessage());
 
@@ -249,7 +249,7 @@ public class GenericDao<T> {
      *
      * @param obj Objeto a receber Update
      */
-    public void update(T obj) {
+    public Resposta<Boolean> update(T obj) {
 
         String sql = "";
 
@@ -335,17 +335,19 @@ public class GenericDao<T> {
                     primaryField.setAccessible(false);
                 }
 
-                //pstmt.execute();
+                pstmt.execute();
                 pstmt.close();
+                
+                return new Resposta<Boolean>("Funcionou", true);
 
             } catch (Exception e) {
 
-                System.out.println("erro : " + e.getMessage());
+                return new Resposta<>("Erro : " + e.getMessage());
 
             }
 
         } else {
-            System.out.println("Esta classe nÃ£o tem @Tabela");
+            return new Resposta<>(typeClass.getSimpleName() + " não contém @Tabela");
         }
 
     }

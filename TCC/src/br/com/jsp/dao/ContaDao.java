@@ -36,28 +36,30 @@ public class ContaDao {
         
     }
     
-    public static void insert(Conta obj){
+    public static Resposta<Integer> insert(Conta obj){
         
-        obj.setId(new GenericDao<Conta>(Conta.class).insert(obj).getObjeto());;
-        
-    }
-    
-    public static void insert(ArrayList<Conta> lista){
-        
-        new GenericDao<Conta>(Conta.class).insert(lista);
+    	Resposta<Integer> resp = new GenericDao<Conta>(Conta.class).insert(obj);
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        return resp;
         
     }
     
-    public static void update(Conta obj){
+//    public static void insert(ArrayList<Conta> lista){
+//        
+//        new GenericDao<Conta>(Conta.class).insert(lista);
+//        
+//    }
+    
+    public static Resposta<Boolean> update(Conta obj){
         
-        new GenericDao<Conta>(Conta.class).update(obj);
+        return new GenericDao<Conta>(Conta.class).update(obj);
         
     }
     
-    public static void update(ArrayList<Conta> lista){
-        
-        new GenericDao<Conta>(Conta.class).update(lista);
-        
-    }
+//    public static void update(ArrayList<Conta> lista){
+//        
+//        new GenericDao<Conta>(Conta.class).update(lista);
+//        
+//    }
     
 }

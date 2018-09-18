@@ -7,6 +7,7 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.LocalDao;
 
 import java.sql.Types;
@@ -48,8 +49,12 @@ public class Local {
 	private String cep;
 
 	
-	public static void cadastrar(Local local) {
-		LocalDao.insert(local);
+	public static Resposta<Integer> cadastrar(Local local) {
+		return LocalDao.insert(local);
+	}
+	
+	public void cadastrar() {
+		cadastrar(this);
 	}
 	
 	public static void atualizar(Local local) {

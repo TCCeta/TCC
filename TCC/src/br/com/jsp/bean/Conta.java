@@ -50,12 +50,16 @@ public class Conta {
 	@Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
 	private int nivelDeAcesso;
 
-	public static void Cadastrar(Conta c) {
-		ContaDao.insert(c);
+	public static Resposta<Integer> cadastrar(Conta c) {
+		return ContaDao.insert(c);
 	}
 	
-	public static void Atualizar(Conta c) {
-		ContaDao.update(c);
+	public Resposta<Integer> cadastrar() {
+		return cadastrar(this);
+	}
+	
+	public static Resposta<Boolean> Atualizar(Conta c) {
+		return ContaDao.update(c);
 	}
 	
 	
@@ -105,6 +109,9 @@ public class Conta {
 		return PasswordUtils.verifyUserPassword(senhaDigitada, this.getSenha(), this.salt);
 	}
 
+	
+	
+	
 	// SETTERS
 
 	// feito deste jeito para simular campo como "final"

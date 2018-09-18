@@ -7,6 +7,7 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.PessoaDao;
 
 import java.sql.Types;
@@ -44,16 +45,24 @@ public class Pessoa {
     private String telefone;
     
     
-    public static void cadastrar(Pessoa pessoa) {
-    	PessoaDao.insert(pessoa);
+    public static Resposta<Integer> cadastrar(Pessoa pessoa) {
+    	return PessoaDao.insert(pessoa);
     }
     
-    public static void atualizar(Pessoa pessoa) {
-    	PessoaDao.update(pessoa);
+    public Resposta<Integer> cadastrar() {
+		return cadastrar(this);
+	}
+    
+    public static Resposta<Boolean> atualizar(Pessoa pessoa) {
+    	return PessoaDao.update(pessoa);
     }
     
     
     //SETTERS --------------------------------------
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
     
     /**
      * @param nome the nome to set

@@ -48,13 +48,17 @@ public class Funcionario{
     private int idConta;
     private Conta conta;
     
-    public static void cadastrar(Funcionario funcionario) {
+    private static void cadastrar(Funcionario funcionario) {
     	
-    	Conta.Cadastrar(funcionario.conta);
+    	Conta.cadastrar(funcionario.conta);
     	funcionario.idConta = funcionario.conta.getId();
     	
     	FuncionarioDao.insert(funcionario);
     	
+    }
+    
+    public void cadastrar() {
+    	cadastrar(this);
     }
     
     public static void atualizar(Funcionario funcionario) {

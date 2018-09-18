@@ -133,30 +133,32 @@ public class FuncionarioDao {
         
     }
     
-    public static void insert(Funcionario obj){
+    public static Resposta<Integer> insert(Funcionario obj){
         
-    	System.out.println(new GenericDao<Funcionario>(Funcionario.class).insert(obj).getMensagem());
+    	Resposta<Integer> resp = new GenericDao<Funcionario>(Funcionario.class).insert(obj);
     	
-        obj.setId(new GenericDao<Funcionario>(Funcionario.class).insert(obj).getObjeto());
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        
+        return resp;
         
     }
     
-    public static void insert(ArrayList<Funcionario> lista){
+    /*public static void insert(ArrayList<Funcionario> lista){
         
         new GenericDao<Funcionario>(Funcionario.class).insert(lista);
         
+    }*/
+    
+    public static Resposta<Boolean> update(Funcionario obj){
+        
+        return new GenericDao<Funcionario>(Funcionario.class).update(obj);
+        
     }
     
-    public static void update(Funcionario obj){
-        
-        new GenericDao<Funcionario>(Funcionario.class).update(obj);
-        
-    }
-    
-    public static void update(ArrayList<Funcionario> lista){
+    /*public static void update(ArrayList<Funcionario> lista){
         
         new GenericDao<Funcionario>(Funcionario.class).update(lista);
         
-    }
+    }*/
     
 }

@@ -158,28 +158,31 @@ public class UsuarioDao {
         
     }
     
-    public static void insert(Usuario obj){
+    public static Resposta<Integer> insert(Usuario obj){
         
-        new GenericDao<Usuario>(Usuario.class).insert(obj);
-        
-    }
-    
-    public static void insert(ArrayList<Usuario> lista){
-        
-        new GenericDao<Usuario>(Usuario.class).insert(lista);
+    	Resposta<Integer> resp = new GenericDao<Usuario>(Usuario.class).insert(obj);
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+    	return resp;
+    	
         
     }
     
-    public static void update(Usuario obj){
+//    public static void insert(ArrayList<Usuario> lista){
+//        
+//        new GenericDao<Usuario>(Usuario.class).insert(lista);
+//        
+//    }
+    
+    public static Resposta<Boolean> update(Usuario obj){
         
-        new GenericDao<Usuario>(Usuario.class).update(obj);
+        return new GenericDao<Usuario>(Usuario.class).update(obj);
         
     }
     
-    public static void update(ArrayList<Usuario> lista){
-        
-        new GenericDao<Usuario>(Usuario.class).update(lista);
-        
-    }
+//    public static void update(ArrayList<Usuario> lista){
+//        
+//        new GenericDao<Usuario>(Usuario.class).update(lista);
+//        
+//    }
     
 }

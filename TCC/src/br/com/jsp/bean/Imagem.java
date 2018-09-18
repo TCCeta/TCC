@@ -40,6 +40,10 @@ public class Imagem {
     	ImagemDao.insert(imagem);
     }
     
+    public void cadastrar() {
+    	cadastrar(this);
+    }
+    
     public static void atualizar(Imagem imagem) {
     	ImagemDao.update(imagem);
     }
