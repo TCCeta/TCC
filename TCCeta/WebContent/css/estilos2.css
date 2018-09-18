@@ -1,0 +1,400 @@
+/*importar fonte*/
+@font-face {
+	font-family: "fonteLogo";
+	src: url(../fontes/madeyn_sans/MadeynSans-Regular.ttf)
+}
+
+* {
+	font-family: fonteLogo;
+}
+
+.msg {
+	margin-top: 63px !important;
+}
+
+body {
+	background-image: url(../imagens/fundos/doodles.png);
+}
+
+.telaInicial {
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 80px !important;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.mapaContato {
+	width: 100%;
+	height: 40%;
+}
+
+.navbar {
+	margin-bottom: 10px;
+}
+
+/*Desktop*/
+@media only screen and (min-width: 1081px) {
+	.alert {
+		margin: 0 auto;
+		margin-bottom: 10px;
+		width: 20%;
+	}
+	#cadastroDeItem {
+		margin-left: 10px;
+		width: 40%;
+		height: 50%;
+		background-color: darkgray;
+		border-radius: 5px;
+	}
+	.divRight {
+		overflow: auto;
+	}
+	.divLeft {
+		float: left;
+		overflow: auto;
+	}
+	
+	.formulario {
+		width: 300px;
+		height: 375px;
+		background-color: darkgray;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	.formularioLogin {
+		width: 20%;
+		margin: 0% auto;
+		margin-top: 80px !important;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+		border-radius: 5px;
+	}
+	.formularioCadastroUsuario {
+		width: 50%;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+		overflow: auto;
+	}
+	.formularioCadastroUsuario input {
+		float: left;
+		width: 46%;
+		margin: 2px;
+	}
+	header h1 {
+		float: left;
+	}
+	.header {
+		float: auto;
+		overflow: auto;
+		background-color: black;
+		color: white;
+		font-family: fonteLogo;
+		float: auto;
+	}
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
+	}
+	.footer p {
+		float: left;
+		margin-top: 20px;
+	}
+	.footer a {
+		float: right;
+		margin: 1px;
+	}
+	.telaContato {
+		width: 27%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (min-width: 720px) and (max-width: 1080px) {
+	#cadastroDeItem {
+		margin-left: 10px;
+		width: 90%;
+		height: 70%;
+		background-color: darkgray;
+		border-radius: 5px;
+	}
+	.formulario {
+		width: 90%;
+		margin: 5% auto;
+		border-radius: 5px;
+		font-family: fonteLogo;
+	}
+	.formularioLogin {
+		width: 90%;
+		margin: 5% auto;
+		margin-top: 80px !important;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	.formularioCadastroUsuario {
+		width: 90%;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	header h1 {
+		float: left;
+	}
+	.header {
+		float: auto;
+		background-color: black;
+		color: white;
+		font-family: fonteLogo;
+		overflow: auto;
+	}
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
+	}
+	.footer p {
+		float: left;
+		margin-top: 20px;
+	}
+	.footer a {
+		float: right;
+		margin: 1px;
+	}
+	.telaContato {
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (max-width: 719px) {
+	#cadastroDeItem {
+		margin-left: 10px;
+		width: 90%;
+		height: 70%;
+		background-color: darkgray;
+		border-radius: 5px;
+	}
+	.formulario {
+		margin: 5% auto;
+		border-radius: 5px;
+		font-family: fonteLogo;
+	}
+	.formularioLogin {
+		width: 90%;
+		margin: 5% auto;
+		margin-top: 80px !important;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	.formularioCadastroUsuario {
+		width: 90%;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	header h1 {
+		float: left;
+	}
+	.header {
+		float: auto;
+		background-color: black;
+		color: white;
+		font-family: fonteLogo;
+		overflow: auto;
+	}
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
+	}
+	.footer p {
+		float: left;
+		margin-top: 20px;
+	}
+	.footer a {
+		float: right;
+		margin: 1px;
+	}
+	.telaContato {
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 5px;
+		margin-bottom: 15px;
+	}
+}
+
+#menu {
+	float: right;
+}
+
+#menu a {
+	margin-top: 30px;
+	font-family: fonteLogo;
+	border-radius: 5px;
+	color: black;
+	text-decoration: none;
+	padding: 5px;
+	display: inline-block;
+	color: white;
+}
+
+#inputs {
+	border-radius: 5px;
+}
+
+.fieldsete {
+	height: 300px;
+	width: 200px;
+	vertical-align: center;
+	padding: 0;
+	margin: 20px;
+	box-shadow: 0px 0px 15px;
+	display: inline-block;
+}
+
+.achados {
+	display: inline-block;
+	position: relative;
+	padding: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	text-align: center;
+}
+
+#botaoRedondo {
+	border-radius: 5px;
+	border: solid 1px #ccc;
+}
+
+.formularioCadastro {
+	width: 50%;
+	align : center;
+	border-radius: 5px;
+	padding: 10px;
+	font-family: fonteLogo;
+	overflow: auto;
+}
+
+.formularioCadsatro input {
+	float: left;
+	width: 46%;
+}
+
+.campoImagem {
+	padding: 10px;
+	overflow: auto;
+}
+
+img {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+input[type=file] {
+	padding: 10px;
+	margin-bottom: 1px;
+}
+
+.rodape {
+	overflow: auto;
+	background-color: lightgray;
+}
+
+textarea {
+	resize: none;
+	padding: 5px;
+	margin-top: 2px;
+}
+
+.data {
+	border-radius: 5px;
+}
+
+.titulosTabs {
+	margin-left: 5px;
+}
+
+.nav-tabs {
+	border-bottom: 2px solid #DDD;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	border-width: 0;
+}
+
+.nav-tabs>li>a {
+	border: none;
+	color: #666;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li>a:hover {
+	border: none;
+	color: #4285F4 !important;
+	background: transparent;
+}
+
+.nav-tabs>li>a::after {
+	content: "";
+	background: #4285F4;
+	height: 2px;
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	bottom: -1px;
+	transition: all 250ms ease 0s;
+	transform: scale(0);
+}
+
+.nav-tabs>li.active>a::after, .nav-tabs>li:hover>a::after {
+	transform: scale(1);
+}
+
+.tab-nav>li>a::after {
+	background: #21527d none repeat scroll 0% 0%;
+	color: #fff;
+}
+
+.tab-pane {
+	padding: 15px 0;
+}
+
+.tab-content {
+	padding: 20px
+}
+
+.card {
+	background: #FFF none repeat scroll 0% 0%;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+	margin-bottom: 30px;
+}
