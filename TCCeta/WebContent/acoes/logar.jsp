@@ -23,11 +23,11 @@
 	Resposta<Conta> contaLogada = Conta.logar(loginInformado, senhaInformada);
 
 	System.out.println(contaLogada.getMensagem());
-	
-	if(contaLogada.getFuncionou()){
-	
+
+	if (contaLogada.getFuncionou()) {
+
 		Conta conta = contaLogada.getObjeto();
-		
+
 		if (conta.getNivelDeAcesso() == NivelDeAcesso.Usuario) {
 
 			session.setAttribute("sessaoUsuario", conta);
@@ -75,7 +75,7 @@
 			
 			//login com funcionario
 			response.sendRedirect("../admin.jsp");
-	            
+	    
 		}else if(nivel == NivelDeAcesso.Usuario.ordinal()){
 			
 			//login com usuario

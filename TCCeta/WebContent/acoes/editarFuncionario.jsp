@@ -10,19 +10,15 @@
 
 
 <%
+	Funcionario funcionario = (Funcionario) session.getAttribute("funcionarioAlterado");
 
+	String newLogin = request.getParameter("newlogin");
+	String newSenha = request.getParameter("newSenha");
 
+	funcionario.getConta().setLogin(newLogin);
+	funcionario.getConta().setSenha(newSenha);
 
-Funcionario funcionario = (Funcionario) session.getAttribute("funcionarioAlterado");
+	Funcionario.atualizar(funcionario);
 
-String newLogin = request.getParameter("newlogin");
-String newSenha = request.getParameter("newSenha");
-
-funcionario.getConta().setLogin(newLogin);
-funcionario.getConta().setSenha(newSenha);
-
-Funcionario.atualizar(funcionario);
-
-response.sendRedirect("../empresa.jsp?msg=edicaoOk");
-
+	response.sendRedirect("../empresa.jsp?msg=edicaoOk");
 %>

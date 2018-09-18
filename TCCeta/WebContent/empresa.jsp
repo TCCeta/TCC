@@ -59,6 +59,10 @@
 				<strong> Cadastrar Administradores </strong>
 			</h1>
 
+				<form action="acoes/cadastrarAdm.jsp">
+				
+				</form>
+
 		</div>
 
 	</div>

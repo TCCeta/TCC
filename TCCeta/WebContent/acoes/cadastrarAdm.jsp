@@ -12,6 +12,7 @@
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
 <%@page import="br.com.jsp.bean.Usuario"%>
+
 <%
 	String ruaInformada = request.getParameter("rua");
 	String bairroInformado = request.getParameter("bairro");

@@ -29,9 +29,9 @@
 
 		for (Funcionario funcionario : lista) {
 
-			String ovo = "";
-			ovo += session.getAttribute("nivel");
-			int numero = Integer.parseInt(ovo);
+			String converter = "";
+			converter += session.getAttribute("nivel");
+			int numero = Integer.parseInt(converter);
 
 			if (funcionario.getIdEmpresa() == numero) {
 

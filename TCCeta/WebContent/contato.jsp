@@ -22,13 +22,13 @@
 	<form>
 		<h1>Contato</h1>
 		<p>
-			<strong>Email:</strong> tcceta@gmail.com.br
+			<strong>Email:</strong> tcc@gmail.com.br
 		</p>
 		<p>
 			<strong>Telefone:</strong> (47) 3322-3344
 		</p>
 		<p>
-			<strong>Zack e Cody:</strong> (47) 99876-5432
+			<strong>Whatsapp:</strong> (47) 99876-5432
 		</p>
 		<p>
 			<strong>Endereço:</strong> Shopping Neumarkt (piso principal) Rua 7
