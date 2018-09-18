@@ -23,12 +23,6 @@
 
 		<center>
 			<p>
-				<input type="text"  value="<% out.print(session.getAttribute("id")); %>" class="inputs" disabled>
-			</p>
-			<p>
-				<input type="text" placeholder="Nome" class="inputs">
-			</p>
-			<p>
 				<input type="text" placeholder="Usuário" class="inputs">
 			</p>
 			<p>

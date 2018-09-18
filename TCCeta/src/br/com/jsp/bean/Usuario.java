@@ -28,8 +28,11 @@ public class Usuario{
     
     public Usuario(Conta conta, Local local, Pessoa pessoa) {
     	this.conta = conta;
+    	this.idConta = conta.getId();
     	this.local = local;
-    	this.pessoa = pessoa; 
+    	this.idLocal = local.getId();
+    	this.pessoa = pessoa;
+    	this.idPessoa = pessoa.getId();
     }
     
     public static void cadastrar(Usuario usuario) {

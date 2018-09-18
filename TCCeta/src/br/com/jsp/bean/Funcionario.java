@@ -87,15 +87,6 @@ public class Funcionario{
     	}
     }
     
-    public void setCPF(String cpf) {
-    	
-    	//TODO Validar CPF
-    	
-    	this.cpf = cpf;
-    	
-    	
-    }
-    
     //GETTERS --------------------------------------
    
     public int getId() {

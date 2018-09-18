@@ -47,14 +47,6 @@ body {
 		background-color: darkgray;
 		border-radius: 5px;
 	}
-	.divRight {
-		overflow: auto;
-	}
-	.divLeft {
-		float: left;
-		overflow: auto;
-	}
-	
 	.formulario {
 		width: 300px;
 		height: 375px;
@@ -297,17 +289,10 @@ body {
 }
 
 .formularioCadastro {
-	width: 50%;
-	align : center;
+	float: left;
 	border-radius: 5px;
 	padding: 10px;
 	font-family: fonteLogo;
-	overflow: auto;
-}
-
-.formularioCadsatro input {
-	float: left;
-	width: 46%;
 }
 
 .campoImagem {

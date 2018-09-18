@@ -71,10 +71,8 @@ public class Conta {
 
 		Resposta<ArrayList<Conta>> resp = ContaDao.selectWhere("login", Where.IGUAL, loginDigitado);
 
-		System.out.println(resp.getMensagem());
-
-		System.out.println(resp.getFuncionou());
-
+		
+		
 		if (resp.getFuncionou()) {
 
 			if (resp.getObjeto().isEmpty()) {
@@ -107,12 +105,6 @@ public class Conta {
 
 	// SETTERS
 
-	public void setLogin(String login) {
-		
-		this.login = login;
-		
-	}
-	
 	// feito deste jeito para simular campo como "final"
 	public void setId(Integer id) {
 

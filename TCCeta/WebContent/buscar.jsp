@@ -33,84 +33,26 @@
 %>
 
 <main>
+<div class="topo">
+	<h1>
+		<strong> Itens Perdidos </strong>
+	</h1>
 
-<div>
+	<div>
+		<form class="navbar-form navbar-left" role="search"
+			action="acoes/search.jsp">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Local"
+					id="botaoRedondo"> <input type="text" class="form-control"
+					placeholder="Objeto" id="botaoRedondo"> <input type="data"
+					class="form-control data" name="dat_perdidoItem">
 
-	<!-- Nav tabs -->
-	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="tab-pane active"><a
-			href="#itemsPerdidos" aria-controls="itemsPerdidos" role="tab"
-			data-toggle="tab">Items Perdidos</a></li>
-		<li role="presentation" class="tab-pane"><a
-			href="#cadastroDeItem" aria-controls="cadastroDeItem" role="tab"
-			data-toggle="tab">Perdi Algo</a></li>
-	</ul>
-
-	<!-- Tab panes -->
-	<div class="tab-content">
-
-		<!--Aba de Busca-->
-
-		<div role="tabpanel" class="tab-pane active" id="itemsPerdidos">
-
-			<h1>
-				<strong> Itens Perdidos </strong>
-			</h1>
-
-			<div>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Local"
-							id="botaoRedondo"> <input type="text"
-							class="form-control" placeholder="Objeto" id="botaoRedondo">
-						<input type="data" class="form-control data"
-							name="dat_perdidoItem">
-
-					</div>
-					<button type="submit" class="btn btn-default">Buscar</button>
-				</form>
 			</div>
-		</div>
-
-		<!--Aba dos TICKETS*****************************************************************************************************-->
-		<div role="tabpanel" class="tab-pane" id="cadastroDeItem">
-			<h1>
-				<strong> Não encontrei meu item </strong>
-				<h5>Perdeu alguma coisa mas não consegue encontrar no site?</h5>
-
-			</h1>
-			<form class="formularioCadastro" action="cadastrarItemUsuario.jsp">
-				<input type="text" placeholder="Nome" class="form-control"
-					name="dad_nomeItem"><br> <input type="data"
-					class="form-control data" name="dat_perdidoItem" />
-
-				<%@ include file="acoes/listaEmpresas.jsp"%>
-
-				<textarea class="form-control" placeholder="Descrição" rows="3"
-					name="inf_descItem"></textarea>
-			</form>
-
-			<!--Imagem-->
-			<input type="file" onchange="readURL(this);"
-				accept="image/png, image/jpg, image/jpeg" />
-
-			<!--Função do preview da imagem-->
-			<h5>Tem alguma foto do item?</h5>
-
-			<img id="imagemItem" src="imagens/180.png" alt="your image"
-				class="campoImagem" />
-			<p>
-			<center>
-				<input type="submit" class="btn btn-default" value="Cadastrar">
-			</center>
-			</p>
-
-		</div>
-
+			<button type="submit" class="btn btn-default">Buscar</button>
+		</form>
 	</div>
+</div>
 
-</div>
-</div>
 
 </main>
 <%@ include file="include/rodape.jsp"%></body>

@@ -8,6 +8,10 @@
 	font-family: fonteLogo;
 }
 
+.topo {
+	margin-top: 60px !important;
+}
+
 .msg {
 	margin-top: 63px !important;
 }
@@ -41,11 +45,19 @@ body {
 		width: 20%;
 	}
 	#cadastroDeItem {
-		margin-left: 10px;
-		width: 40%;
+		margin: 0 auto !important;
+		margin-top: 60px !important; width : 40%;
 		height: 50%;
 		background-color: darkgray;
 		border-radius: 5px;
+		width: 40%
+	}
+	.divRight {
+		overflow: auto;
+	}
+	.divLeft {
+		float: left;
+		overflow: auto;
 	}
 	.formulario {
 		width: 300px;
@@ -117,8 +129,9 @@ body {
 
 @media only screen and (min-width: 720px) and (max-width: 1080px) {
 	#cadastroDeItem {
-		margin-left: 10px;
-		width: 90%;
+		margin: 0 auto !important;
+		margin-top: 60px !important;
+		width: 95%;
 		height: 70%;
 		background-color: darkgray;
 		border-radius: 5px;
@@ -182,7 +195,8 @@ body {
 
 @media only screen and (max-width: 719px) {
 	#cadastroDeItem {
-		margin-left: 10px;
+		margin: 0 auto !important;
+		margin-top: 60px !important;
 		width: 90%;
 		height: 70%;
 		background-color: darkgray;
@@ -289,10 +303,17 @@ body {
 }
 
 .formularioCadastro {
-	float: left;
+	width: 50%;
+	align: center;
 	border-radius: 5px;
 	padding: 10px;
 	font-family: fonteLogo;
+	overflow: auto;
+}
+
+.formularioCadsatro input {
+	float: left;
+	width: 46%;
 }
 
 .campoImagem {

@@ -286,6 +286,8 @@ public class GenericDao<T> {
 
             sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " = ?";
 
+            //System.out.println(sql);
+
             try {
 
                 PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -319,11 +321,8 @@ public class GenericDao<T> {
                     if (!wasActive) {
                         field.setAccessible(false);
                     }
-                    
 
                 }
-                
-                
 
                 boolean wasAccessible = primaryField.isAccessible();
                 if (!wasAccessible) {
@@ -336,7 +335,7 @@ public class GenericDao<T> {
                     primaryField.setAccessible(false);
                 }
 
-                pstmt.execute();
+                //pstmt.execute();
                 pstmt.close();
 
             } catch (Exception e) {
@@ -728,7 +727,7 @@ public class GenericDao<T> {
             {
                 
                 if(valor instanceof String){
-                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE " + valor;
+                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE '" + valor+"'";
                 }else{
                     return new Resposta<>("valor informado deve ser String quando comparacao é LIKE");
                 }
@@ -755,6 +754,8 @@ public class GenericDao<T> {
             	
                 PreparedStatement pstmt = conexao.prepareStatement(sql);
                 
+                
+                System.out.println(pstmt);
                 ResultSet rs = pstmt.executeQuery();
                 
                 while (rs.next()) {

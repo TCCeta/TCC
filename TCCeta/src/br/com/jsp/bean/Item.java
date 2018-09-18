@@ -31,6 +31,9 @@ public class Item {
 	
 	@Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private int id;
+	
+	@Coluna(nome = "dad_nomeItem", tipo = Types.VARCHAR)
+	private String nome;
 
 	@Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
 	private Date dataPerdido;
@@ -76,6 +79,10 @@ public class Item {
 	/**
 	 * @param devolvido the devolvido to set
 	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public void setDevolvido(boolean devolvido) {
 		this.devolvido = devolvido;
 	}
@@ -99,6 +106,13 @@ public class Item {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
 	}
 
 	/**

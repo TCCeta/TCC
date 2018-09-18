@@ -22,10 +22,10 @@
 
 	Resposta<Conta> contaLogada = Conta.logar(loginInformado, senhaInformada);
 
-	System.out.println(contaLogada.getMensagem());
-
 	if (contaLogada.getFuncionou()) {
 
+		
+		
 		Conta conta = contaLogada.getObjeto();
 
 		if (conta.getNivelDeAcesso() == NivelDeAcesso.Usuario) {

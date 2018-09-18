@@ -23,23 +23,8 @@
 
 <main>
 
-<div>
 
-	<!-- Nav tabs -->
-	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#cadastroDeItem"
-			aria-controls="cadastroDeItem" role="tab" data-toggle="tab">Administradores</a></li>
-		<li role="presentation"><a href="#itemsPerdidos"
-			aria-controls="itemsPerdidos" role="tab" data-toggle="tab">Cadastrar
-				Administradores</a></li>
-
-	</ul>
-
-	<!-- Tab panes -->
-	<div class="tab-content">
-
-		<!--Aba dos itens-->
-		<div role="tabpanel" class="tab-pane active" id="cadastroDeItem">
+		<div id="cadastroDeItem">
 			<h1 class="titulosTabs">
 				<strong> Administradores </strong>
 			</h1>
@@ -49,24 +34,6 @@
 		</div>
 
 
-
-
-		<!--Aba de Busca-->
-
-		<div role="tabpanel" class="tab-pane" id="itemsPerdidos">
-
-			<h1 class="titulosTabs">
-				<strong> Cadastrar Administradores </strong>
-			</h1>
-
-				<form action="acoes/cadastrarAdm.jsp">
-				
-				</form>
-
-		</div>
-
-	</div>
-</div>
 
 </main>
 <%@ include file="include/rodape.jsp"%>

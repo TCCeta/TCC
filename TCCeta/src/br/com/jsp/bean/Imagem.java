@@ -9,13 +9,19 @@ import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.dao.ImagemDao;
 
+import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Types;
 
 import javax.imageio.ImageIO;
+
+import com.sun.javafx.tk.Toolkit;
 
 /**
  *
@@ -103,5 +109,29 @@ public class Imagem {
     	return null;
     	
     }
+    
+    /*public static void main(String[] args) {
+		
+    	Image image = ImageIO.read(new File(""));
+    	BufferedImage bi = (BufferedImage) image;
+    	
+    	ByteArrayOutputStream baos = null;
+    	try {
+    	    baos = new ByteArrayOutputStream();
+    	    ImageIO.write(bi, "png", baos);
+    	} finally {
+    	    try {
+    	        baos.close();
+    	    } catch (Exception e) {
+    	    }
+    	}
+    	ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    	
+    	System.out.println();
+    	
+    	Imagem img = new Imagem();
+    	Image imagem = new
+    	
+	}*/
     
 }
