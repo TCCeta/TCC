@@ -11,8 +11,8 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <%
-    
-	Resposta<ArrayList<Funcionario>> resposta = FuncionarioDao.selectWhere("idEmpresa", Where.IGUAL, session.getAttribute("idEmpresa"));
+	Resposta<ArrayList<Funcionario>> resposta = FuncionarioDao.selectWhere("idEmpresa", Where.IGUAL,
+			session.getAttribute("idEmpresa"));
 
 	String estrutura;
 
@@ -37,22 +37,19 @@
 
 				estrutura += "<tr>";
 				estrutura += "<td>" + funcionario.getConta().getLogin() + "</td>";
-				estrutura += "<td>" + funcionario.getId()+ "</td>";
+				estrutura += "<td>" + funcionario.getId() + "</td>";
 				estrutura += "<td><a href='edicao.jsp?idFuncionario=" + funcionario.getId()
 						+ "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
 				estrutura += "</tr>";
-					
-				
+
 			}
 
 		}
+
+		estrutura += "</table>";
 	} else {
-		estrutura = "<h1>" + resposta.getMensagem()+"</h1>";
+		estrutura = "<h1>" + resposta.getMensagem() + "</h1>";
 	}
-	
-	
 
 	out.print(estrutura);
-
-	
 %>

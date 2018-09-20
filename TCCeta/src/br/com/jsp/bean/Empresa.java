@@ -83,6 +83,14 @@ public class Empresa{
     }
      
     
+    public void cadastrarFuncionario(String cpf, String login, String senha) {
+    	
+    	Funcionario f = new Funcionario(this, cpf, login, senha);
+    	
+    	f.cadastrar();
+    	
+    }
+    
     
     //SETTERS
     

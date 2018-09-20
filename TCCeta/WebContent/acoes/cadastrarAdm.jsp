@@ -14,26 +14,37 @@
 <%@page import="br.com.jsp.bean.Usuario"%>
 
 <%
-	String ruaInformada = request.getParameter("rua");
-	String bairroInformado = request.getParameter("bairro");
-	String cidadeInformada = request.getParameter("cidade");
-	String estadoInformado = request.getParameter("estado");
-	String cepInformado = request.getParameter("cep");
-	String nomeInformado = request.getParameter("cad_nome");
-	String cpfInformado = request.getParameter("dat_cpfUsuario");
-	String emailInformado = request.getParameter("dad_email");
-	String telefoneInformado = request.getParameter("telefone");
-	String usuarioInformado = request.getParameter("cad_user");
-	String senhaInformado = request.getParameter("cad_senha");
+	
+	String userAdm = request.getParameter("userAdm");
+	String pswdAdm = request.getParameter("pswdAdm");
+	String cpfAdm = request.getParameter("cpfAdm");
 
 	
 	//usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado
 	
-	Usuario u = new Usuario(usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado, new Local(ruaInformada, bairroInformado, cidadeInformada, estadoInformado, cepInformado));
- 			
 
-	Usuario.cadastrar(u);
-	response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioOk");
+	Resposta<ArrayList<Empresa>> resp = EmpresaDao.selectWhere("id", Where.IGUAL, session.getAttribute("idEmpresa"));
+	
+	Empresa e = null;
+	
+	if(resp.getFuncionou()){
+		if(resp.getObjeto().isEmpty()){
+			//erro
+			response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha");
+		}else{
+		 	e = resp.getObjeto().get(0);
+			e.cadastrarFuncionario(cpfAdm, userAdm, pswdAdm);
+			response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioOk");
+		}
+	}else{
+		//erro
+		response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha1");
+	}
+	
+	
+	
+	
+
 // 	boolean funcionou = Usuario.cadastrar(u);
 
 // 	if (funcionou) {

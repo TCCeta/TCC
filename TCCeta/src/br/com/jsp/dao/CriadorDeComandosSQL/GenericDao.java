@@ -335,7 +335,7 @@ public class GenericDao<T> {
                     primaryField.setAccessible(false);
                 }
 
-                //pstmt.execute();
+                pstmt.execute();
                 pstmt.close();
 
             } catch (Exception e) {

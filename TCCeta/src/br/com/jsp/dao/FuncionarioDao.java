@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -135,8 +136,6 @@ public class FuncionarioDao {
     
     public static void insert(Funcionario obj){
         
-    	System.out.println(new GenericDao<Funcionario>(Funcionario.class).insert(obj).getMensagem());
-    	
         obj.setId(new GenericDao<Funcionario>(Funcionario.class).insert(obj).getObjeto());
         
     }

@@ -24,14 +24,16 @@
 <main>
 
 
-		<div id="cadastroDeItem">
-			<h1 class="titulosTabs">
-				<strong> Administradores </strong>
-			</h1>
-	<%@ include file="acoes/table.jsp" %>
-
-
-		</div>
+<div id="cadastroDeItem">
+	<h1 class="titulosTabs">
+		<strong> Administradores</strong>
+	</h1>
+	
+	<%@ include file="acoes/table.jsp"%>
+		<button onclick="location.href = 'cadastroAdm.jsp';"
+			class="float-left submit-button">Cadastrar administrador</button>
+	
+</div>
 
 
 

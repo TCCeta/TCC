@@ -112,6 +112,12 @@ public class Conta {
 
 	}
 
+	public void setLogin(String login) {
+		
+		this.login = login;
+		
+	}
+	
 	public void setSenha(String senha) {
 		this.salt = PasswordUtils.getSalt(10);
 		String senhaSegura = PasswordUtils.generateSecurePassword(senha, salt);

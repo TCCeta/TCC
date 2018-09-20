@@ -6,6 +6,7 @@
 <!DOCTYPE>
 <html>
 <head>
+<link rel="icon" href="../imagens/if_svg_2093656.png">
 
 <!-- Bootstrap -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +37,7 @@
 						<span class=sr-only>Toggle navigation</span> <span class=icon-bar></span>
 						<span class=icon-bar></span> <span class=icon-bar></span>
 					</button>
-					<a href="index.jsp" class=navbar-brand>What is Missing</a>
+					<a href="index.jsp" class=navbar-brand >What is Missing</a>
 				</div>
 				<div class="collapse navbar-collapse"
 					id=bs-example-navbar-collapse-9>
@@ -67,7 +68,7 @@
 						<span class=sr-only>Toggle navigation</span> <span class=icon-bar></span>
 						<span class=icon-bar></span> <span class=icon-bar></span>
 					</button>
-					<a href="index.jsp" class=navbar-brand>What is Missing</a>
+					<a href="index.jsp" class=navbar-brand >What is Missing</a>
 				</div>
 				<div class="collapse navbar-collapse"
 					id=bs-example-navbar-collapse-9>
@@ -101,7 +102,7 @@
 						<span class=sr-only>Toggle navigation</span> <span class=icon-bar></span>
 						<span class=icon-bar></span> <span class=icon-bar></span>
 					</button>
-					<a href="index.jsp" class=navbar-brand>What is Missing</a>
+					<a href="index.jsp" class=navbar-brand >What is Missing</a>
 				</div>
 				<div class="collapse navbar-collapse"
 					id=bs-example-navbar-collapse-9>
@@ -133,7 +134,7 @@
 						<span class=sr-only>Toggle navigation</span> <span class=icon-bar></span>
 						<span class=icon-bar></span> <span class=icon-bar></span>
 					</button>
-					<a href="index.jsp" class=navbar-brand>What is Missing</a>
+					<a href="index.jsp" class=navbar-brand >What is Missing</a>
 				</div>
 				<div class="collapse navbar-collapse"
 					id=bs-example-navbar-collapse-9>

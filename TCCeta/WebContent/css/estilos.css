@@ -1,12 +1,14 @@
 /*importar fonte*/
 @font-face {
 	font-family: "fonteLogo";
-	src: url(../fontes/madeyn_sans/MadeynSans-Regular.ttf)
+	src: url(../fontes/gravity/Gravity-Book.otf)
 }
 
 * {
 	font-family: fonteLogo;
 }
+
+
 
 .topo {
 	margin-top: 60px !important;
@@ -46,7 +48,8 @@ body {
 	}
 	#cadastroDeItem {
 		margin: 0 auto !important;
-		margin-top: 60px !important; width : 40%;
+		margin-top: 60px !important;
+		width: 40%;
 		height: 50%;
 		background-color: darkgray;
 		border-radius: 5px;
@@ -78,12 +81,13 @@ body {
 		border-radius: 5px;
 	}
 	.formularioCadastroUsuario {
-		width: 50%;
+		margin-top: 60px !important;
 		margin: 5% auto;
 		border-radius: 5px;
 		padding: 10px;
 		font-family: fonteLogo;
 		overflow: auto;
+		width: 27%;
 	}
 	.formularioCadastroUsuario input {
 		float: left;
@@ -119,11 +123,12 @@ body {
 		margin: 1px;
 	}
 	.telaContato {
-		width: 27%;
+		margin-top: 60px !important;
 		margin: 0 auto;
 		text-align: center;
 		border-radius: 5px;
 		margin-bottom: 15px;
+		width: 27%;
 	}
 }
 
@@ -151,6 +156,7 @@ body {
 		font-family: fonteLogo;
 	}
 	.formularioCadastroUsuario {
+		margin-top: 60px !important;
 		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
@@ -185,6 +191,7 @@ body {
 		margin: 1px;
 	}
 	.telaContato {
+		margin-top: 60px !important;
 		width: 90%;
 		margin: 0 auto;
 		text-align: center;
@@ -216,6 +223,7 @@ body {
 		font-family: fonteLogo;
 	}
 	.formularioCadastroUsuario {
+		margin-top: 60px !important;
 		width: 90%;
 		margin: 5% auto;
 		border-radius: 5px;
@@ -250,6 +258,7 @@ body {
 		margin: 1px;
 	}
 	.telaContato {
+		margin-top: 60px !important;
 		width: 90%;
 		margin: 0 auto;
 		text-align: center;

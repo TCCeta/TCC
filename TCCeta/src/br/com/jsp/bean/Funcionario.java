@@ -31,7 +31,6 @@ public class Funcionario{
 		this.idEmpresa = empresa.getId();
 		this.cpf = cpf;
 		this.conta = conta;
-		this.idConta = conta.getId();
 	}
 	
     @Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
@@ -55,6 +54,10 @@ public class Funcionario{
     	
     	FuncionarioDao.insert(funcionario);
     	
+    }
+    
+    public void cadastrar() {
+    	cadastrar(this);
     }
     
     public static void atualizar(Funcionario funcionario) {
