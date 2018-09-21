@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; UTF-8"
+<%-- <%@ page language="java" contentType="text/html; UTF-8"
 	pageEncoding="UTF-8"%>
 
 <!-- Incluir a verificação de sessão -->
@@ -68,4 +68,4 @@
 	<%
 		}
 		}
-	%>
+	%> --%>

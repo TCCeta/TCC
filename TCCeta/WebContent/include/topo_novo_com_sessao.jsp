@@ -19,7 +19,7 @@
 
 
 
-<meta charse="UTF-8">
+<meta charset="UTF-8">
 <title>What is missing</title>
 </head>
 <body>

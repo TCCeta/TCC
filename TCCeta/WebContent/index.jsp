@@ -20,9 +20,8 @@
 </section>
 
 </main>
-
+	
 <%@ include file="include/rodape.jsp"%>
-
 
 </body>
 

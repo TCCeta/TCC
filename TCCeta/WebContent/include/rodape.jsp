@@ -1,4 +1,4 @@
-
+<footer>
 <link href="css/estilos.css" rel="stylesheet">
 
 <!-- Footer -->
