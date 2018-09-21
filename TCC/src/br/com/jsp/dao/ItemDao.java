@@ -6,6 +6,7 @@
 package br.com.jsp.dao;
 
 import br.com.jsp.bean.Empresa;
+import br.com.jsp.bean.Funcionario;
 import br.com.jsp.bean.Imagem;
 import br.com.jsp.bean.Item;
 import br.com.jsp.bean.response.Resposta;
@@ -28,10 +29,10 @@ public class ItemDao {
 			return new Resposta<>("Erro : " + respItem.getMensagem());
 		}
 
-		Resposta<ArrayList<Empresa>> respEmpresa = new GenericDao<Empresa>(Empresa.class).selectAll();
+		Resposta<ArrayList<Funcionario>> respFuncionario = new GenericDao<Funcionario>(Funcionario.class).selectAll();
 
-		if (!respEmpresa.getFuncionou()) {
-			return new Resposta<>("Erro : " + respEmpresa.getMensagem());
+		if (!respFuncionario.getFuncionou()) {
+			return new Resposta<>("Erro : " + respFuncionario.getMensagem());
 		}
 
 		Resposta<ArrayList<Imagem>> respImg = new GenericDao<Imagem>(Imagem.class).selectAll();
@@ -41,15 +42,15 @@ public class ItemDao {
 		}
 
 		for (Item item : respItem.getObjeto()) {
-			for (Empresa empresa : respEmpresa.getObjeto()) {
-				if(empresa.getId() == item.getIdEmpresa()) {
-					item.setEmpresa(empresa);
+			for (Funcionario funcionario : respFuncionario.getObjeto()) {
+				if(funcionario.getId() == item.getIdFuncionario()) {
+					item.setFuncionario(funcionario);
 					break;
 				}
 			}
 			
 			for (Imagem imagem : respImg.getObjeto()) {
-				if(imagem.getId() == item.getIdEmpresa()) {
+				if(imagem.getId() == item.getIdImagem()) {
 					item.setImagem(imagem);
 					break;
 				}
@@ -68,10 +69,10 @@ public class ItemDao {
 			return new Resposta<>("Erro : " + respItem.getMensagem());
 		}
 
-		Resposta<ArrayList<Empresa>> respEmpresa = new GenericDao<Empresa>(Empresa.class).selectAll();
+		Resposta<ArrayList<Funcionario>> respFuncionario = new GenericDao<Funcionario>(Funcionario.class).selectAll();
 
-		if (!respEmpresa.getFuncionou()) {
-			return new Resposta<>("Erro : " + respEmpresa.getMensagem());
+		if (!respFuncionario.getFuncionou()) {
+			return new Resposta<>("Erro : " + respFuncionario.getMensagem());
 		}
 
 		Resposta<ArrayList<Imagem>> respImg = new GenericDao<Imagem>(Imagem.class).selectAll();
@@ -81,15 +82,15 @@ public class ItemDao {
 		}
 
 		for (Item item : respItem.getObjeto()) {
-			for (Empresa empresa : respEmpresa.getObjeto()) {
-				if(empresa.getId() == item.getIdEmpresa()) {
-					item.setEmpresa(empresa);
+			for (Funcionario funcionario : respFuncionario.getObjeto()) {
+				if(funcionario.getId() == item.getIdFuncionario()) {
+					item.setFuncionario(funcionario);
 					break;
 				}
 			}
 			
 			for (Imagem imagem : respImg.getObjeto()) {
-				if(imagem.getId() == item.getIdEmpresa()) {
+				if(imagem.getId() == item.getIdImagem()) {
 					item.setImagem(imagem);
 					break;
 				}
@@ -108,10 +109,10 @@ public class ItemDao {
 			return new Resposta<>("Erro : " + respItem.getMensagem());
 		}
 
-		Resposta<ArrayList<Empresa>> respEmpresa = new GenericDao<Empresa>(Empresa.class).selectAll();
+		Resposta<ArrayList<Funcionario>> respFuncionario = new GenericDao<Funcionario>(Funcionario.class).selectAll();
 
-		if (!respEmpresa.getFuncionou()) {
-			return new Resposta<>("Erro : " + respEmpresa.getMensagem());
+		if (!respFuncionario.getFuncionou()) {
+			return new Resposta<>("Erro : " + respFuncionario.getMensagem());
 		}
 
 		Resposta<ArrayList<Imagem>> respImg = new GenericDao<Imagem>(Imagem.class).selectAll();
@@ -121,15 +122,15 @@ public class ItemDao {
 		}
 
 		for (Item item : respItem.getObjeto()) {
-			for (Empresa empresa : respEmpresa.getObjeto()) {
-				if(empresa.getId() == item.getIdEmpresa()) {
-					item.setEmpresa(empresa);
+			for (Funcionario funcionario : respFuncionario.getObjeto()) {
+				if(funcionario.getId() == item.getIdFuncionario()) {
+					item.setFuncionario(funcionario);
 					break;
 				}
 			}
 			
 			for (Imagem imagem : respImg.getObjeto()) {
-				if(imagem.getId() == item.getIdEmpresa()) {
+				if(imagem.getId() == item.getIdImagem()) {
 					item.setImagem(imagem);
 					break;
 				}
@@ -140,27 +141,15 @@ public class ItemDao {
 		
 	}
 
-	public static void insert(Item obj) {
+	public static Resposta<Integer> insert(Item obj) {
 
-		new GenericDao<Item>(Item.class).insert(obj);
-
-	}
-
-	public static void insert(ArrayList<Item> lista) {
-
-		new GenericDao<Item>(Item.class).insert(lista);
+		return new GenericDao<Item>(Item.class).insert(obj);
 
 	}
 
-	public static void update(Item obj) {
+	public static Resposta<Boolean> update(Item obj) {
 
-		new GenericDao<Item>(Item.class).update(obj);
-
-	}
-
-	public static void update(ArrayList<Item> lista) {
-
-		new GenericDao<Item>(Item.class).update(lista);
+		return new GenericDao<Item>(Item.class).update(obj);
 
 	}
 

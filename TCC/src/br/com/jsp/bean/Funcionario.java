@@ -8,9 +8,12 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.FuncionarioDao;
 
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 
@@ -69,6 +72,29 @@ public class Funcionario{
     	
     }
 
+    
+    
+    public Resposta<Boolean> cadastrarItem(String dataStr, Imagem imagem, String nome, String descricao) {
+    	
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    	
+    	LocalDate data;
+    	
+    	try {
+    		data = LocalDate.parse(dataStr, formatter);
+		} catch (Exception e) {
+			return new Resposta<>("Data Inválida");
+		}
+    	
+    	
+    	Item item = new Item(data, this, imagem, nome, descricao);
+    	
+    	item.cadastrar();
+    	
+    }
+    
+    
+    
     
     //SETTERS --------------------------------------
     

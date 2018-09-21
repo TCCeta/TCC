@@ -44,22 +44,10 @@ public class ContaDao {
         
     }
     
-//    public static void insert(ArrayList<Conta> lista){
-//        
-//        new GenericDao<Conta>(Conta.class).insert(lista);
-//        
-//    }
-    
     public static Resposta<Boolean> update(Conta obj){
         
         return new GenericDao<Conta>(Conta.class).update(obj);
         
     }
-    
-//    public static void update(ArrayList<Conta> lista){
-//        
-//        new GenericDao<Conta>(Conta.class).update(lista);
-//        
-//    }
     
 }

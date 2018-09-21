@@ -75,9 +75,6 @@ public class Conta {
 
 		Resposta<ArrayList<Conta>> resp = ContaDao.selectWhere("login", Where.IGUAL, loginDigitado);
 
-		System.out.println(resp.getMensagem());
-
-		System.out.println(resp.getFuncionou());
 
 		if (resp.getFuncionou()) {
 

@@ -7,6 +7,7 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.ItemDao;
 
 import java.sql.Date;
@@ -23,15 +24,29 @@ public class Item {
 	@Deprecated
 	public Item() {}
 	
-	public Item(LocalDate dataPerdido, Empresa empresa, Imagem imagem) {
+	public Item(LocalDate dataPerdido, Funcionario funcionario, Imagem imagem, String nome, String descricao) {
 		
 		this.setDataPerdido(dataPerdido);
+		this.funcionario = funcionario;
+		this.idFuncionario = funcionario.getId();
+		this.nome = nome;
+		this.descricao = descricao;
+		
+		this.imagem = imagem;
 		
 	}
 	
 	@Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private int id;
 
+	
+	@Coluna(nome = "TODO BOTAR NOME", tipo = Types.VARCHAR)
+	private String nome;
+	
+	
+	@Coluna(nome = "TODO BOTAR NOME", tipo = Types.VARCHAR)
+	public String descricao;
+	
 	@Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
 	private Date dataPerdido;
 
@@ -41,26 +56,29 @@ public class Item {
 	@Coluna(nome = "dad_devolvidoItem", tipo = Types.BOOLEAN)
 	private boolean devolvido;
 
-	@Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER)
-	private int idEmpresa;
-	private Empresa empresa;
+	@Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER)
+	private int idFuncionario;
+	private Funcionario funcionario;
 
+	
 	@Coluna(nome = "cod_idImagem", tipo = Types.INTEGER)
 	private int idImagem;
 	private Imagem imagem;
 
 	
-	public static void cadastrar(Item item) {
+	public static Resposta<Integer> cadastrar(Item item) {
 		
-		Imagem.cadastrar(item.imagem);
-		item.idImagem = item.imagem.getId();
+		//Imagem.cadastrar(item.imagem);
+		//item.idImagem = item.imagem.getId();
 		
-		ItemDao.insert(item);
+		item.idImagem = 1;
+		
+		return ItemDao.insert(item);
 		
 	}
 	
-	public void cadastrar() {
-		cadastrar(this);
+	public Resposta<Integer> cadastrar() {
+		return cadastrar(this);
 	}
 	
 	public static void atualizar(Item item) {
@@ -88,9 +106,14 @@ public class Item {
 		this.imagem = imagem;
 	}
 	
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setFuncionario(Funcionario funcionario) {
+		
+		this.funcionario = funcionario;
+		this.idFuncionario = funcionario.getId();
+		
 	}
+	
+	
 
 	public void setDataPerdido(LocalDate data) {
 		this.dataPerdido = Date.valueOf(data);
@@ -119,12 +142,14 @@ public class Item {
 		return devolvido;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
+	public Funcionario getFuncionario() {
+		
+		return this.funcionario;
+		
 	}
 	
-	public int getIdEmpresa() {
-		return idEmpresa;
+	public int getIdFuncionario() {
+		return this.idFuncionario;
 	}
 	
 	public Imagem getImagem() {
