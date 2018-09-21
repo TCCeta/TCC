@@ -38,11 +38,17 @@
 			out.print(
 					"<div class='alert alert-success msg'>Usuário cadastrado com sucesso.  <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
 			break;
+		case "cadastroUsuarioFalhaCampo":
+			out.print(
+					"<div class='alert alert-danger msg'>Preencha todos os campos.  <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
+			break;
 
 		case "cadastroUsuarioFalha":
 			out.print(
 					"<div class='alert alert-danger msg'>Falha no cadastro de usuário.   <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span></button></div>");
 		}
+		
+		
 
 	}
 %>

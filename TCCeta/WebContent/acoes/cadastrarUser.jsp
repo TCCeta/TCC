@@ -28,11 +28,15 @@
 	
 	//usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado
 	
-	Usuario u = new Usuario(usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado, new Local(ruaInformada, bairroInformado, cidadeInformada, estadoInformado, cepInformado));
- 			
+	if((ruaInformada.equals("")) || (bairroInformado.equals("")) || (cidadeInformada.equals("")) || (estadoInformado.equals("")) || (cepInformado.equals("")) || (nomeInformado.equals("")) || (cpfInformado.equals("")) || (emailInformado.equals("")) || (telefoneInformado.equals("")) || (usuarioInformado.equals("")) || (senhaInformado.equals(""))){
+		response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioFalhaCampo");
+	}else{
+	
+	Usuario u = new Usuario(usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado, new Local(ruaInformada, bairroInformado, cidadeInformada, estadoInformado, cepInformado));		
 
 	Usuario.cadastrar(u);
 	response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioOk");
+	}
 // 	boolean funcionou = Usuario.cadastrar(u);
 
 // 	if (funcionou) {

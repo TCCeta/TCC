@@ -11,6 +11,8 @@
 <%@page import="br.com.jsp.bean.Funcionario"%>
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
+<%@ include file="include/topo_novo_com_sessao.jsp"%>
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/preview.js"></script>
 
@@ -20,8 +22,7 @@
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 <script type="text/javascript" src="js/mascaras.js"></script>
-<%@ include file="include/topo_novo_com_sessao.jsp"%>
-<%@ include file="include/rodape.jsp"%>
+
 
 <%
 	/*
@@ -43,7 +44,7 @@
 			action="acoes/search.jsp">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Local"
-					id="botaoRedondo"> <input type="text" class="form-control"
+					id="botaoRedondo" name = "nomeEmpresa"> <input type="text" class="form-control"
 					placeholder="Objeto" id="botaoRedondo"> <input type="data"
 					class="form-control data" name="dat_perdidoItem">
 

@@ -18,7 +18,7 @@
 
 	if (resposta.getFuncionou()) {
 
-		estrutura = "<table class='table table-striped tabela'>";
+		estrutura = "<table class='table table-striped'>";
 		estrutura += "<tr>";
 		estrutura += "<td><b>Login</b></td>";
 		estrutura += "<td><b>Id Funcionário</b></td>";

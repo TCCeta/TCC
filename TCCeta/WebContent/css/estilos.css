@@ -8,8 +8,6 @@
 	font-family: fonteLogo;
 }
 
-
-
 .topo {
 	margin-top: 60px !important;
 }
@@ -130,6 +128,12 @@ body {
 		margin-bottom: 15px;
 		width: 27%;
 	}
+	.tabela {
+		margin: 0 auto !important;
+		margin-top: 60px !important;
+		width: 40%;
+		border-radius: 5px;
+	}
 }
 
 @media only screen and (min-width: 720px) and (max-width: 1080px) {
@@ -198,6 +202,13 @@ body {
 		border-radius: 5px;
 		margin-bottom: 15px;
 	}
+	
+	.tabela {
+		margin: 0 auto !important;
+		margin-top: 60px !important;
+		width: 90%;
+		border-radius: 5px;
+	}
 }
 
 @media only screen and (max-width: 719px) {
@@ -264,6 +275,13 @@ body {
 		text-align: center;
 		border-radius: 5px;
 		margin-bottom: 15px;
+	}
+	
+	.tabela {
+		margin: 0 auto !important;
+		margin-top: 60px !important;
+		width: 90%;
+		border-radius: 5px;
 	}
 }
 

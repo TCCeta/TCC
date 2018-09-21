@@ -2,16 +2,9 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.mask.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.js"></script>
-<script>
-	$(document).ready(function() {
-
-		$('.cpf').mask('000.000.000-00', {
-			placeholder : "___.___.___-__"
-		});
-
-	});
-</script>
+<script type="text/javascript" src="js/mascaras.js"></script>
 <main>
 
 <div class="jumbotron formularioCadastroUsuario">

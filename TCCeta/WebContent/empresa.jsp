@@ -24,7 +24,7 @@
 <main>
 
 
-<div id="cadastroDeItem">
+<div class="jumbotron tabela">
 	<h1 class="titulosTabs">
 		<strong> Administradores</strong>
 	</h1>

@@ -14,46 +14,44 @@
 <%@page import="br.com.jsp.bean.Usuario"%>
 
 <%
-	
 	String userAdm = request.getParameter("userAdm");
 	String pswdAdm = request.getParameter("pswdAdm");
 	String cpfAdm = request.getParameter("cpfAdm");
 
-	
 	//usuarioInformado, senhaInformado, nomeInformado, cpfInformado, emailInformado, telefoneInformado
-	
 
-	Resposta<ArrayList<Empresa>> resp = EmpresaDao.selectWhere("id", Where.IGUAL, session.getAttribute("idEmpresa"));
-	
+	Resposta<ArrayList<Empresa>> resp = EmpresaDao.selectWhere("id", Where.IGUAL,
+			session.getAttribute("idEmpresa"));
+
 	Empresa e = null;
-	
-	if(resp.getFuncionou()){
-		if(resp.getObjeto().isEmpty()){
+
+	if ((userAdm.equals("")) || (userAdm.equals(" ")) || (pswdAdm.equals("")) || (pswdAdm.equals(" "))) {
+		response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalhaCampo");
+	} else {
+		if (resp.getFuncionou()) {
+			if (resp.getObjeto().isEmpty()) {
+				//erro
+				response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha");
+			} else {
+				e = resp.getObjeto().get(0);
+				e.cadastrarFuncionario(cpfAdm, userAdm, pswdAdm);
+				response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioOk");
+			}
+		} else {
 			//erro
-			response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha");
-		}else{
-		 	e = resp.getObjeto().get(0);
-			e.cadastrarFuncionario(cpfAdm, userAdm, pswdAdm);
-			response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioOk");
+			response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha1");
 		}
-	}else{
-		//erro
-		response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha1");
 	}
-	
-	
-	
-	
 
-// 	boolean funcionou = Usuario.cadastrar(u);
+	// 	boolean funcionou = Usuario.cadastrar(u);
 
-// 	if (funcionou) {
+	// 	if (funcionou) {
 
-// 		response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioOk");
+	// 		response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioOk");
 
-// 	} else {
+	// 	} else {
 
-// 		response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioFalha");
+	// 		response.sendRedirect("../cadastro.jsp?msg=cadastroUsuarioFalha");
 
-// 	}
+	// 	}
 %>

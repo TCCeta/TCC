@@ -13,16 +13,19 @@
 		<h1 class="titulosTabs">
 			<center>Cadastro</center>
 		</h1>
-			
-				<input type="text" placeholder="Usuário" class="form-control" id="inputs" name="userAdm">
-	
-				<input type="text" class="cpf form-control" id="inputs" name="cpfAdm">
-		
-				<input type="password" placeholder="Senha" class="form-control" id="inputs" name="pswdAdm">
-		
-				<input type="submit" class="btn btn-default" id="inputs" value="Cadastrar">
-		
+
+		<input type="text" placeholder="Usuário" class="form-control"
+			id="inputs" name="userAdm"> <input type="text"
+			class="cpf form-control" id="inputs" name="cpfAdm"> <input
+			type="password" placeholder="Senha" class="form-control" id="inputs"
+			name="pswdAdm"> <input type="submit" class="btn btn-default"
+			id="inputs" value="Cadastrar">
+
 	</form>
+	<center>
+		<button onclick="location.href = 'empresa.jsp';"
+			class="btn btn-default">Cancelar</button>
+	</center>
 </div>
 
 </main>
