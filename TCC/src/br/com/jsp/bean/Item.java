@@ -45,7 +45,7 @@ public class Item {
 	
 	
 	@Coluna(nome = "TODO BOTAR NOME", tipo = Types.VARCHAR)
-	public String descricao;
+	private String descricao;
 	
 	@Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
 	private Date dataPerdido;
@@ -163,5 +163,7 @@ public class Item {
 	public LocalDate getDataPerdido() {
 		return dataPerdido.toLocalDate();
 	}
+	
+	
 
 }
