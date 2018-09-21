@@ -11,6 +11,8 @@
 <%@page import="br.com.jsp.bean.Funcionario"%>
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
+<link href="../css/estilos.css" rel="stylesheet">
+<%@ include file="buscar.jsp" %>
 
 <script>
 	var imgCarregada = document.createElement('image')
@@ -19,30 +21,43 @@
 	document.querySelector("#imagem").src = imgCarregada
 </script>
 
-
 <%
 	String nome = request.getParameter("item");
 
-	Resposta<ArrayList<Item>> resposta = ItemDao.selectWhere("nome", Where.LIKE, nome);
+		Resposta<ArrayList<Item>> resposta2 = ItemDao.selectWhere("nome", Where.LIKE, "%"+nome+"%");
 
-	String estrutura = "";
+	String estrutura2 = "";
 
-	ArrayList<Item> lista = resposta.getObjeto();
-	estrutura += "<div class =\"margin\">";
+	if(resposta2.getFuncionou()){
+		System.out.println("funcionou");
+	}else{
+		System.out.println(resposta2.getMensagem());
+	}
+	
+	ArrayList<Item> lista2 = resposta2.getObjeto();
+	
+	System.out.println();
+	//JOptionPane.showMessageDialog(null, resposta2.getMensagem());	
+	estrutura2 += "<div class =\"margin\">";
 
-	for (Item item : lista) {
+	for (Item item : lista2) {
 		
 		/*<div class="buscar">			
 					<h4>BATATA</h4>
 					<img src="imagens/180.png">
 		</div>*/
-		estrutura += "<div class=\"buscar\"";
-		//estrutura += "<h4>"+item.getNome()+"</h4>";
-		estrutura += "<h4>BATATA</h4>";
-		estrutura += "<img src=\"imagens/180.png\">";
+		estrutura2 += "<form class=\"buscar\" action=\"informacao.jsp\">";
+		estrutura2 += "<input type='text' name='item' value='"+item.getId()+"'>";
+		estrutura2 += "<div class=\"form\">";
+		estrutura2 += "<h4>"+item.getNome().toUpperCase()+"</h4>";
+		estrutura2 += "<img src=\"imagens/180.png\">";
+		estrutura2 += "</div>";
+		estrutura2 += "<button type=\"submit\">Informações</button>";
+		estrutura2 += "</form>";
 
 	}
-	estrutura += "</div>";
+	
+	estrutura2 += "</div>";
 
-	out.print(estrutura);
+	out.print(estrutura2);
 %>

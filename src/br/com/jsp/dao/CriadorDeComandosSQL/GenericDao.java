@@ -727,7 +727,7 @@ public class GenericDao<T> {
             {
                 
                 if(valor instanceof String){
-                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE " + valor;
+                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE '" + valor+"'";
                 }else{
                     return new Resposta<>("valor informado deve ser String quando comparacao é LIKE");
                 }
@@ -754,6 +754,8 @@ public class GenericDao<T> {
             	
                 PreparedStatement pstmt = conexao.prepareStatement(sql);
                 
+                
+                System.out.println(pstmt);
                 ResultSet rs = pstmt.executeQuery();
                 
                 while (rs.next()) {

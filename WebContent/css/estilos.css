@@ -384,20 +384,81 @@ textarea {
 .margin {
 	position: absolute;
 	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 .buscar {
 	float: left;
 	position: relative;
 	margin-left: 40px;
-	margin-top: 50px;
+	margin-top: 30px;
 	border: solid 1px black;
+	background-color: gray;
 }
 
-.buscar>h4{
+.buscar>input{
+	visibility: hidden;
+	height: 5px;
+}
+
+.form>h4{
+	position: relative;
 	text-align: center;
 }
 
-.buscar>img{
-	border: solid 1px black;
+.form>img{
+	position: relative;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.buscar>button{
+	position: relative;
+	margin-top: 10px;
+	margin-left: 63px;
+	margin-bottom: 10px;
+	float: left;
+}
+
+.informacao{
+	position: relative;
+	margin-top: 100px;
+	margin-left: 100px;
+	margin-right: 100px;
+	border: solid 1px gray;
+	background-color: gray;
+	width: 50%;
+	margin-left: 25%;
+}
+
+.infoForm{
+	position: relative;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.infoForm>h4{
+	position:relative;
+	text-align: center;
+	font-size: 25px;
+}
+
+.infoForm>img{
+	position:relative;
+	margin-left: 38%;
+}
+
+.infoForm>h5{
+	position:relative;
+	text-align: center;
+	font-size: 14px;
+}
+
+.infoForm>h6{
+	position:relative;
+	text-align: center;
+	margin: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 18px;
 }

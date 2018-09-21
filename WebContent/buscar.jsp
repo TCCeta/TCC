@@ -59,7 +59,7 @@
 			</h1>
 
 			<div>
-				<form class="navbar-form navbar-left" role="search" action="acoes/search.jsp">
+				<form class="navbar-form navbar-left" role="search" action="search.jsp">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Local"
 							id="botaoRedondo"> <input type="text"
@@ -70,6 +70,7 @@
 					</div>
 					<button type="submit" class="btn btn-default">Buscar</button>
 				</form>
+				
 			</div>
 			
 			<!--  <div class = "margin">
