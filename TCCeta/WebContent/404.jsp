@@ -7,7 +7,7 @@
 <title>Página não ecnontrada!</title>
 </head>
 <body>
- <img src="imagens/bbe.png" width= "1200" height="700">
-
+ <img src="imagens/bbe.png" width= "600" height="350">
+<center><h1>Página não encontrada! Voltar para a <a href="index.jsp">página inicial.</a></h1></center>
 </body>
 </html>
