@@ -11,7 +11,7 @@
 	<h1>Bem vindo!</h1>
 
 	<p>No nosso site você poderá buscar pelos seus pertences perdidos
-		em algum evento!</p>
+		em algum evento! </p>
 
 	<p>Caso você não tenha uma conta clique em "Cadastrar-se", caso
 		contrario faça login e procure o que perdeu!</p>
