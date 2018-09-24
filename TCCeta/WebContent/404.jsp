@@ -9,6 +9,6 @@
 
 </head>
 <body>
-<center><h1>Página não encontrada! Voltar para a <a href="index.jsp">página inicial.</a></h1></center>
+<center><h1>Página não encontrada! Voltar para a <a href="../index.jsp">página inicial.</a></h1></center>
 </body>
 </html>

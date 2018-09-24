@@ -26,6 +26,21 @@ public class Empresa{
 		this(new Conta(login, senha, NivelDeAcesso.Empresa), nome, cnpj, email, telefone, local);
 	}
 	
+	
+	public String pString() {
+		String s = "";
+		
+		s += "\nid = " + id;
+		s += "\nnome = " + nome;
+		s += "\ncnpj = " + cnpj;
+		s += "\nemail = " + email;
+		s += "\ntelefone = " + idLocal;
+		s += "\nidConta = " + idConta;
+		
+		return s;
+	}
+	
+	
 	public Empresa(Conta conta, String nome, String cnpj, String email, String telefone, Local local) {
 		this.conta = conta;
 		this.idConta = conta.getId();

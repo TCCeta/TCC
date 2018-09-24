@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-	$('.data').mask('00/00/0000', {
-		placeholder : "__/__/____"
+	$('.data').mask('0000-00-00', {
+		placeholder : "____-__-__"
 	});
 
 });

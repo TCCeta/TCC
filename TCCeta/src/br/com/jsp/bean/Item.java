@@ -29,6 +29,22 @@ public class Item {
 		
 	}
 	
+	public String pString(){
+		
+		String s = "";
+		
+		s += "\nid = " + id;
+		s += "\nnome = " + nome;
+		s += "\ndataPerdido = " + dataPerdido;
+		s += "\ndataDevolvido = " + dataDevolvido;
+		s += "\ndataDevolvido = " + dataDevolvido;
+		s += "\nidEmpresa = " + idEmpresa;
+		s += "\nidImagem = " + idImagem;
+		
+		return s;
+		
+	}
+	
 	@Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private int id;
 	

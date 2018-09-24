@@ -1,3 +1,5 @@
+<%@page import="br.com.jsp.dao.EmpresaDao"%>
+<%@page import="br.com.jsp.bean.Empresa"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="br.com.jsp.dao.ItemDao"%>
 <%@page import="br.com.jsp.bean.Item"%>
@@ -13,7 +15,6 @@
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
 <link href="../css/estilos.css" rel="stylesheet">
-<%@ include file="../buscar.jsp" %>
 
 <script>
 	var imgCarregada = document.createElement('image')
@@ -25,7 +26,7 @@
 <%
 	String nome = request.getParameter("item");
 
-	String nomeEmpresa = request.getParameter("nomeEsmpresa");
+	String nomeEmpresa = request.getParameter("nomeEmpresa");
 	
 	String data = request.getParameter("dat_perdidoItem");
 
@@ -39,35 +40,49 @@
 		
 		Resposta<ArrayList<Empresa>> respEmpresa = EmpresaDao.selectWhere("nome", Where.LIKE, "%"+nomeEmpresa+"%");
 		
+		ArrayList<Item> lista = new ArrayList<>(); 
+		
 		if(!respostaNome.getFuncionou()){
 			//erro no select do nome
 			String estrutura999 = "<h2>Este item não foi encontrado</h2>";
 			out.print(estrutura999);
+			out.print(respostaNome.getMensagem());
 		}else if(!respostaData.getFuncionou()){
 			//erro no select da data
 			String estrutura999 = "<h2>Item não encontrado nessa data</h2>";
 			out.print(estrutura999);
 		}else if(!respEmpresa.getFuncionou()){
-			String estrutura999 = "<h2>Item não encontrado nessa empresa</h2>";
+			String estrutura999 = "<h2>Item não encontrado neste local</h2>";
 			out.print(estrutura999);
 		}else{
 			
 			if(respostaNome.getObjeto().isEmpty() || respostaData.getObjeto().isEmpty() || respEmpresa.getObjeto().isEmpty() ){
-				//nenhum item foi encontrado
-			}else{
+
+				out.print(respostaNome.getObjeto().isEmpty());
+				out.print(respostaData.getObjeto().isEmpty());
+				out.print(respEmpresa.getObjeto().isEmpty());
 				
-				ArrayList<Item> lista = new ArrayList<>(); 
+			out.print("Item não encontrado.");
+			
+			}else{
 				
 				for(Item item : respostaNome.getObjeto()){
 				
+					System.out.println(item.pString());
+					
 					boolean encontrou = false;
 					
 					for(Item item2 : respostaData.getObjeto()){
 						
+						System.out.println(item2.pString());
 						
 						for(Empresa empresa : respEmpresa.getObjeto()){
 							
+							System.out.println(empresa.pString());
+							
 							if(item.equals(item2) && item.getEmpresa().equals(empresa)){
+								
+								System.out.println("sim");
 								
 								lista.add(item);
 								encontrou = true;
@@ -96,19 +111,10 @@
 		
 		
 	String estrutura2 = "";
-
-	if(resposta2.getFuncionou()){
-		System.out.println("funcionou");
-	}else{
-		System.out.println(resposta2.getMensagem());
-	}
 	
-	ArrayList<Item> lista2 = resposta2.getObjeto();
-	
-	System.out.println();
 	estrutura2 += "<div class =\"margin\">";
 
-	for (Item item : lista2) {
+	for (Item item : lista) {
 		
 
 		estrutura2 += "<form class=\"buscar\" action=\"informacao.jsp\">";

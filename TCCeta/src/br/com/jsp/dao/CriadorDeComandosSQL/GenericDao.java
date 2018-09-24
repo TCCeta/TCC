@@ -29,778 +29,605 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class GenericDao<T> {
 
-    final String nomeBanco = "newtccnew";
+	final String nomeBanco = "newtccnew";
 
-    private final Connection conexao;
+	private final Connection conexao;
 
-    final Class<T> typeClass;
+	final Class<T> typeClass;
 
-    /**
-     * Construtor
-     * @param clazz Classe.class a ser usada nos comandos
-     */
-    public GenericDao(Class<T> clazz) {
-        typeClass = clazz;
-        conexao = new ConnectionFactory(nomeBanco).obterConexao();
-    }
+	/**
+	 * Construtor
+	 * 
+	 * @param clazz Classe.class a ser usada nos comandos
+	 */
+	public GenericDao(Class<T> clazz) {
+		typeClass = clazz;
+		conexao = new ConnectionFactory(nomeBanco).obterConexao();
+	}
 
-    /**
-     * Gerador de comandos INSERT para um s√≥ Objeto
-     *
-     * @param obj Objeto a ser inserido
-     */
-    public Resposta<Integer> insert(T obj) {
+	/**
+	 * Gerador de comandos INSERT para um s√≥ Objeto
+	 *
+	 * @param obj Objeto a ser inserido
+	 */
+	public Resposta<Integer> insert(T obj) {
 
-        //Prepara uma ArrayList
-        ArrayList<Field> fieldsUsados = new ArrayList<>();
+		// Prepara uma ArrayList
+		ArrayList<Field> fieldsUsados = new ArrayList<>();
 
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
+		if (typeClass.isAnnotationPresent(Tabela.class)) {
 
-            Tabela tab = (Tabela) typeClass.getAnnotation(Tabela.class);
+			Tabela tab = (Tabela) typeClass.getAnnotation(Tabela.class);
 
-            String sql = "";
+			String sql = "";
 
-            sql += "\nINSERT INTO " + tab.nome() + " (";
+			sql += "\nINSERT INTO " + tab.nome() + " (";
 
-            for (Field field : typeClass.getDeclaredFields()) {
+			for (Field field : typeClass.getDeclaredFields()) {
 
-                if (field.isAnnotationPresent(Coluna.class)) {
+				if (field.isAnnotationPresent(Coluna.class)) {
 
-                    fieldsUsados.add(field);
-                    Coluna col = (Coluna) field.getAnnotation(Coluna.class);
+					fieldsUsados.add(field);
+					Coluna col = (Coluna) field.getAnnotation(Coluna.class);
 
-                    sql += col.nome() + ",";
+					sql += col.nome() + ",";
 
-                }
+				}
 
-            }
+			}
 
-            sql = sql.substring(0, sql.length() - 1) + ") \nVALUES\n    (";
+			sql = sql.substring(0, sql.length() - 1) + ") \nVALUES\n    (";
 
-            for (Field fieldsUsado : fieldsUsados) {
+			for (Field fieldsUsado : fieldsUsados) {
 
-                sql += "?,";
+				sql += "?,";
 
-            }
+			}
 
-            sql = sql.substring(0, sql.length() - 1) + ")";
+			sql = sql.substring(0, sql.length() - 1) + ")";
 
-            try {
+			PreparedStatement pstmt = null;
+			
+			try {
 
-                PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                for (int i = 0; i < fieldsUsados.size(); i++) {
+				for (int i = 0; i < fieldsUsados.size(); i++) {
 
-                    Field field = fieldsUsados.get(i);
+					Field field = fieldsUsados.get(i);
 
-                    Coluna col = field.getAnnotation(Coluna.class);
+					Coluna col = field.getAnnotation(Coluna.class);
 
-                    boolean wasAccessible = field.isAccessible();
-                    if (!wasAccessible) {
-                        field.setAccessible(true);
-                    }
+					boolean wasAccessible = field.isAccessible();
+					if (!wasAccessible) {
+						field.setAccessible(true);
+					}
 
-                    if (col.autoGerado()) {
+					if (col.autoGerado()) {
 
-                        pstmt.setNull(i + 1, col.tipo());
+						pstmt.setNull(i + 1, col.tipo());
 
-                    } else if (col.tipo() == Types.BLOB) {
+					} else if (col.tipo() == Types.BLOB) {
 
-                        pstmt.setBlob(i + 1, (Blob) field.get(obj));
+						pstmt.setBlob(i + 1, (Blob) field.get(obj));
 
-                    } else {
+					} else {
 
-                        pstmt.setObject(i + 1, field.get(obj), col.tipo());
+						pstmt.setObject(i + 1, field.get(obj), col.tipo());
 
-                    }
+					}
 
-                    if (!wasAccessible) {
-                        field.setAccessible(false);
-                    }
+					if (!wasAccessible) {
+						field.setAccessible(false);
+					}
 
-                }
+				}
 
-                pstmt.execute();
+				pstmt.execute();
 
-                ResultSet rs = pstmt.getGeneratedKeys();
-                
-                rs.next();
-                
-                int generatedKey = rs.getInt(1);
-                
-                pstmt.close();
-                
-                return new Resposta<Integer>("OperaÁ„o efetuada com sucesso", generatedKey);
-                
-                
+				ResultSet rs = pstmt.getGeneratedKeys();
 
-            } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
+				rs.next();
 
-                return new Resposta<>("Erro : " + e.getMessage());
+				int generatedKey = rs.getInt(1);
 
-            }
+				pstmt.close();
 
-        } else {
-        	return new Resposta<>(typeClass.getSimpleName() + " n„o contÈm @Tabela");
-        }
-    }
+				return new Resposta<Integer>("OperaÁ„o efetuada com sucesso", generatedKey);
 
-    /**
-     * Gerador de comandos INSERT para uma ArrayList de Objetos
-     *
-     * @param lista a Lista de objetos a ser inserida
-     */
-    public void insert(ArrayList<T> lista) {
+			} catch (Exception e) {
 
-        ArrayList<Field> fieldsUsados = new ArrayList<>();
+				return new Resposta<>("Erro : " + e.getMessage());
 
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
+			} finally {
+				
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 
-            Tabela ann = (Tabela) typeClass.getAnnotation(Tabela.class);
+		} else {
+			return new Resposta<>(typeClass.getSimpleName() + " n„o contÈm @Tabela");
+		}
+	}
 
-            String sql = "";
+	
 
-            sql = "\nINSERT INTO " + ann.nome() + " (";
+	/**
+	 * Gerador de comandos UPDATE para um √∫nico objeto, ir√° mudar no banco o item
+	 * que tiver o ID do objeto
+	 *
+	 * @param obj Objeto a receber Update
+	 */
+	public Resposta<Boolean> update(T obj) {
 
-            for (Field field : typeClass.getDeclaredFields()) {
+		String sql = "";
 
-                if (field.isAnnotationPresent(Coluna.class)) {
+		if (typeClass.isAnnotationPresent(Tabela.class)) {
 
-                    fieldsUsados.add(field);
-                    Coluna col = (Coluna) field.getAnnotation(Coluna.class);
+			Tabela tab = (Tabela) typeClass.getAnnotation(Tabela.class);
 
-                    sql += col.nome() + ",";
+			sql = "UPDATE " + tab.nome() + " SET ";
 
-                }
+			ArrayList<Field> fieldsUsados = new ArrayList<>();
 
-            }
+			Field primaryField = null;
 
-            sql = sql.substring(0, sql.length() - 1) + ") \nVALUES\n";
+			for (Field field : typeClass.getDeclaredFields()) {
 
-            for (T object : lista) {
+				if (field.isAnnotationPresent(Coluna.class)) {
 
-                sql += "    (";
+					Coluna col = field.getAnnotation(Coluna.class);
 
-                for (Field fieldsUsado : fieldsUsados) {
+					if (!col.autoGerado()) {
 
-                    sql += "?,";
+						fieldsUsados.add(field);
+						sql += col.nome() + " = ?,";
 
-                }
+					} else if (col.primaryKey()) {
 
-                sql = sql.substring(0, sql.length() - 1) + "),\n";
+						primaryField = field;
 
-            }
-            sql = sql.substring(0, sql.length() - 2);
+					}
 
-            int idx = 0;
+				}
 
-            try {
+			}
 
-                PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome()
+					+ " = ?";
 
-                for (T t : lista) {
+			// System.out.println(sql);
 
-                    for (Field field : fieldsUsados) {
+			PreparedStatement pstmt = null;
+			
+			try {
 
-                        Coluna col = field.getAnnotation(Coluna.class);
+				pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                        boolean wasAccessible = field.isAccessible();
-                        if (!wasAccessible) {
-                            field.setAccessible(true);
-                        }
+				for (int i = 0; i < fieldsUsados.size(); i++) {
 
-                        if (col.autoGerado()) {
+					Field field = fieldsUsados.get(i);
 
-                            pstmt.setNull(idx + 1, col.tipo());
+					Coluna col = field.getAnnotation(Coluna.class);
 
-                        } else if (col.tipo() == Types.BLOB) {
+					int index = i + 1;
 
-                            pstmt.setBlob(idx + 1, (Blob) field.get(t));
+					Boolean wasActive = field.isAccessible();
+					if (!wasActive) {
+						field.setAccessible(true);
+					}
 
-                        } else {
+					if (col.primaryKey()) {
+						index = fieldsUsados.size() + 1;
 
-                            pstmt.setObject(idx + 1, field.get(t), col.tipo());
+						pstmt.setNull(index, col.tipo());
 
-                        }
+					} else if (col.tipo() == Types.BLOB) {
 
-                        idx++;
+						pstmt.setBlob(index, (Blob) field.get(obj));
 
-                    }
+					} else {
+						pstmt.setObject(index, field.get(obj), col.tipo());
+					}
 
-                }
+					if (!wasActive) {
+						field.setAccessible(false);
+					}
 
-                System.out.println(pstmt);
+				}
 
-                pstmt.execute();
-                pstmt.close();
+				boolean wasAccessible = primaryField.isAccessible();
+				if (!wasAccessible) {
+					primaryField.setAccessible(true);
+				}
 
-            } catch (Exception e) {
-                
-                System.out.println(e.getMessage());
-                
-            }
+				pstmt.setObject(fieldsUsados.size() + 1, primaryField.get(obj),
+						primaryField.getAnnotation(Coluna.class).tipo());
 
-        }
-    }
+				if (!wasAccessible) {
+					primaryField.setAccessible(false);
+				}
 
-    /**
-     * Gerador de comandos UPDATE para um √∫nico objeto, ir√° mudar no banco o
-     * item que tiver o ID do objeto
-     *
-     * @param obj Objeto a receber Update
-     */
-    public void update(T obj) {
+				pstmt.execute();
+				pstmt.close();
 
-        String sql = "";
+				return new Resposta<Boolean>("Funcionou", true);
 
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
+			} catch (Exception e) {
 
-            Tabela tab = (Tabela) typeClass.getAnnotation(Tabela.class);
+				return new Resposta<>("Erro : " + e.getMessage());
 
-            sql = "UPDATE " + tab.nome() + " SET ";
+			} finally {
+				
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 
-            ArrayList<Field> fieldsUsados = new ArrayList<>();
+		} else {
+			return new Resposta<>(typeClass.getSimpleName() + " n„o contÈm @Tabela");
+		}
 
-            Field primaryField = null;
+	}
 
-            for (Field field : typeClass.getDeclaredFields()) {
+	
+	/**
+	 * Gerador de comando SELECT * [...]
+	 *
+	 * @return lista dos objetos obtidos a partir do SELECT
+	 */
+	public Resposta<ArrayList<T>> selectAll() {
 
-                if (field.isAnnotationPresent(Coluna.class)) {
+		String sql = "";
 
-                    Coluna col = field.getAnnotation(Coluna.class);
+		if (typeClass.isAnnotationPresent(Tabela.class)) {
 
-                    if (!col.autoGerado()) {
+			Tabela tab = typeClass.getAnnotation(Tabela.class);
 
-                        fieldsUsados.add(field);
-                        sql += col.nome() + " = ?,";
+			sql = "SELECT * FROM " + tab.nome();
 
-                    } else if (col.primaryKey()) {
+			ArrayList<T> list = new ArrayList<>();
 
-                        primaryField = field;
+			Statement pstmt = null;
+			
+			try {
 
-                    }
+				pstmt = conexao.createStatement();
 
-                }
+				ResultSet rs = pstmt.executeQuery(sql);
 
-            }
+				while (rs.next()) {
 
-            sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " = ?";
+					T obj = typeClass.newInstance();
 
-            //System.out.println(sql);
+					for (Field field : typeClass.getDeclaredFields()) {
 
-            try {
+						if (field.isAnnotationPresent(Coluna.class)) {
 
-                PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+							boolean wasAccessible = field.isAccessible();
 
-                for (int i = 0; i < fieldsUsados.size(); i++) {
+							if (!wasAccessible) {
+								field.setAccessible(true);
+							}
 
-                    Field field = fieldsUsados.get(i);
+							if (field.getAnnotation(Coluna.class).tipo() == Types.BLOB) {
+								field.set(obj, rs.getBlob(field.getAnnotation(Coluna.class).nome()));
+							} else {
+								field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
+							}
 
-                    Coluna col = field.getAnnotation(Coluna.class);
+							if (!wasAccessible) {
 
-                    int index = i + 1;
+								field.setAccessible(false);
 
-                    Boolean wasActive = field.isAccessible();
-                    if (!wasActive) {
-                        field.setAccessible(true);
-                    }
+							}
 
-                    if (col.primaryKey()) {
-                        index = fieldsUsados.size() + 1;
+						}
 
-                        pstmt.setNull(index, col.tipo());
+					}
 
-                    } else if (col.tipo() == Types.BLOB) {
+					list.add(obj);
 
-                        pstmt.setBlob(index, (Blob) field.get(obj));
+				}
 
-                    } else {
-                        pstmt.setObject(index, field.get(obj), col.tipo());
-                    }
+				pstmt.close();
 
-                    if (!wasActive) {
-                        field.setAccessible(false);
-                    }
+				return new Resposta<ArrayList<T>>("OperaÁ„o feita com sucesso", list);
 
-                }
+			} catch (Exception e) {
 
-                boolean wasAccessible = primaryField.isAccessible();
-                if (!wasAccessible) {
-                    primaryField.setAccessible(true);
-                }
+				return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
 
-                pstmt.setObject(fieldsUsados.size() + 1, primaryField.get(obj), primaryField.getAnnotation(Coluna.class).tipo());
+			} finally {
+				
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 
-                if (!wasAccessible) {
-                    primaryField.setAccessible(false);
-                }
+		} else {
+			return new Resposta<ArrayList<T>>(typeClass.getSimpleName() + " n„o contÈm Annotation @Tabela");
+		}
 
-                pstmt.execute();
-                pstmt.close();
+	}
 
-            } catch (Exception e) {
+	/**
+	 * Gerador de comando SELECT * [...] ORDER BY campo
+	 * 
+	 * @param campo nome do campo pelo qual o resultado deve ser ordenado
+	 * @param ordem Ascendente ou Descendente
+	 * @return lista dos objetos obtidos a partir do SELECT
+	 *
+	 */
+	public Resposta<ArrayList<T>> selectAll(String campo, Order ordem) {
 
-                System.out.println("erro : " + e.getMessage());
+		String sql = null;
 
-            }
+		Field f = null;
+		try {
+			f = typeClass.getDeclaredField(campo);
+		} catch (Exception e) {
+			return new Resposta<>("Campo " + campo + " n√£o existe em " + typeClass.getSimpleName());
+		}
+		if (!f.isAnnotationPresent(Coluna.class)) {
+			return new Resposta<ArrayList<T>>("Field apresentado n√£o cont√©m @Coluna", null, false);
+		}
 
-        } else {
-            System.out.println("Esta classe n√£o tem @Tabela");
-        }
+		if (typeClass.isAnnotationPresent(Tabela.class)) {
 
-    }
+			Tabela tab = typeClass.getAnnotation(Tabela.class);
 
-    /**
-     * Gerador de comandos UPDATE para uma lista de objetos, ir√° mudar no banco
-     * os itens que tiverem os IDs dos objetos na lista
-     *
-     * @param lista
-     */
-    public void update(ArrayList<T> lista) {
+			if (null == ordem) {
+				return new Resposta<ArrayList<T>>("Ordem n√£o foi informada", null, false);
+			} else {
+				switch (ordem) {
+				case ASC:
+					sql = "SELECT * FROM " + tab.nome() + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " ASC";
+					break;
+				case DESC:
+					sql = "SELECT * FROM " + tab.nome() + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " DESC";
+					break;
+				}
+			}
 
-        String sql = null;
+			ArrayList<T> list = new ArrayList<>();
 
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
+			Statement pstmt = null;
+			
+			try {
 
-            Tabela tab = (Tabela) typeClass.getAnnotation(Tabela.class);
+				pstmt = conexao.createStatement();
 
-            sql = "UPDATE " + tab.nome() + " SET ";
+				System.out.println(pstmt);
 
-            ArrayList<Field> fieldsUsados = new ArrayList<>();
-            Field primaryField = null;
-            Coluna primaryColuna = null;
+				ResultSet rs = pstmt.executeQuery(sql);
 
-            for (Field field : typeClass.getDeclaredFields()) {
+				while (rs.next()) {
 
-                if (field.isAnnotationPresent(Coluna.class)) {
-                    if (field.getAnnotation(Coluna.class).primaryKey()) {
-                        primaryField = field;
-                        primaryColuna = field.getAnnotation(Coluna.class);
-                    }
-                }
-            }
+					T obj = typeClass.newInstance();
 
-            try {
+					for (Field field : typeClass.getDeclaredFields()) {
 
-                for (Field field : typeClass.getDeclaredFields()) {
+						if (field.isAnnotationPresent(Coluna.class)) {
 
-                    if (field.isAnnotationPresent(Coluna.class)) {
+							boolean wasAccessible = field.isAccessible();
 
-                        Coluna col = field.getAnnotation(Coluna.class);
+							if (!wasAccessible) {
+								field.setAccessible(true);
+							}
 
-                        if (!col.primaryKey()) {
+							field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
 
-                            fieldsUsados.add(field);
+							if (!wasAccessible) {
+								field.setAccessible(false);
+							}
 
-                            sql += col.nome() + " = CASE " + primaryColuna.nome();
+						}
 
-                            for (T t : lista) {
+					}
 
-                                //System.out.println(field.get(t));
+					list.add(obj);
 
-                                sql += " WHEN ?  THEN ?";
+				}
 
-                            }
+				pstmt.close();
 
-                            sql += " ELSE NULL END,";
-                        }
+				return new Resposta<ArrayList<T>>("OperaÁ„o efetuada com sucess", list);
 
-                    }
+			} catch (Exception e) {
 
-                }
+				return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
 
-                sql = sql.substring(0, sql.length() - 1);
+			} finally {
+				
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 
-                sql += " WHERE " + primaryColuna.nome() + " IN (";
+		}
 
-                for (T t : lista) {
+		return new Resposta<ArrayList<T>>("Classe n√£o tem @Tabela");
 
-                    sql += "?,";
+	}
 
-                }
+	/**
+	 * Criador de comandos SELECT com WHERE
+	 * 
+	 * @param campo      campo a ser usado no WHERE
+	 * @param comparacao tipo de verifica√ß√£o do WHERE, como Where.IGUAL,
+	 *                   Where.MAIOR, etc...
+	 * @param valor      valor a ser usado para verifica√ß√£o do Where
+	 * @return ArrayList com os objetos retornados pelo SELECT
+	 */
+	public Resposta<ArrayList<T>> selectWhere(String campo, Where comparacao, Object valor) {
 
-                sql = sql.substring(0, sql.length() - 1) + ")";
+		String sql = "";
 
-                PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		if (typeClass.isAnnotationPresent(Tabela.class)) {
 
-                for (int i = 0; i < fieldsUsados.size(); i++) {
+			Tabela tab = typeClass.getAnnotation(Tabela.class);
 
-                    Field field = fieldsUsados.get(i);
+			Field fieldEscolhido;
 
-                    Coluna col = field.getAnnotation(Coluna.class);
+			sql = "SELECT * FROM " + tab.nome() + " WHERE ";
 
-                    for (int j = 0; j < lista.size(); j++) {
+			try {
+				fieldEscolhido = typeClass.getDeclaredField(campo);
+			} catch (Exception e) {
+				return new Resposta<>("Campo " + campo + " n√£o existe na classe " + typeClass.getSimpleName());
+			}
 
-                        T t = lista.get(j);
+			if (!fieldEscolhido.isAnnotationPresent(Coluna.class)) {
+				return new Resposta<>("Campo " + campo + " n√£o tem @Coluna");
+			}
 
-                        pstmt.setObject(i * lista.size() * 2 + 2 * j + 1, primaryField.get(t), primaryColuna.tipo());
+			if (comparacao == Where.IGUAL) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " = ?";
+			} else if (comparacao == Where.DIFERENTE) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " != ?";
+			} else if (comparacao == Where.MAIOR) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " > ?";
+			} else if (comparacao == Where.MENOR) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " < ?";
+			} else if (comparacao == Where.MAIOR_IGUAL) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " >= ?";
+			} else if (comparacao == Where.MENOR_IGUAL) {
+				sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " <= ?";
+			} else if (comparacao == Where.BETWEEN) {
+				if (valor.getClass().isArray()) {
+					try {
+						Object[] inf = (Object[]) valor;
+						sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " BETWEEN ? AND ?";
+					} catch (Exception e) {
+						return new Resposta<>("3" + e.getMessage());
+					}
+				} else {
+					return new Resposta<>("valor informado deve ser Array quando comparacao √© BETWEEN");
+				}
+			} else if (comparacao == Where.NOT_BETWEEN) {
+				if (valor.getClass().isArray()) {
+					try {
+						Object[] inf = (Object[]) valor;
+						sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT BETWEEN ? AND ?";
+					} catch (Exception e) {
+						return new Resposta<>("2" + e.getMessage());
+					}
+				} else {
+					return new Resposta<>("valor informado deve ser Array quando comparacao √© NOT_BETWEEN");
+				}
+			} else if (comparacao == Where.LIKE) {
 
-                        if (col.tipo() == Types.BLOB) {
+				if (valor instanceof String) {
+					sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE ?";
+				} else {
+					return new Resposta<>("valor informado deve ser String quando comparacao √© LIKE");
+				}
 
-                            pstmt.setBlob(i * lista.size() * 2 + 2 * j + 2, (Blob) field.get(t));
+			} else if (comparacao == Where.NOT_LIKE) {
 
-                        } else {
+				if (valor instanceof String) {
+					sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT LIKE ?";
+				} else {
+					return new Resposta<>("valor informado deve ser String quando comparacao √© NOT LIKE");
+				}
 
-                            pstmt.setObject(i * lista.size() * 2 + 2 * j + 2, field.get(t), col.tipo());
-                        }
+			} else {
+				return new Resposta<>("comparacao invalida");
+			}
 
-                    }
+			ArrayList<T> list = new ArrayList<>();
 
-                }
+			PreparedStatement pstmt = null;
+			
+			try {
 
-                for (int i = 0; i < lista.size(); i++) {
+				pstmt = conexao.prepareStatement(sql);
 
-                    T t = lista.get(i);
+				if (comparacao == Where.IGUAL || comparacao == Where.DIFERENTE || comparacao == Where.MAIOR
+						|| comparacao == Where.MENOR || comparacao == Where.MAIOR_IGUAL
+						|| comparacao == Where.MENOR_IGUAL || comparacao == Where.LIKE
+						|| comparacao == Where.NOT_LIKE) {
+					pstmt.setObject(1, valor, fieldEscolhido.getAnnotation(Coluna.class).tipo());
+				} else if (comparacao == Where.BETWEEN || comparacao == Where.NOT_BETWEEN) {
 
-                    pstmt.setObject(fieldsUsados.size() * lista.size() * 2 + i + 1, primaryField.get(t), primaryColuna.tipo());
+					try {
+						Object[] inf = (Object[]) valor;
+						
+						pstmt.setObject(1, inf[0], fieldEscolhido.getAnnotation(Coluna.class).tipo());
+						pstmt.setObject(2, inf[1], fieldEscolhido.getAnnotation(Coluna.class).tipo());
+						
+					} catch (Exception e) {
+						return new Resposta<>("3" + e.getMessage());
+					}
 
-                }
+				}
 
-                System.out.println(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 
-                //pstmt.execute();
-                
-                pstmt.close();
+				while (rs.next()) {
 
-            } catch (Exception e) {
+					T obj = typeClass.newInstance();
 
-                System.out.println(e.getMessage());
+					for (Field field : typeClass.getDeclaredFields()) {
 
-            }
+						if (field.isAnnotationPresent(Coluna.class)) {
 
-        } else {
-            System.out.println("Esaa classe n√£o tem @Tabela");
-        }
+							boolean wasAccessible = field.isAccessible();
 
-    }
+							if (!wasAccessible) {
+								field.setAccessible(true);
+							}
 
-    /**
-     * Gerador de comando SELECT * [...]
-     *
-     * @return lista dos objetos obtidos a partir do SELECT
-     */
-    public Resposta<ArrayList<T>> selectAll() {
+							field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
 
-        String sql = "";
+							if (!wasAccessible) {
+								field.setAccessible(false);
+							}
 
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
+						}
 
-            Tabela tab = typeClass.getAnnotation(Tabela.class);
+					}
 
-            sql = "SELECT * FROM " + tab.nome();
+					list.add(obj);
 
-            ArrayList<T> list = new ArrayList<>();
+				}
 
-            try {
+				
 
-                Statement pstmt = conexao.createStatement();
+				return new Resposta<ArrayList<T>>("OperaÁ„o efetuada com sucesso", list);
 
-                ResultSet rs = pstmt.executeQuery(sql);
+			} catch (Exception e) {
 
-                while (rs.next()) {
+				return new Resposta<ArrayList<T>>(e.getMessage());
 
-                    T obj = typeClass.newInstance();
+			} finally {
+				
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 
-                    for (Field field : typeClass.getDeclaredFields()) {
+		}
 
-                        if (field.isAnnotationPresent(Coluna.class)) {
+		return null;
 
-                            boolean wasAccessible = field.isAccessible();
-
-                            
-                            
-                            if (!wasAccessible) {
-                                field.setAccessible(true);
-                            }
-                            
-	                            if(field.getAnnotation(Coluna.class).tipo() == Types.BLOB) {
-	                            	field.set(obj, rs.getBlob(field.getAnnotation(Coluna.class).nome()));
-	                            }else {
-	                            	field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
-	                            }
-	                            
-                            if (!wasAccessible) {
-                            	
-                                field.setAccessible(false);
-                                
-                            }
-                            
-                        }
-
-                    }
-
-                    list.add(obj);
-
-                }
-
-                pstmt.close();
-                
-                return new Resposta<ArrayList<T>>("OperaÁ„o feita com sucesso", list);
-
-            } catch (Exception e) {
-
-            	return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
-
-            }
-
-
-        } else {
-        	return new Resposta<ArrayList<T>>(typeClass.getSimpleName() + " n„o contÈm Annotation @Tabela");
-        }
-
-
-    }
-
-    /**
-     * Gerador de comando SELECT * [...] ORDER BY campo
-     * 
-     * @param campo nome do campo pelo qual o resultado deve ser ordenado
-     * @param ordem Ascendente ou Descendente
-     * @return lista dos objetos obtidos a partir do SELECT
-     *
-     */
-    public Resposta<ArrayList<T>> selectAll(String campo, Order ordem) {
-
-        String sql = null;
-        
-        Field f = null;
-        try{
-            f = typeClass.getDeclaredField(campo);
-        }catch(Exception e){
-            return new Resposta<>("Campo " + campo + " n√£o existe em " + typeClass.getSimpleName());
-        }
-        if (!f.isAnnotationPresent(Coluna.class)) {
-            return new Resposta<ArrayList<T>>("Field apresentado n√£o cont√©m @Coluna", null, false);
-        }
-
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
-
-            Tabela tab = typeClass.getAnnotation(Tabela.class);
-
-            if (null == ordem) {
-                return new Resposta<ArrayList<T>>("Ordem n√£o foi informada", null, false);
-            } else {
-                switch (ordem) {
-                    case ASC:
-                        sql = "SELECT * FROM " + tab.nome() + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " ASC";
-                        break;
-                    case DESC:
-                        sql = "SELECT * FROM " + tab.nome() + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " DESC";
-                        break;
-                }
-            }
-
-            ArrayList<T> list = new ArrayList<>();
-
-            try {
-
-                Statement pstmt = conexao.createStatement();
-
-                System.out.println(pstmt);
-                
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                while (rs.next()) {
-
-                    T obj = typeClass.newInstance();
-
-                    for (Field field : typeClass.getDeclaredFields()) {
-
-                        if (field.isAnnotationPresent(Coluna.class)) {
-
-                            boolean wasAccessible = field.isAccessible();
-
-                            if (!wasAccessible) {
-                                field.setAccessible(true);
-                            }
-
-                            field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
-
-                            if (!wasAccessible) {
-                                field.setAccessible(false);
-                            }
-
-                        }
-
-                    }
-
-                    list.add(obj);
-
-                }
-
-                pstmt.close();
-
-                return new Resposta<ArrayList<T>>("OperaÁ„o efetuada com sucess", list);
-
-            } catch (Exception e) {
-
-                return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
-
-            }
-
-        }
-
-        return new Resposta<ArrayList<T>>("Classe n√£o tem @Tabela");
-
-    }
-
-    /**
-     * Criador de comandos SELECT com WHERE
-     * @param campo campo a ser usado no WHERE
-     * @param comparacao tipo de verifica√ß√£o do WHERE, como Where.IGUAL, Where.MAIOR, etc...
-     * @param valor valor a ser usado para verifica√ß√£o do Where
-     * @return ArrayList com os objetos retornados pelo SELECT
-     */
-    public Resposta<ArrayList<T>> selectWhere(String campo, Where comparacao, Object valor) {
-
-        String sql = "";
-
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
-
-            Tabela tab = typeClass.getAnnotation(Tabela.class);
-
-            Field fieldEscolhido;
-            
-            sql = "SELECT * FROM " + tab.nome() + " WHERE ";
-            
-            try {
-                fieldEscolhido = typeClass.getDeclaredField(campo);
-            } catch (Exception e) {
-                return new Resposta<>("Campo " + campo + " n√£o existe na classe " + typeClass.getSimpleName());
-            }
-
-            if(!fieldEscolhido.isAnnotationPresent(Coluna.class)){
-                return new Resposta<>("Campo " + campo + " n√£o tem @Coluna");
-            }
-            
-            if (comparacao == Where.IGUAL) 
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " = '" + valor + "'";
-            }
-            else if(comparacao == Where.DIFERENTE)
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " != " + valor;
-            }
-            else if(comparacao == Where.MAIOR)
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " > " + valor;
-            }
-            else if(comparacao == Where.MENOR)
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " < " + valor;
-            }
-            else if(comparacao == Where.MAIOR_IGUAL)
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " >= " + valor;
-            }
-            else if(comparacao == Where.MENOR_IGUAL)
-            {
-                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " <= " + valor;
-            }
-            else if(comparacao == Where.BETWEEN)
-            {
-                if(valor.getClass().isArray()){
-                    try{
-                        Object[] inf = (Object[])valor;
-                        sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " BETWEEN " + inf[0] + " AND " + inf[1];
-                    }catch(Exception e){
-                        return new Resposta<>("3" + e.getMessage());
-                    }
-                }else{
-                    return new Resposta<>("valor informado deve ser Array quando comparacao √© BETWEEN");
-                }
-            }
-            else if(comparacao == Where.NOT_BETWEEN)
-            {
-                if(valor.getClass().isArray()){
-                    try{
-                        Object[] inf = (Object[])valor;
-                        sql +=fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT BETWEEN " + inf[0] + " AND " + inf[1];
-                    }catch(Exception e){
-                        return new Resposta<>("2" + e.getMessage());
-                    }
-                }else{
-                    return new Resposta<>("valor informado deve ser Array quando comparacao √© NOT_BETWEEN");
-                }
-            }
-            else if(comparacao == Where.LIKE)
-            {
-                
-                if(valor instanceof String){
-                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE '" + valor+"'";
-                }else{
-                    return new Resposta<>("valor informado deve ser String quando comparacao √© LIKE");
-                }
-                
-            }
-            else if(comparacao == Where.NOT_LIKE)
-            {
-                
-                if(valor instanceof String){
-                    sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT LIKE " + valor;
-                }else{
-                    return new Resposta<>("valor informado deve ser String quando comparacao √© NOT LIKE");
-                }
-                
-            }
-            else
-            {
-                return new Resposta<>("comparacao invalida");
-            }
-            
-            ArrayList<T> list = new ArrayList<>();
-
-            try {
-            	
-                PreparedStatement pstmt = conexao.prepareStatement(sql);
-                
-                
-                System.out.println(pstmt);
-                ResultSet rs = pstmt.executeQuery();
-                
-                while (rs.next()) {
-                	
-                    T obj = typeClass.newInstance();
-                    
-                    for (Field field : typeClass.getDeclaredFields()) {
-
-                        if (field.isAnnotationPresent(Coluna.class)) {
-
-                            boolean wasAccessible = field.isAccessible();
-
-                            if (!wasAccessible) {
-                                field.setAccessible(true);
-                            }
-                            field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
-                            
-                            if (!wasAccessible) {
-                                field.setAccessible(false);
-                            }
-
-                        }
-
-                    }
-
-                    list.add(obj);
-
-                }
-
-                pstmt.close();
-                
-                return new Resposta<ArrayList<T>>("OperaÁ„o efetuada com sucesso", list);
-
-            } catch (Exception e) {
-
-            	return new Resposta<ArrayList<T>>(e.getMessage());
-
-            }
-
-        }
-
-        return null;
-
-    }
-    
-    
+	}
 
 }

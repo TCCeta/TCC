@@ -40,19 +40,23 @@
 	</h1>
 
 	<div>
+	
 		<form class="navbar-form navbar-left" role="search"
-			action="acoes/search.jsp">
+			action="buscar.jsp">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Local"
-					id="botaoRedondo" name = "nomeEmpresa"> <input type="text" class="form-control"
-					placeholder="Objeto" id="botaoRedondo"> <input type="data"
-					class="form-control data" name="dat_perdidoItem">
+				<input type="text" class="form-control" placeholder="Local" id="botaoRedondo" name="nomeEmpresa"> 
+				<input type="text"class="form-control" placeholder="Objeto" id="botaoRedondo" name = "item">
+				<input type="data" class="form-control data" name="dat_perdidoItem">
 
 			</div>
 			<button type="submit" class="btn btn-default">Buscar</button>
 		</form>
+	
 	</div>
 </div>
+<%@ include file="acoes/search.jsp"%></body>
+
+</body>
 
 
 </main>
