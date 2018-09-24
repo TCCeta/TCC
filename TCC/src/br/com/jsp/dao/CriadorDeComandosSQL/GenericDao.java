@@ -190,7 +190,6 @@ public class GenericDao<T> {
 			sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome()
 					+ " = ?";
 
-			// System.out.println(sql);
 
 			try {
 

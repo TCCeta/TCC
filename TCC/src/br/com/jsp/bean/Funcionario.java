@@ -34,7 +34,6 @@ public class Funcionario{
 		this.idEmpresa = empresa.getId();
 		this.cpf = cpf;
 		this.conta = conta;
-		this.idConta = conta.getId();
 	}
 	
     @Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
@@ -89,7 +88,11 @@ public class Funcionario{
     	
     	Item item = new Item(data, this, imagem, nome, descricao);
     	
-    	item.cadastrar();
+    	if(item.cadastrar().getFuncionou()) {
+    		return new Resposta<Boolean>("funcionou", true);
+    	}else {
+    		return new Resposta<>("Erro ao cadastrar item");
+    	}
     	
     }
     

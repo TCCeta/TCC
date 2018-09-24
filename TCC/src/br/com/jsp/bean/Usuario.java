@@ -29,11 +29,9 @@ public class Usuario{
     
     public Usuario(Conta conta, Local local, Pessoa pessoa) {
     	this.conta = conta;
-    	this.idConta = conta.getId();
     	this.local = local;
     	this.idLocal = local.getId();
     	this.pessoa = pessoa;
-    	this.idPessoa = pessoa.getId();
     }
     
     public static void cadastrar(Usuario usuario) {
@@ -43,7 +41,7 @@ public class Usuario{
     	
     	usuario.idConta = usuario.conta.getId();
     	usuario.idLocal = usuario.local.getId();
-    	usuario.idPessoa =usuario.pessoa.getId();
+    	usuario.idPessoa = usuario.pessoa.getId();
     	
     	UsuarioDao.insert(usuario);
     }

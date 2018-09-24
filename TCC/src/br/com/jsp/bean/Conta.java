@@ -31,9 +31,10 @@ public class Conta {
 		this.login = login;
 		setSenha(senha);
 		nivelDeAcesso = nivel.ordinal();
-
+    
 	}
-
+	
+	
 	
 	@Coluna(nome = "cod_idConta", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private Integer id;
@@ -79,7 +80,7 @@ public class Conta {
 		if (resp.getFuncionou()) {
 
 			if (resp.getObjeto().isEmpty()) {
-				return new Resposta<>("Conta com login " + loginDigitado + " não encontrado");
+				return new Resposta<>("Login ou senha Incorretos");
 			}
 
 			if (resp.getObjeto().size() > 1) {
@@ -106,6 +107,8 @@ public class Conta {
 		return PasswordUtils.verifyUserPassword(senhaDigitada, this.getSenha(), this.salt);
 	}
 
+	
+	
 	
 	
 	
