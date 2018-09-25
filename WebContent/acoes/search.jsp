@@ -32,8 +32,6 @@
 
 		Resposta<ArrayList<Item>> resposta2 = ItemDao.selectWhere("nome", Where.LIKE, "%"+nome+"%");
 
-		
-		
 		Resposta<ArrayList<Item>> respostaNome = ItemDao.selectWhere("nome", Where.LIKE, "%"+nome+"%");
 		
 		Resposta<ArrayList<Item>> respostaData =  ItemDao.selectWhere("dataPerdido", Where.IGUAL, data);
@@ -62,12 +60,14 @@
 				out.print(respostaData.getObjeto().isEmpty());
 				out.print(respEmpresa.getObjeto().isEmpty());
 				
-			out.print("Item não encontrado.");
+				out.print("Item não encontrado.");
 			
 			}else{
 				
 				for(Item item : respostaNome.getObjeto()){
+					
 					boolean encontrou = false;
+					
 					for(Item item2 : respostaData.getObjeto()){
 						
 						for(Empresa empresa : respEmpresa.getObjeto()){
@@ -77,12 +77,15 @@
 								lista.add(item);
 								encontrou = true;
 								break;
+								
 							}
 							
 						}
 						
 						if(encontrou){
+							
 							break;
+							
 						}
 						
 					}
@@ -108,7 +111,6 @@
 		
 
 		estrutura2 += "<form class=\"buscar\" action=\"item.jsp\">";
-		estrutura2 += "<input type='text' name='item' value='"+item.getId()+"'>";
 		estrutura2 += "<div class=\"form\">";
 		estrutura2 += "<h4>"+item.getNome().toUpperCase()+"</h4>";
 		estrutura2 += "<img src=\"imagens/180.png\">";

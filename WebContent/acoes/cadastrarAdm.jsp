@@ -1,3 +1,4 @@
+<%@page import="br.com.jsp.bean.Enums.NivelDeAcesso"%>
 <%@page import="br.com.jsp.dao.EmpresaDao"%>
 <%@page import="br.com.jsp.bean.Empresa"%>
 <%@page import="br.com.jsp.bean.Local"%>
@@ -34,7 +35,8 @@
 				response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioFalha");
 			} else {
 				e = resp.getObjeto().get(0);
-				e.cadastrarFuncionario(cpfAdm, userAdm, pswdAdm);
+				Conta c = new Conta(userAdm, pswdAdm, NivelDeAcesso.Funcionario);
+				e.contratarFuncionario(cpfAdm, c);
 				response.sendRedirect("../cadastroAdm.jsp?msg=cadastroUsuarioOk");
 			}
 		} else {

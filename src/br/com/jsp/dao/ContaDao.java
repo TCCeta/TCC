@@ -36,18 +36,18 @@ public class ContaDao {
         
     }
     
-    public static void insert(Conta obj){
+    public static Resposta<Integer> insert(Conta obj){
         
-        obj.setId(new GenericDao<Conta>(Conta.class).insert(obj).getObjeto());;
-        
-    }
-    
-    
-    public static void update(Conta obj){
-        
-        new GenericDao<Conta>(Conta.class).update(obj);
+    	Resposta<Integer> resp = new GenericDao<Conta>(Conta.class).insert(obj);
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        return resp;
         
     }
     
+    public static Resposta<Boolean> update(Conta obj){
+        
+        return new GenericDao<Conta>(Conta.class).update(obj);
+        
+    }
     
 }

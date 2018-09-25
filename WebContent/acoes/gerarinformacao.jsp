@@ -59,8 +59,8 @@
 		estrutura += "<form class='infoForm'>";
 		estrutura += "<h4>"+item.getNome().toUpperCase()+"</h4>";
 		estrutura += "<img src=\"imagens/180.png\">";
-		estrutura += "<h5>Data Perdido: "+item.getDataPerdido()+"</h5>";
-		estrutura += "<h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h6>";
+		estrutura += "<h5>Quando esse item foi perdido: "+item.getDataPerdido()+"</h5>";
+		estrutura += "<b>Descrição: </b>"+item.dad_descricaoItem();;
 		estrutura += "</form>";
 		
 		estrutura += "</div>";

@@ -66,6 +66,8 @@ public class EmpresaDao {
         
     }
     
+    
+    
     public static Resposta<ArrayList<Empresa>> selectAll(String campo, Order order){
         
         Resposta<ArrayList<Empresa>> respEmpresa = new GenericDao<>(Empresa.class).selectAll(campo, order);
@@ -111,6 +113,8 @@ public class EmpresaDao {
         return respEmpresa;
         
     }
+    
+    
     
     public static Resposta<ArrayList<Empresa>> selectWhere(String campo, Where comparacao, Object valor){
         
@@ -158,20 +162,36 @@ public class EmpresaDao {
         
     }
     
-    public static void insert(Empresa obj){
+    
+    
+    public static Resposta<Integer> insert(Empresa obj){
         
-    	System.out.println(new GenericDao<Empresa>(Empresa.class).insert(obj).getMensagem());
-    	
-        obj.setId(new GenericDao<Empresa>(Empresa.class).insert(obj).getObjeto());
+    	Resposta<Integer> resp = new GenericDao<Empresa>(Empresa.class).insert(obj);
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        return resp;
         
     }
     
     
-    public static void update(Empresa obj){
+    
+    public static Resposta<Boolean> update(Empresa obj){
         
-        new GenericDao<Empresa>(Empresa.class).update(obj);
+        return new GenericDao<Empresa>(Empresa.class).update(obj);
         
     }
+    
+    
+    /*public static void insert(ArrayList<Empresa> lista){
+    
+    new GenericDao<Empresa>(Empresa.class).insert(lista);
+    
+	}*/
+    
+    /*public static void update(ArrayList<Empresa> lista){
+        
+        new GenericDao<Empresa>(Empresa.class).update(lista);
+        
+    }*/
     
     
 }

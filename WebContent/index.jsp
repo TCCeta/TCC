@@ -1,4 +1,3 @@
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <%@ include file="include/topo_novo.jsp"%>

@@ -23,7 +23,7 @@
 		</p>
 		<p>
 		<center>
-			<input type="submit" value="Entrar">
+			<input type="submit" class="btn btn-default" value="Entrar">
 		</center>
 		
 		</p>

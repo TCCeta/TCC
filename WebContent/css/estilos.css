@@ -130,9 +130,11 @@ body {
 	}
 	.tabela {
 		margin: 0 auto !important;
-		margin-top: 60px !important;
-		width: 40%;
+		margin-top: 90px !important;
+		margin-bottom: 80px !important; width : 40%;
 		border-radius: 5px;
+		text-align: center;
+		width: 40%;
 	}
 }
 
@@ -202,10 +204,10 @@ body {
 		border-radius: 5px;
 		margin-bottom: 15px;
 	}
-	
 	.tabela {
 		margin: 0 auto !important;
 		margin-top: 60px !important;
+		margin-bottom: 80px !important;
 		width: 90%;
 		border-radius: 5px;
 	}
@@ -276,10 +278,10 @@ body {
 		border-radius: 5px;
 		margin-bottom: 15px;
 	}
-	
 	.tabela {
 		margin: 0 auto !important;
 		margin-top: 60px !important;
+		margin-bottom: 80px !important;
 		width: 90%;
 		border-radius: 5px;
 	}

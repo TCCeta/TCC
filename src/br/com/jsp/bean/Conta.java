@@ -31,9 +31,10 @@ public class Conta {
 		this.login = login;
 		setSenha(senha);
 		nivelDeAcesso = nivel.ordinal();
-
+    
 	}
-
+	
+	
 	
 	@Coluna(nome = "cod_idConta", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private Integer id;
@@ -50,12 +51,16 @@ public class Conta {
 	@Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
 	private int nivelDeAcesso;
 
-	public static void Cadastrar(Conta c) {
-		ContaDao.insert(c);
+	public static Resposta<Integer> cadastrar(Conta c) {
+		return ContaDao.insert(c);
 	}
 	
-	public static void Atualizar(Conta c) {
-		ContaDao.update(c);
+	public Resposta<Integer> cadastrar() {
+		return cadastrar(this);
+	}
+	
+	public static Resposta<Boolean> Atualizar(Conta c) {
+		return ContaDao.update(c);
 	}
 	
 	
@@ -71,12 +76,11 @@ public class Conta {
 
 		Resposta<ArrayList<Conta>> resp = ContaDao.selectWhere("login", Where.IGUAL, loginDigitado);
 
-		
-		
+
 		if (resp.getFuncionou()) {
 
 			if (resp.getObjeto().isEmpty()) {
-				return new Resposta<>("Conta com login " + loginDigitado + " não encontrado");
+				return new Resposta<>("Login ou senha Incorretos");
 			}
 
 			if (resp.getObjeto().size() > 1) {
@@ -103,6 +107,11 @@ public class Conta {
 		return PasswordUtils.verifyUserPassword(senhaDigitada, this.getSenha(), this.salt);
 	}
 
+	
+	
+	
+	
+	
 	// SETTERS
 
 	// feito deste jeito para simular campo como "final"
@@ -112,16 +121,14 @@ public class Conta {
 
 	}
 
-	public void setLogin(String login) {
-		
-		this.login = login;
-		
-	}
-	
 	public void setSenha(String senha) {
 		this.salt = PasswordUtils.getSalt(10);
 		String senhaSegura = PasswordUtils.generateSecurePassword(senha, salt);
 		this.senha = senhaSegura;
+	}
+	
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	// GETTERS

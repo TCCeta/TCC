@@ -8,6 +8,7 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.UsuarioDao;
 
 import java.sql.Types;
@@ -29,34 +30,25 @@ public class Usuario{
     public Usuario(Conta conta, Local local, Pessoa pessoa) {
     	this.conta = conta;
     	this.local = local;
+    	this.idLocal = local.getId();
     	this.pessoa = pessoa;
     }
     
     public static void cadastrar(Usuario usuario) {
-    	Conta.Cadastrar(usuario.conta);
+    	Resposta<Integer> respConta = Conta.cadastrar(usuario.conta);
+    	Resposta<Integer> respLocal = Local.cadastrar(usuario.local);
+    	Resposta<Integer> respPessoa = Pessoa.cadastrar(usuario.pessoa);
+    	
     	usuario.idConta = usuario.conta.getId();
-    	
-    	Local.cadastrar(usuario.local);
     	usuario.idLocal = usuario.local.getId();
-    	
-    	Pessoa.cadastrar(usuario.pessoa);
-    	usuario.idPessoa =usuario.pessoa.getId();
+    	usuario.idPessoa = usuario.pessoa.getId();
     	
     	UsuarioDao.insert(usuario);
     }
     
     public void cadastrar() {
-    	Conta.Cadastrar(this.conta);
-    	this.idConta = this.conta.getId();
-    	
-    	Local.cadastrar(this.local);
-    	this.idLocal = this.local.getId();
-    	
-    	Pessoa.cadastrar(this.pessoa);
-    	this.idPessoa = this.pessoa.getId();
-    	
-    	UsuarioDao.insert(this);
-    }
+		cadastrar(this);
+	}
     
     public static void atualizar(Usuario usuario) {
     	Conta.Atualizar(usuario.conta);
@@ -73,6 +65,8 @@ public class Usuario{
     private int idConta;
     private Conta conta;
     
+    
+    
     @Coluna(nome = "cod_idLocal", tipo = Types.INTEGER)
     private int idLocal;
     private Local local;
@@ -83,6 +77,10 @@ public class Usuario{
 	
 
     //SETTERS --------------------------------------
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
     
     public void setConta(Conta conta) {
     	if(this.conta == null) {

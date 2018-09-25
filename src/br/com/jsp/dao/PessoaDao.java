@@ -36,15 +36,30 @@ public class PessoaDao {
         
     }
     
-    public static void insert(Pessoa obj){
-        
-        new GenericDao<Pessoa>(Pessoa.class).insert(obj);
+    public static Resposta<Integer> insert(Pessoa obj){
+    	
+        Resposta<Integer> resp = new GenericDao<Pessoa>(Pessoa.class).insert(obj);
+        if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        return resp;
         
     }
     
-    public static void update(Pessoa obj){
+//    public static void insert(ArrayList<Pessoa> lista){
+//        
+//        new GenericDao<Pessoa>(Pessoa.class).insert(lista);
+//        
+//    }
+    
+    public static Resposta<Boolean> update(Pessoa obj){
         
-        new GenericDao<Pessoa>(Pessoa.class).update(obj);
+        return new GenericDao<Pessoa>(Pessoa.class).update(obj);
         
     }
+    
+//    public static void update(ArrayList<Pessoa> lista){
+//        
+//        new GenericDao<Pessoa>(Pessoa.class).update(lista);
+//        
+//    }
+//    
 }

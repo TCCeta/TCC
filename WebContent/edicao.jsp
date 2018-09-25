@@ -21,7 +21,7 @@
 <main>
 
 <div>
-	<form class="formularioCadastroUsuario"
+	<form class="jumbotron formularioCadastroUsuario"
 		action="acoes/editarFuncionario.jsp" method="post">
 		<h1>
 			<center>Editar Funcionário</center>
@@ -32,11 +32,9 @@
 
 			//Instanciar o objeto usuário
 			Funcionario funcionario = new Funcionario();
-			
+
 			Resposta<ArrayList<Funcionario>> resp = FuncionarioDao.selectWhere("id", Where.IGUAL, idUsuario);
 
-			
-			
 			if (resp.getFuncionou()) {
 				funcionario = resp.getObjeto().get(0);
 			} else {
@@ -49,23 +47,16 @@
 
 			<input type="text"
 				placeholder=<%out.print(funcionario.getConta().getLogin());%>
-				class="inputs" name="newlogin">
+				class="form-control inputs" name="newlogin"> <input
+				type="text" placeholder=<%out.print(funcionario.getCPF());%>
+				class="form-control inputs" id="inputs" name="dat_cpfUsuario"
+				disabled> <input type="password" placeholder="Nova Senha"
+				class="form-control inputs" name="newSenha"> <input
+				type="submit" class="btn btn-default" value="Cadastrar">
 		</p>
-		
-		<p>
-			<input type="text" placeholder=<%out.print(funcionario.getCPF());%>
-				class="inputs" id="inputs" name="dat_cpfUsuario" disabled>
-		</p>
-		<p>
-			<input type="password" placeholder="Nova Senha" class="inputs"
-				name="newSenha">
-		</p>
-		<p>
-			<input type="submit" value="Cadastrar">
-		</p>
-		
-		
-		
+
+
+
 	</form>
 </div>
 

@@ -31,7 +31,7 @@
 	
 	<%@ include file="acoes/table.jsp"%>
 		<button onclick="location.href = 'cadastroAdm.jsp';"
-			class="float-left submit-button">Cadastrar administrador</button>
+			class="btn btn-default float-left submit-button">Cadastrar administrador</button>
 	
 </div>
 

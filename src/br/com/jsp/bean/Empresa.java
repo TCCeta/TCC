@@ -8,9 +8,15 @@ package br.com.jsp.bean;
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Enums.NivelDeAcesso;
+import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.EmpresaDao;
+import br.com.jsp.dao.FuncionarioDao;
+import br.com.jsp.dao.ItemDao;
+import br.com.jsp.dao.CriadorDeComandosSQL.Where;
 
+import java.lang.reflect.Array;
 import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,39 +29,41 @@ public class Empresa{
 	public Empresa() {}
 	
 	public Empresa(String login, String senha, String nome, String cnpj, String email, String telefone, Local local) {
-		this(new Conta(login, senha, NivelDeAcesso.Empresa), nome, cnpj, email, telefone, local);
+		this(new Conta(login, 
+				senha, 
+				NivelDeAcesso.Empresa), 
+				nome, 
+				cnpj, 
+				email, 
+				telefone, 
+				local);
 	}
 	
-	public boolean equals(Empresa e) {
+	public boolean equals(Empresa i) {
 		
-		if(e.id == id && e.nome.equals(nome) && e.cnpj.equals(cnpj)  && e.email.equals(email) && e.telefone.equals(telefone) && e.idLocal == idLocal && e.idConta == idConta) {
+		if(this.id == i.id) {
 			return true;
-		}else {
-			return false;
 		}
-		
-		
-		
+		return false;
 	}
 	
-	public String pString() {
+	public String toString() {
 		String s = "";
 		
 		s += "\nid = " + id;
 		s += "\nnome = " + nome;
-		s += "\ncnpj = " + cnpj;
-		s += "\nemail = " + email;
-		s += "\ntelefone = " + telefone;
-		s += "\nidLocal = " + idLocal;
-		s += "\nidConta = " + idConta;
-		
+	    s += "\ncnpj = " + cnpj;
+	    s += "\nemail = " + email;
+	    s += "\ntelefone = " + telefone;
+	    s += "\nidLocal = " + idLocal;
+	    s += "\nidConta = " +  idConta;
+	    
+	    
 		return s;
 	}
 	
-	
 	public Empresa(Conta conta, String nome, String cnpj, String email, String telefone, Local local) {
 		this.conta = conta;
-		this.idConta = conta.getId();
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.email = email;
@@ -89,17 +97,87 @@ public class Empresa{
     private int idConta;
     private Conta conta;
 
+    public void contratarFuncionario(String cpf, Conta conta) {
+    	
+    	Funcionario funcionario = new Funcionario(this, cpf, conta);
+    	
+    	funcionario.cadastrar();
+    	
+    }
     
-   
+    private void demitirFuncionario() {
+	
+    	//TODO
+    	try {
+			throw new Exception("não implementado");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
     
-    public static void Cadastrar(Empresa empresa) {
-		Conta.Cadastrar(empresa.conta);
-		empresa.idConta = empresa.conta.getId();
+    
+    public Resposta<ArrayList<Funcionario>> meusFuncionarios(){
+    	Resposta<ArrayList<Funcionario>> resp = FuncionarioDao.selectWhere("idEmpresa", Where.IGUAL, this.id);
+    	return resp;
+    }
+    
+    public Resposta<ArrayList<Item>> itensPerdidosAqui(){
+    	
+    	ArrayList<Item> resposta = new ArrayList<>();
+    	
+    	Resposta<ArrayList<Item>> resp = ItemDao.selectAll();
+    	
+    	if(resp.getFuncionou()) {
+    		
+    		if(resp.getObjeto().isEmpty()) {
+    			return new Resposta<>("Erro");
+    		}
+    		
+    		for (Item item : resp.getObjeto()) {
+				
+    			if(item.getEmpresa().equals(this)) {
+    				resposta.add(item);
+    			}
+    			
+			}
+    		
+    		if(resposta.isEmpty()) {
+    			return new Resposta<>("Nenhum item encontrado");
+    		}
+    		
+    		return new Resposta<ArrayList<Item>>("Operação efetuada com sucesso", resposta);
+    		
+    	}else {
+    		return new Resposta<>("Erro");
+    	}
+    	
+    	
+    }
+    
+    
+    public static Resposta<Integer> Cadastrar(Empresa empresa) {
+		Resposta<Integer> respConta = Conta.cadastrar(empresa.conta);
+		Resposta<Integer> respLocal = Local.cadastrar(empresa.local);
+		if(respConta.getFuncionou()) {
+			
+			if(respLocal.getFuncionou()) {
+				empresa.idConta = empresa.conta.getId();
+				empresa.idLocal = empresa.local.getId();
+				
+				Resposta<Integer> resp = EmpresaDao.insert(empresa);
+				
+				return resp;
+				
+			}else {
+				return respLocal;
+			}
+			
+		} else {
+			return respConta;
+		}
 		
-		Local.cadastrar(empresa.local);
-		empresa.idLocal = empresa.local.getId();
-		
-		EmpresaDao.insert(empresa);
 	}
     
     public static void atualizar(Empresa empresa) {
@@ -110,14 +188,6 @@ public class Empresa{
     	
     }
      
-    
-    public void cadastrarFuncionario(String cpf, String login, String senha) {
-    	
-    	Funcionario f = new Funcionario(this, cpf, login, senha);
-    	
-    	f.cadastrar();
-    	
-    }
     
     
     //SETTERS

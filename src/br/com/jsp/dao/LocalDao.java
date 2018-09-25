@@ -36,18 +36,29 @@ public class LocalDao {
         
     }
     
-    public static void insert(Local obj){
-        
-    	System.out.println(new GenericDao<Local>(Local.class).insert(obj).getMensagem());
-    	
-        obj.setId(new GenericDao<Local>(Local.class).insert(obj).getObjeto());
+    public static Resposta<Integer> insert(Local obj){
+        Resposta<Integer> resp = new GenericDao<Local>(Local.class).insert(obj);
+        if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        return resp;
         
     }
     
-    public static void update(Local obj){
+    /*public static void insert(ArrayList<Local> lista){
         
-        new GenericDao<Local>(Local.class).update(obj);
+        new GenericDao<Local>(Local.class).insert(lista);
+        
+    }*/
+    
+    public static Resposta<Boolean> update(Local obj){
+        
+        return new GenericDao<Local>(Local.class).update(obj);
         
     }
+    
+    /*public static void update(ArrayList<Local> lista){
+        
+        new GenericDao<Local>(Local.class).update(lista);
+        
+    }*/
     
 }

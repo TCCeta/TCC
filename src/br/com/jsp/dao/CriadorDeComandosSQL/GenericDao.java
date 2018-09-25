@@ -86,11 +86,9 @@ public class GenericDao<T> {
 
 			sql = sql.substring(0, sql.length() - 1) + ")";
 
-			PreparedStatement pstmt = null;
-			
 			try {
 
-				pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 				for (int i = 0; i < fieldsUsados.size(); i++) {
 
@@ -139,14 +137,6 @@ public class GenericDao<T> {
 
 				return new Resposta<>("Erro : " + e.getMessage());
 
-			} finally {
-				
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 			}
 
 		} else {
@@ -200,13 +190,10 @@ public class GenericDao<T> {
 			sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome()
 					+ " = ?";
 
-			// System.out.println(sql);
 
-			PreparedStatement pstmt = null;
-			
 			try {
 
-				pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 				for (int i = 0; i < fieldsUsados.size(); i++) {
 
@@ -261,14 +248,6 @@ public class GenericDao<T> {
 
 				return new Resposta<>("Erro : " + e.getMessage());
 
-			} finally {
-				
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 			}
 
 		} else {
@@ -295,11 +274,9 @@ public class GenericDao<T> {
 
 			ArrayList<T> list = new ArrayList<>();
 
-			Statement pstmt = null;
-			
 			try {
 
-				pstmt = conexao.createStatement();
+				Statement pstmt = conexao.createStatement();
 
 				ResultSet rs = pstmt.executeQuery(sql);
 
@@ -345,14 +322,6 @@ public class GenericDao<T> {
 
 				return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
 
-			} finally {
-				
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 			}
 
 		} else {
@@ -402,11 +371,9 @@ public class GenericDao<T> {
 
 			ArrayList<T> list = new ArrayList<>();
 
-			Statement pstmt = null;
-			
 			try {
 
-				pstmt = conexao.createStatement();
+				Statement pstmt = conexao.createStatement();
 
 				System.out.println(pstmt);
 
@@ -448,14 +415,6 @@ public class GenericDao<T> {
 
 				return new Resposta<ArrayList<T>>("Erro : " + e.getMessage());
 
-			} finally {
-				
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 			}
 
 		}
@@ -551,11 +510,9 @@ public class GenericDao<T> {
 
 			ArrayList<T> list = new ArrayList<>();
 
-			PreparedStatement pstmt = null;
-			
 			try {
 
-				pstmt = conexao.prepareStatement(sql);
+				PreparedStatement pstmt = conexao.prepareStatement(sql);
 
 				if (comparacao == Where.IGUAL || comparacao == Where.DIFERENTE || comparacao == Where.MAIOR
 						|| comparacao == Where.MENOR || comparacao == Where.MAIOR_IGUAL
@@ -606,7 +563,7 @@ public class GenericDao<T> {
 
 				}
 
-				
+				pstmt.close();
 
 				return new Resposta<ArrayList<T>>("Operação efetuada com sucesso", list);
 
@@ -614,14 +571,6 @@ public class GenericDao<T> {
 
 				return new Resposta<ArrayList<T>>(e.getMessage());
 
-			} finally {
-				
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
 			}
 
 		}

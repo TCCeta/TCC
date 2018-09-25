@@ -1,5 +1,4 @@
 /*
-
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -134,15 +133,32 @@ public class FuncionarioDao {
         
     }
     
-    public static void insert(Funcionario obj){
+    public static Resposta<Integer> insert(Funcionario obj){
         
-        obj.setId(new GenericDao<Funcionario>(Funcionario.class).insert(obj).getObjeto());
+    	Resposta<Integer> resp = new GenericDao<Funcionario>(Funcionario.class).insert(obj);
+    	
+    	if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+        
+        return resp;
         
     }
     
-    public static void update(Funcionario obj){
+    /*public static void insert(ArrayList<Funcionario> lista){
         
-        new GenericDao<Funcionario>(Funcionario.class).update(obj);
+        new GenericDao<Funcionario>(Funcionario.class).insert(lista);
+        
+    }*/
+    
+    public static Resposta<Boolean> update(Funcionario obj){
+        
+        return new GenericDao<Funcionario>(Funcionario.class).update(obj);
         
     }
+    
+    /*public static void update(ArrayList<Funcionario> lista){
+        
+        new GenericDao<Funcionario>(Funcionario.class).update(lista);
+        
+    }*/
+    
 }

@@ -52,7 +52,7 @@
 		</p>
 
 		<p>
-			<input type="submit" value="Cadastrar">
+			<input type="submit" class="btn btn-default" value="Cadastrar">
 		</p>
 	</form>
 </div>

@@ -36,15 +36,30 @@ public class ImagemDao {
         
     }
     
-    public static void insert(Imagem obj){
+    public static Resposta<Integer> insert(Imagem obj){
         
-        new GenericDao<Imagem>(Imagem.class).insert(obj);
+    	Resposta<Integer> resp = new GenericDao<Imagem>(Imagem.class).insert(obj);
+    	//if(resp.getFuncionou()) {obj.setId(resp.getObjeto());}
+    	return resp;
         
     }
     
-    public static void update(Imagem obj){
+    /*public static void insert(ArrayList<Imagem> lista){
         
-        new GenericDao<Imagem>(Imagem.class).update(obj);
+        new GenericDao<Imagem>(Imagem.class).insert(lista);
+        
+    }*/
+    
+    public static Resposta<Boolean> update(Imagem obj){
+        
+        return new GenericDao<Imagem>(Imagem.class).update(obj);
         
     }
+    
+//    public static void update(ArrayList<Imagem> lista){
+//        
+//        new GenericDao<Imagem>(Imagem.class).update(lista);
+//        
+//    }
+    
 }

@@ -7,11 +7,15 @@ package br.com.jsp.bean;
 
 import br.com.jsp.bean.Annotations.Coluna;
 import br.com.jsp.bean.Annotations.Tabela;
+import br.com.jsp.bean.response.Resposta;
+import br.com.jsp.dao.EmpresaDao;
 import br.com.jsp.dao.ItemDao;
+import br.com.jsp.dao.CriadorDeComandosSQL.Where;
 
 import java.sql.Date;
 import java.sql.Types;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,44 +27,105 @@ public class Item {
 	@Deprecated
 	public Item() {}
 	
-	public Item(LocalDate dataPerdido, Empresa empresa, Imagem imagem) {
+	public Item(LocalDate dataPerdido, Funcionario funcionario, Imagem imagem, String nome, String descricao) {
 		
 		this.setDataPerdido(dataPerdido);
+		this.funcionario = funcionario;
+		this.idFuncionario = funcionario.getId();
+		this.nome = nome;
+		this.descricao = descricao;
+		this.imagem = imagem;
 		
 	}
 	
-	public boolean equals(Item item) {
+	public boolean equals(Item i) {
 		
-		if(id == item.id && item.devolvido == devolvido  && item.dataPerdido.equals(dataPerdido)
-				&& item.idEmpresa == idEmpresa && item.idImagem == idImagem && item.nome.equals(nome)) {
+		if(this.id == i.id) {
 			return true;
-		}else {
-			return false;
 		}
+		return false;
 	}
 	
-	public String pString(){
+	public static Resposta<ArrayList<Item>> getItens(String nome, String data, String empresa){
 		
-		String s = "";
 		
-		s += "\nid = " + id;
-		s += "\nnome = " + nome;
-		s += "\ndataPerdido = " + dataPerdido;
-		s += "\ndataDevolvido = " + dataDevolvido;
-		s += "\ndataDevolvido = " + dataDevolvido;
-		s += "\nidEmpresa = " + idEmpresa;
-		s += "\nidImagem = " + idImagem;
+		Resposta<ArrayList<Item>> respostaNome = ItemDao.selectWhere("nome", Where.LIKE, "%"+nome+"%");
 		
-		return s;
+		Resposta<ArrayList<Item>> respostaData =  ItemDao.selectWhere("dataPerdido", Where.IGUAL, data);
+		
+		Resposta<ArrayList<Empresa>> respEmpresa = EmpresaDao.selectWhere("nome", Where.LIKE, "%"+empresa+"%");
+		
+		if(!respostaNome.getFuncionou()){
+			//erro no select do nome
+			return new Resposta<>("Erro : Este item não foi encontrado"); 
+			
+		}else if(!respostaData.getFuncionou()){
+			//erro no select da data
+			return new Resposta<>("Erro : Item não encontrado nessa data"); 
+
+		}else if(!respEmpresa.getFuncionou()){
+			//erro no select da empresa
+			return new Resposta<>("Erro : Item não encontrado nessa empresa"); 
+
+		}else{
+			
+			if(respostaNome.getObjeto().isEmpty() || respostaData.getObjeto().isEmpty() || respEmpresa.getObjeto().isEmpty() ){
+				//nenhum item foi encontrado
+				return new Resposta<>("Este item não foi encontrado"); 
+			}else{
+				
+				ArrayList<Item> lista = new ArrayList<>(); 
+				
+				for(Item item : respostaNome.getObjeto()){
+				
+					boolean encontrou = false;
+					
+					for(Item item2 : respostaData.getObjeto()){
+						
+						
+						for(Empresa emp : respEmpresa.getObjeto()){
+							
+							if(item.equals(item2) && item.getEmpresa().equals(emp)){
+								
+								lista.add(item);
+								encontrou = true;
+								break;
+							}
+							
+						}
+						
+						if(encontrou){
+							break;
+						}
+						
+					}
+					
+				}
+				
+				if(lista.isEmpty()) {
+					return new Resposta<ArrayList<Item>>("Este item não foi encontrado");
+				}
+				
+				return new Resposta<ArrayList<Item>>("Operação terminada com sucesso", lista);
+				
+			}
+			
+		}
 		
 	}
 	
+	
+
 	@Coluna(nome = "cod_idItem", tipo = Types.INTEGER, autoGerado = true, primaryKey = true)
 	private int id;
+
 	
 	@Coluna(nome = "dad_nomeItem", tipo = Types.VARCHAR)
 	private String nome;
-
+	
+	@Coluna(nome = "dad_descricaoItem", tipo = Types.VARCHAR)
+	private String descricao;
+	
 	@Coluna(nome = "dat_dataPerdidoItem", tipo = Types.DATE)
 	private Date dataPerdido;
 
@@ -70,22 +135,30 @@ public class Item {
 	@Coluna(nome = "dad_devolvidoItem", tipo = Types.BOOLEAN)
 	private boolean devolvido;
 
-	@Coluna(nome = "cod_idEmpresa", tipo = Types.INTEGER)
-	private int idEmpresa;
-	private Empresa empresa;
+	@Coluna(nome = "cod_idFuncionario", tipo = Types.INTEGER)
+	private int idFuncionario;
+	private Funcionario funcionario;
 
+	
 	@Coluna(nome = "cod_idImagem", tipo = Types.INTEGER)
 	private int idImagem;
 	private Imagem imagem;
 
 	
-	public static void cadastrar(Item item) {
+	
+	public static Resposta<Integer> cadastrar(Item item) {
 		
-		Imagem.cadastrar(item.imagem);
-		item.idImagem = item.imagem.getId();
+		//Imagem.cadastrar(item.imagem);
+		//item.idImagem = item.imagem.getId();
 		
-		ItemDao.insert(item);
+		item.idImagem = 1;
 		
+		return ItemDao.insert(item);
+		
+	}
+	
+	public Resposta<Integer> cadastrar() {
+		return cadastrar(this);
 	}
 	
 	public static void atualizar(Item item) {
@@ -105,10 +178,6 @@ public class Item {
 	/**
 	 * @param devolvido the devolvido to set
 	 */
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
 	public void setDevolvido(boolean devolvido) {
 		this.devolvido = devolvido;
 	}
@@ -117,9 +186,14 @@ public class Item {
 		this.imagem = imagem;
 	}
 	
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setFuncionario(Funcionario funcionario) {
+		
+		this.funcionario = funcionario;
+		this.idFuncionario = funcionario.getId();
+		
 	}
+	
+	
 
 	public void setDataPerdido(LocalDate data) {
 		this.dataPerdido = Date.valueOf(data);
@@ -132,13 +206,6 @@ public class Item {
 	 */
 	public int getId() {
 		return id;
-	}
-	
-	/**
-	 * @return the nome
-	 */
-	public String getNome() {
-		return nome;
 	}
 
 	/**
@@ -155,12 +222,14 @@ public class Item {
 		return devolvido;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
+	public Funcionario getFuncionario() {
+		
+		return this.funcionario;
+		
 	}
 	
-	public int getIdEmpresa() {
-		return idEmpresa;
+	public int getIdFuncionario() {
+		return this.idFuncionario;
 	}
 	
 	public Imagem getImagem() {
@@ -174,5 +243,19 @@ public class Item {
 	public LocalDate getDataPerdido() {
 		return dataPerdido.toLocalDate();
 	}
+	
+	public Empresa getEmpresa() {
+		return this.funcionario.getEmpresa();
+	}
+	
+	public String getNome() {
+		return this.nome;
+	}
+	
+	public String dad_descricaoItem() {
+		return this.descricao;
+	}
+	
+	
 
 }
