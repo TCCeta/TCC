@@ -37,7 +37,7 @@ body {
 	margin-bottom: 10px;
 }
 
-/*Desktop*/
+/* Desktop */
 @media only screen and (min-width: 1081px) {
 	.alert {
 		margin: 0 auto;
